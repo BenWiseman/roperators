@@ -1,6 +1,6 @@
 Make your R code nicer with roperators
 ================
-
+  
 ## A Package to Make R a Little Nicer
 
 Vignette will usually be updated here first: </br>
