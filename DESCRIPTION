@@ -1,0 +1,21 @@
+Package: roperators
+Type: Package
+Title: Additional Operators to Help you Write Cleaner R Code
+Version: 1.1.1
+Maintainer: Ben Wiseman <benjamin.wiseman@kornferry.com>
+Authors@R: c(person('Ben', 'Wiseman', role = c('cre', 'aut', 'ccp'), email = 'benjamin.wiseman@kornferry.com'),
+             person('Steven',  'Nydick', role = c('aut', 'ccp'), email = 'steven.nydick@kornferry.com'),
+             person('Jeff', 'Jones', role = c('aut', 'led'), email = 'jeff.jones@kornferry.com'))
+Description: Provides string arithmetic, reassignment operators, logical operators that handle missing values, and extra logical operators such as floating point equality and all or nothing. The intent is to allow R users to write code that is easier to read, write, and maintain while providing a friendlier experience to new R users from other language backgrounds (such as 'Python') who are used to concepts such as x += 1 and 'foo' + 'bar'.
+Encoding: UTF-8
+LazyData: true
+Copyright: Korn Ferry International
+License: MIT + file LICENSE
+RoxygenNote: 6.1.0
+Suggests: magrittr, knitr, prettydoc
+VignetteBuilder: knitr
+Collate: 
+    'type_checks.R'
+    'operators.R'
+    'shorthand.R'
+    'write_pdf.R'
