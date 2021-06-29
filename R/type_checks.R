@@ -8,8 +8,8 @@
 #' @return a logical value
 #'
 #' @author Steven Nydick, \email{steven.nydick@@kornferry.com}
-#' @rdname type_checks
-
+#' @name type_checks
+NULL
 
 #' @rdname type_checks
 #' @export

@@ -1,13 +1,14 @@
 # These are just space savers
 
 #' Cleaner conversion functions
-#' @examples
+#'
 #' @param x Value to be converted
 #' @param ... other args for as. conversion
 #'
 #' # Shorthand aliases for common conversions
 #' # Nothing magical here, but it can make your code more readable
 #'
+#' @examples
 #' chr(42)   # "42" = as.character
 #' int(42.1) # 42L  = as.integer
 #' dbl("42L") # 42.0 = as.double
@@ -40,6 +41,7 @@ bool  <- function(x, ...) as.logical(x, ...)
 #' Convert factor with numeric labels into numeric vector
 #' @param x a factor with numeric labels
 #' @author Ulrike Grömping, \email{groemping@@beuth-hochschule.de}
+#'
 #' @examples
 #'
 #'  x <- factor(c(11, 22, 33, 99))
@@ -63,10 +65,10 @@ f.as.numeric <- function(x){
 
 #### Time Savers
 #' Little functions to replace common minor functions. useful in apply sttements
-#' @param x
+#' @param x an R object, usually a character vector
 #' @param type 'v' (default) for vector x[1]; 'l' for list x[[1]]
-#' @examples
 #'
+#' @examples
 #' unlist(lapply(strsplit(rownames(mtcars), ' '), get_1st))
 #' #[1] "Mazda"    "Mazda"    "Datsun"   "Hornet"   "Hornet"   "Valiant"  "Duster"   "Merc"     "Merc"     "Merc"     "Merc"     "Merc"
 #' #[13] "Merc"     "Merc"     "Cadillac" "Lincoln"  "Chrysler" "Fiat"     "Honda"    "Toyota"   "Toyota"   "Dodge"    "AMC"      "Camaro"

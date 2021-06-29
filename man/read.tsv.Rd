@@ -13,10 +13,6 @@ read.psv(file, ...)
 \item{file}{path of file you want to load}
 
 \item{...}{other args used by read.table}
-
-\item{file}{path of file you want to load}
-
-\item{...}{other args used by read.table}
 }
 \description{
 like read.csv, but for tsv and default header = TRUE

@@ -11,6 +11,7 @@ NULL
 #'
 #' @param x a string
 #' @param y a string
+#'
 #' @examples
 #' ("ab" \%+\% "c") == "abc" # TRUE
 #' ("abc" \%-\% "b") == "ac" # TRUE
@@ -19,8 +20,8 @@ NULL
 #' # String division with a regular expression:
 #' 'an apple a day keeps the malignant spirit of Steve Jobs at bay' %s/% 'Steve Jobs|apple'
 #'
-#' @rdname string_arithmetic
-
+#' @name string_arithmetic
+NULL
 
 #' @rdname string_arithmetic
 #' @export
@@ -65,6 +66,7 @@ NULL
 #'
 #' @param x a stored value
 #' @param y value to modify stored value by
+#'
 #' @examples
 #' x <- 1
 #'
@@ -105,7 +107,8 @@ NULL
 #'
 #'    print(x)
 #'    # "ooar"
-#' @rdname assign_ops
+#' @name assign_ops
+NULL
 
 #' @rdname assign_ops
 #' @export
@@ -195,6 +198,7 @@ NULL
 #'
 #' @param x a character vector
 #' @param value c(pattern, replacement)
+#'
 #' @examples
 #' # Apply a regular expression/substitution to x:
 #'
@@ -231,6 +235,7 @@ NULL
 #'
 #' @param x a character vector
 #' @param value c(pattern, replacement)
+#'
 #' @examples
 #' # Overwrite elements that match regex:
 #'
@@ -265,6 +270,7 @@ NULL
 #'
 #' @param x a vector
 #' @param value value to replace vector's missing values with
+#'
 #' @examples
 #'  x <- c("a", NA, "c")
 #'
@@ -317,8 +323,8 @@ NULL
 #'
 #' @param x a vector
 #' @param y a vector
-#' @examples
 #'
+#' @examples
 #'  ## Greater/Less than | Equal
 #'
 #'  c(1, NA, 3, 4)  ==  c(1, NA, 4, 3)
@@ -366,9 +372,8 @@ NULL
 #'  # TRUE
 #'
 #'
-#' @rdname comparisons
-#' @export
-
+#' @name comparisons
+NULL
 
 #' @rdname comparisons
 #' @family comparisons
@@ -434,7 +439,8 @@ NULL
 #'  \url{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html}
 #' @param x numeric
 #' @param y numeric
-#'@examples
+#'
+#' @examples
 #'  ## Floating point test of equality ####
 #'
 #'  # Basic Equality - no roperators:
@@ -452,9 +458,8 @@ NULL
 #'  (0.1 + 0.1 + 0.1) %<~% 0.3 # TRUE
 #'
 #'
-#' @rdname floating_point_comparisons
-#' @export
-
+#' @name floating_point_comparisons
+NULL
 
 #' @rdname floating_point_comparisons
 #' @family comparisons
@@ -489,8 +494,8 @@ NULL
 #'
 #' @param x a vector
 #' @param y a vector
-#' @examples
 #'
+#' @examples
 #'  #### Not in ####
 #'
 #'  "z" %ni%  c("a", "b", "c")
@@ -518,35 +523,29 @@ NULL
 #'  FALSE %aon% TRUE
 #'  # FALSE
 #'
-#' @rdname logicals
-#' @export
+#' @name logicals
+NULL
 
-
-
-
-#' Not in
+# Not in
 #' @rdname logicals
 #' @export
 `%ni%` <- function(x, y) {
   !(x %in% y)
 }
 
-#' exclusive or
+# Exclusive or
 #' @rdname logicals
 #' @export
 `%xor%`<- function(x, y){
   xor(x, y)
 }
 
-#' All or nothing
+# All or nothing
 #' @rdname logicals
 #' @export
 `%aon%`<- function(x, y){
   (x && y) || (!x && !y)
 }
-
-
-
 
 #################              MISC                               ##############
 

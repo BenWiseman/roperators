@@ -16,11 +16,11 @@ get_1st_word(x, type = "v", split = " ")
 get_last_word(x, type = "v", split = " ")
 }
 \arguments{
+\item{x}{an R object, usually a character vector}
+
 \item{type}{'v' (default) for vector x[1]; 'l' for list x[[1]]}
 
 \item{n}{integer, the nth element to select}
-
-\item{split}{character that seperated words. Default = ' '}
 
 \item{split}{character that seperated words. Default = ' '}
 }
@@ -28,7 +28,6 @@ get_last_word(x, type = "v", split = " ")
 Little functions to replace common minor functions. useful in apply sttements
 }
 \examples{
-
 unlist(lapply(strsplit(rownames(mtcars), ' '), get_1st))
 #[1] "Mazda"    "Mazda"    "Datsun"   "Hornet"   "Hornet"   "Valiant"  "Duster"   "Merc"     "Merc"     "Merc"     "Merc"     "Merc"
 #[13] "Merc"     "Merc"     "Cadillac" "Lincoln"  "Chrysler" "Fiat"     "Honda"    "Toyota"   "Toyota"   "Dodge"    "AMC"      "Camaro"

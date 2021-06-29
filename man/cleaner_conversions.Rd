@@ -24,14 +24,16 @@ bool(x, ...)
 \item{...}{other args for as. conversion
 
 # Shorthand aliases for common conversions
-# Nothing magical here, but it can make your code more readable
-
+# Nothing magical here, but it can make your code more readable}
+}
+\description{
+Cleaner conversion functions
+}
+\examples{
 chr(42)   # "42" = as.character
 int(42.1) # 42L  = as.integer
 dbl("42L") # 42.0 = as.double
 num("42") # 42   = as.numeric
-bool(42)  # TRUE = as.logical}
-}
-\description{
-Cleaner conversion functions
+bool(42)  # TRUE = as.logical
+
 }
