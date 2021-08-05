@@ -36,3 +36,4 @@ Collate:
     'operators.R'
     'os_checks.R'
     'shorthand.R'
+    'ip_checks.R'

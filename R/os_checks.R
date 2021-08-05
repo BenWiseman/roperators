@@ -74,3 +74,26 @@ is.os_lnx <- function(){
 is.os_unx <- function(){
   (get_os() == "unix") || is.os_lnx() || is.os_mac()
 }
+
+#' work out if running 64 bit machine
+#' @rdname os
+#' @export
+is.os_x64 <- function(){
+  grepl("(64-bit)", sessionInfo()[["platform"]])
+}
+
+
+#' work out if running 64 bit machine
+#' @rdname os
+#' @export
+is.R_x64 <- function(){
+  Sys.getenv("R_ARCH") == "/x64"
+}
+
+
+#' TRUE if running revolution R/Microsoft R Open
+#' @rdname os
+#' @export
+is.R_Revo <- function(){
+  "RevoUtils" %in% names(sessionInfo()[["otherPkgs"]])
+}

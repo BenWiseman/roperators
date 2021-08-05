@@ -158,4 +158,12 @@ is.good_for_calcs <- function(x, na.rm = FALSE){
   return(!is.bad_for_calcs(x, na.rm))
 }
 
+#' @rdname type_checks
+#' @export
+is.null_or_na <- function(x){
+  out <- is.null(x) | is.na(x)
+  out[length(out)==0] <- TRUE
+  out
+}
+
 

@@ -38,6 +38,21 @@ bool  <- function(x, ...) as.logical(x, ...)
 
 
 #### Conversion shorthands
+
+#' convert x to arbitrary class
+#' @param x object to be converted
+#' @param class chatracter name of the class to convert x to
+#' @examples
+#'
+#' foo <- 255
+#' as.class(foo, "roman")
+#' # [1] CCLV
+#' @rdname cleaner_conversions
+as.class <- function(x, class){
+  eval(parse(text = paste0("as.", class, "('", as.character(x), "')")))
+}
+
+
 #' Convert factor with numeric labels into numeric vector
 #' @param x a factor with numeric labels
 #' @author Ulrike Grömping, \email{groemping@@beuth-hochschule.de}
@@ -114,17 +129,44 @@ get_nth <- function(x, n, type = 'v') {
 }
 
 #' @export
-#' @param split character that seperated words. Default = ' '
+#' @param split character that separated words. Default = ' '
 #' @rdname time_savers
 get_1st_word <- function(x, type = 'v', split = ' ') {
   unlist(lapply(strsplit(x, split), get_1st, type))
 }
 
 #' @export
-#' @param split character that seperated words. Default = ' '
+#' @param split character that separated words. Default = ' '
 #' @rdname time_savers
 get_last_word <- function(x, type = 'v', split = ' ') {
   unlist(lapply(strsplit(x, split), get_last, type))
+}
+
+
+#' Get most common thing(s)
+#' @param  x a vector of things
+#' @param  collapse OPTIONAL character - paste output into single string with collapse
+#' @export
+#' @rdname time_savers
+get_most_frequent <- function(x, collapse = NULL){
+  x_class   <- class(x)
+  x_summary <- sort(summary(as.factor(as.character(x))), decreasing = TRUE)
+  out       <- names(x_summary[x_summary==max(x_summary, na.rm = TRUE)])
+  #out       <- as.class(out, x_class)
+
+  # if collapsing
+  if(!is.null(collapse)) out <- paste(unique(out), collapse = collapse)
+
+  return(out )
+}
+
+
+#' Return numbetr of unique things in x
+#' @export
+#' @param x vector
+#' @rdname time_savers
+n_unique <- function(x) {
+  length(unique(x))
 }
 
 

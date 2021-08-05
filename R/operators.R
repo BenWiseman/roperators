@@ -547,6 +547,72 @@ NULL
   (x && y) || (!x && !y)
 }
 
+
+
+#' SQL-like like
+#'
+#' @description
+#' This takes two arguments just like \code{grepl} - a string and a pattern.
+#' TRUE if \code{grepl(pattern, x, ignore.case=TRUE)} would be TRUE
+#'
+#' @param x a character vector
+#' @param pattern a single character expression
+#'
+#' @examples
+#' # Apply a regular expression/substitution to x:
+#'
+#'  x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
+#'
+#'  # where x has an O
+#'
+#'  x[x \%like\% "O"]
+#'
+#'  # [1] "foo" "dOe" "obo"
+#'
+#'  # find x where middle letter is "O"
+#'
+#'  x[x \%like\% "[a-z]O[a-z]"]
+#'
+#'  # will print [1] "foo" "dOe"
+#'
+#' @rdname logicals
+#' @export
+`%like%`<- function(x, pattern){
+  if(length(pattern) != 1) stop("roperators: \n right-hand-side isn't length 1 but it MUST be")
+  grepl(pattern, x, ignore.case = TRUE)
+}
+
+
+
+#' SQL-like like
+#'
+#' @description
+#' This takes two arguments just like \code{grepl} - a string and a pattern.
+#' TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE
+#' It's like \code{%like%} but stricter.
+#'
+#' @param x a character vector
+#' @param pattern a single character expression
+#'
+#' @examples
+#' # Apply a regular expression/substitution to x:
+#'
+#'  x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
+#'
+#'  # find x where middle letter is upper-case "O"
+#'
+#'  x[x \%perl\% "[a-z]O[a-z]"]
+#'
+#'  # will print [1] "dOe"
+#'
+#' @rdname logicals
+#' @export
+`%perl%`<- function(x, pattern){
+  if(length(pattern) != 1) stop("roperators: \n right-hand-side isn't length 1 but it MUST be")
+  grepl(pattern, x, ignore.case=FALSE, perl = TRUE)
+}
+
+
 #################              MISC                               ##############
 
 
