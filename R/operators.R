@@ -35,7 +35,7 @@ NULL
   unname(mapply(function(x,y) gsub(pattern = y, replacement = '', x = x), x, y))
 }
 
-#Added in ulrike's suggestion for making compatible with vector or scalar input
+# Added in ulrike's suggestion for making compatible with vector or scalar input
 #' @rdname string_arithmetic
 #' @export
 `%s*%`  <- function(x, y) {
@@ -50,7 +50,6 @@ NULL
   return(out)
   #lengths(regmatches(x, gregexpr(y, x)))
 }
-
 
 
 #### For assignment operators  ------------------
@@ -118,13 +117,12 @@ NULL
     v_name  <- substitute(x)
     v_value <- paste0(x,y)
     eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
-    }
-  else{
+  } else {
     #.create_operator(x, y, `+`)
     v_name  <- substitute(x)
     v_value <- x+y
     eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
-    }
+  }
 }
 
 #' @rdname assign_ops
@@ -135,12 +133,12 @@ NULL
     v_name  <- substitute(x)
     v_value <- gsub(y, '', x)
     eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
-    } else{
+  } else{
       #.create_operator(x, y, `-`)
       v_name  <- substitute(x)
       v_value <- x-y
       eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
-    }
+  }
 }
 
 #' @rdname assign_ops
@@ -588,8 +586,8 @@ NULL
 #'
 #' @description
 #' This takes two arguments just like \code{grepl} - a string and a pattern.
-#' TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE
-#' It's like \code{%like%} but stricter.
+#' TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE.
+#' It's like \code{\%like\%} but stricter.
 #'
 #' @param x a character vector
 #' @param pattern a single character expression

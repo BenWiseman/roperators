@@ -32,8 +32,8 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Collate: 
+    'ip_checks.R'
     'type_checks.R'
     'operators.R'
     'os_checks.R'
     'shorthand.R'
-    'ip_checks.R'

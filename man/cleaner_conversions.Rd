@@ -6,6 +6,7 @@
 \alias{dbl}
 \alias{num}
 \alias{bool}
+\alias{as.class}
 \title{Cleaner conversion functions}
 \usage{
 chr(x, ...)
@@ -17,17 +18,23 @@ dbl(x, ...)
 num(x, ...)
 
 bool(x, ...)
+
+as.class(x, class)
 }
 \arguments{
-\item{x}{Value to be converted}
+\item{x}{object to be converted}
 
 \item{...}{other args for as. conversion
 
 # Shorthand aliases for common conversions
 # Nothing magical here, but it can make your code more readable}
+
+\item{class}{chatracter name of the class to convert x to}
 }
 \description{
 Cleaner conversion functions
+
+convert x to arbitrary class
 }
 \examples{
 chr(42)   # "42" = as.character
@@ -36,4 +43,8 @@ dbl("42L") # 42.0 = as.double
 num("42") # 42   = as.numeric
 bool(42)  # TRUE = as.logical
 
+
+foo <- 255
+as.class(foo, "roman")
+# [1] CCLV
 }
