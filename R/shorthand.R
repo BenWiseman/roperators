@@ -164,9 +164,15 @@ get_most_frequent <- function(x, collapse = NULL){
 #' Return numbetr of unique things in x
 #' @export
 #' @param x vector
+#' @param na.rm whether to ignore NAs when determining uniqueness
 #' @rdname time_savers
-n_unique <- function(x) {
-  length(unique(x))
+n_unique <- function(x, na.rm = FALSE){
+  if(isTRUE(na.rm)){
+    calc_len <- length_cc
+  } else{
+    calc_len <- length
+  }
+  calc_len(unique(x))
 }
 
 

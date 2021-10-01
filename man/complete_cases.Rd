@@ -3,6 +3,7 @@
 \name{complete_cases}
 \alias{complete_cases}
 \alias{length_cc}
+\alias{n_unique_cc}
 \alias{min_cc}
 \alias{max_cc}
 \alias{range_cc}
@@ -27,6 +28,8 @@
 \title{Statistics/Summaries with (Only) Missing Data Removed}
 \usage{
 length_cc(x, ...)
+
+n_unique_cc(x, ...)
 
 min_cc(x, ...)
 

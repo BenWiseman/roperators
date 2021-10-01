@@ -23,6 +23,8 @@ Copyright: Korn Ferry International
 License: MIT + file LICENSE
 URL: https://benwiseman.github.io/Roperators/,
      https://github.com/BenWiseman/roperators
+Imports:
+    stats
 Suggests:
     magrittr,
     knitr,
@@ -33,6 +35,7 @@ LazyData: true
 RoxygenNote: 7.1.1
 Collate: 
     'complete_cases.R'
+    'content_checks.R'
     'ip_checks.R'
     'type_checks.R'
     'operators.R'

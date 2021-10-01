@@ -13,5 +13,9 @@
   functions to quickly determine operating system.
 * New `is.R_Revo()` and `is.RStudio()` functions to determine whether Revolution
   R and RStudio are installed.
-* New `n_unique()` function to count unique items.
+* New `n_unique()` function to count unique items and `n_unique_cc()` version
+  for complete cases.
+* New `is.constant()` and `is.binary()` functions to indicate whether a vector
+  is constant (contains only ONE value type, ignoring NA) or binary (contains
+  at most TWO value types, ignoring NA).
 * New `get_most_frequent()` function to get most frequent thing(s) in x.

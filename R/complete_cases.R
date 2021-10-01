@@ -42,6 +42,11 @@ length_cc <- function(x, ...){
   } # END ifelse STATEMENT
 }
 
+#' @rdname complete_cases
+n_unique_cc <- function(x, ...){
+  n_unique(x, ..., na.rm = TRUE)
+}
+
 # SUMMARIES #
 
 #' @rdname complete_cases

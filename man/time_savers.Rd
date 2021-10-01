@@ -19,7 +19,7 @@ get_last_word(x, type = "v", split = " ")
 
 get_most_frequent(x, collapse = NULL)
 
-n_unique(x)
+n_unique(x, na.rm = FALSE)
 }
 \arguments{
 \item{x}{vector}
@@ -31,6 +31,8 @@ n_unique(x)
 \item{split}{character that separated words. Default = ' '}
 
 \item{collapse}{OPTIONAL character - paste output into single string with collapse}
+
+\item{na.rm}{whether to ignore NAs when determining uniqueness}
 }
 \description{
 Little functions to replace common minor functions. useful in apply sttements
