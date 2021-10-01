@@ -37,3 +37,4 @@ Collate:
     'operators.R'
     'os_checks.R'
     'shorthand.R'
+    'utils.R'

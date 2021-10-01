@@ -576,7 +576,7 @@ NULL
 #' @rdname logicals
 #' @export
 `%like%`<- function(x, pattern){
-  if(length(pattern) != 1) stop("roperators: \n right-hand-side isn't length 1 but it MUST be")
+  if(length(pattern) != 1) rop_stop("right-hand-side isn't length 1 but it MUST be")
   grepl(pattern, x, ignore.case = TRUE)
 }
 
@@ -606,7 +606,7 @@ NULL
 #' @rdname logicals
 #' @export
 `%perl%`<- function(x, pattern){
-  if(length(pattern) != 1) stop("roperators: \n right-hand-side isn't length 1 but it MUST be")
+  if(length(pattern) != 1) rop_stop("right-hand-side isn't length 1 but it MUST be")
   grepl(pattern, x, ignore.case=FALSE, perl = TRUE)
 }
 

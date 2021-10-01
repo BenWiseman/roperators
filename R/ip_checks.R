@@ -18,25 +18,16 @@ get_ip <- function(){
   ip <- NA
 
   if(is.os_win()){
-
     systext <- system("ipconfig", intern=TRUE)
-
-    ip <- gsub(".*? ([[:digit:]])", "\\1", systext[grep("IPv4", systext)])
-
-
-
+    ip      <- gsub(".*? ([[:digit:]])", "\\1", systext[grep("IPv4", systext)])
   } else if(is.os_lnx() || is.os_unx()) {
-
     systext <- system("ifconfig", intern=TRUE)
-
-    ip <- gsub(".*? ([[:digit:]])", "\\1", systext[grep("inet", systext)])
-
+    ip      <- gsub(".*? ([[:digit:]])", "\\1", systext[grep("inet", systext)])
   } else if(is.os_mac()){
 
   } else{
-    stop("Couldn't detect your operating system or IP address from system calls")
+    rop_stop("couldn't detect your operating system or IP address from system calls")
   }
 
   return(ip)
-
 }
