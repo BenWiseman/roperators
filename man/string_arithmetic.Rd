@@ -23,8 +23,8 @@ x \%s/\% y
 }
 \description{
 Perform string concatenation and arithmetic is a similar way to other languages.
- String division is not present in languages like Python, although arguably it is
- more useful than string multiplication and can be used with regulr expressions.
+String division is not present in languages like Python, although arguably it is
+more useful than string multiplication and can be used with regulr expressions.
 }
 \examples{
 ("ab" \\%+\\% "c") == "abc" # TRUE

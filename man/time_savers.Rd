@@ -24,7 +24,7 @@ n_unique(x, na.rm = FALSE)
 \arguments{
 \item{x}{vector}
 
-\item{type}{'v' (default) for vector x[1]; 'l' for list x[[1]]}
+\item{type}{'v' (default) for vector x\link{1}; 'l' for list x[\link{1}]}
 
 \item{n}{integer, the nth element to select}
 

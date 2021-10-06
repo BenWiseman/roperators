@@ -11,6 +11,9 @@
   complete cases.
 * New `get_os()`, `is.os_mac`, `is.os_win`, `is.os_lnx`, and `is.os_unx` helper
   functions to quickly determine operating system.
+* New `is_txt_file()`, `is_csv_file()`, `is_excel_file()`, `is_r_file()`, 
+  `is_rdata_file()`, `is_rda_file()`, `is_spss_file()`, and `check_ext_against()`
+  functions to quickly determine if file has specific file extensions.
 * New `is.R_Revo()` and `is.RStudio()` functions to determine whether Revolution
   R and RStudio are installed.
 * New `n_unique()` function to count unique items and `n_unique_cc()` version

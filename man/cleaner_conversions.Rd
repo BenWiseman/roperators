@@ -24,10 +24,7 @@ as.class(x, class)
 \arguments{
 \item{x}{object to be converted}
 
-\item{...}{other args for as. conversion
-
-# Shorthand aliases for common conversions
-# Nothing magical here, but it can make your code more readable}
+\item{...}{other args for as. conversion}
 
 \item{class}{chatracter name of the class to convert x to}
 }
@@ -35,6 +32,10 @@ as.class(x, class)
 Cleaner conversion functions
 
 convert x to arbitrary class
+}
+\note{
+These are shorthand aliases for common conversions There is nothing magical
+here, but it can make your code more readable
 }
 \examples{
 chr(42)   # "42" = as.character

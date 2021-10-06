@@ -1,41 +1,47 @@
 Package: roperators
-Type: Package
 Title: Additional Operators to Help you Write Cleaner R Code
 Version: 1.2.0
+Authors@R:
+    c(person('Ben', 'Wiseman',
+             role  = c('cre', 'aut', 'ccp'),
+             email = 'benjamin.wiseman@kornferry.com'),
+      person('Steven',  'Nydick',
+             role    = c('aut', 'ccp'),
+             email   = 'steven.nydick@kornferry.com',
+             comment = c(ORCID = "0000-0002-2908-1188")),
+      person('Jeff', 'Jones',
+             role  = c('aut', 'led'),
+             email = 'jeff.jones@kornferry.com'))
 Maintainer: Ben Wiseman <benjamin.wiseman@kornferry.com>
-Authors@R: c(person('Ben', 'Wiseman',
-                    role  = c('cre', 'aut', 'ccp'),
-                    email = 'benjamin.wiseman@kornferry.com'),
-             person('Steven',  'Nydick',
-                    role    = c('aut', 'ccp'),
-                    email   = 'steven.nydick@kornferry.com',
-                    comment = c(ORCID = "0000-0002-2908-1188")),
-             person('Jeff', 'Jones',
-                    role  = c('aut', 'led'),
-                    email = 'jeff.jones@kornferry.com'))
 Description: Provides string arithmetic, reassignment operators, logical operators
   that handle missing values, and extra logical operators such as floating point
   equality and all or nothing. The intent is to allow R users to write code that
   is easier to read, write, and maintain while providing a friendlier experience
   to new R users from other language backgrounds (such as 'Python') who are used
   to concepts such as x += 1 and 'foo' + 'bar'.
-Copyright: Korn Ferry International
 License: MIT + file LICENSE
+Copyright: Korn Ferry International
 URL: https://benwiseman.github.io/Roperators/,
      https://github.com/BenWiseman/roperators
+Depends:
+    R (>= 3.0.0)
 Imports:
-    stats
+    stats,
+    tools
 Suggests:
     magrittr,
     knitr,
     prettydoc
-VignetteBuilder: knitr
+VignetteBuilder:
+    knitr
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Collate: 
     'complete_cases.R'
     'content_checks.R'
+    'file_checks.R'
     'ip_checks.R'
     'type_checks.R'
     'operators.R'

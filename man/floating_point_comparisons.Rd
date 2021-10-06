@@ -20,10 +20,10 @@ x \%<~\% y
 }
 \description{
 These are an important set of operators missing from base R. In particular,
- using \code{==} on two non-interger numbers can give unexpected results (see examples.)
+using \code{==} on two non-interger numbers can give unexpected results (see examples.)
 
- See this for details:
- \url{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html}
+See this for details:
+\url{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html}
 }
 \examples{
  ## Floating point test of equality ####
