@@ -111,12 +111,15 @@ f.as.numeric <- function(x){
 #' @export
 #' @rdname time_savers
 get_1st <- function(x, type = 'v') {
-  if(type == 'l') x[[1]]
+  if(ttype %in% c('l', "list")) x[[1]]
   else x[1]
 }
 
+#' @export
+#' @param n integer, the nth element to select
+#' @rdname time_savers
 get_last <- function(x, type = 'v') {
-  if(type == 'l') x[[length(x)]]
+  if(type %in% c('l', "list")) x[[length(x)]]
   else x[length(x)]
 }
 
@@ -124,7 +127,7 @@ get_last <- function(x, type = 'v') {
 #' @param n integer, the nth element to select
 #' @rdname time_savers
 get_nth <- function(x, n, type = 'v') {
-  if(type == 'l') x[[n]]
+  if(type %in% c('l', "list")) x[[n]]
   else x[n]
 }
 

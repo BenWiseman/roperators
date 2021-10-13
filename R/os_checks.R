@@ -94,6 +94,6 @@ is.R_x64 <- function(){
 #' TRUE if running revolution R/Microsoft R Open
 #' @rdname os
 #' @export
-is.R_Revo <- function(){
+is.R_revo <- function(){
   "RevoUtils" %in% names(sessionInfo()[["otherPkgs"]])
 }
