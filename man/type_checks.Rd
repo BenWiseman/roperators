@@ -18,6 +18,7 @@
 \alias{is.good_for_indexing}
 \alias{is.bad_and_equal}
 \alias{is.good_for_calcs}
+\alias{is.null_or_na}
 \title{Type Checks}
 \usage{
 is.scalar(x)
@@ -53,6 +54,8 @@ is.bad_and_equal(x, y)
 is.bad_for_calcs(x, na.rm = FALSE)
 
 is.good_for_calcs(x, na.rm = FALSE)
+
+is.null_or_na(x)
 }
 \arguments{
 \item{x}{object to be tested}

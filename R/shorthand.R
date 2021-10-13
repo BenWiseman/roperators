@@ -5,8 +5,9 @@
 #' @param x Value to be converted
 #' @param ... other args for as. conversion
 #'
-#' # Shorthand aliases for common conversions
-#' # Nothing magical here, but it can make your code more readable
+#' @note
+#' These are shorthand aliases for common conversions There is nothing magical
+#' here, but it can make your code more readable
 #'
 #' @examples
 #' chr(42)   # "42" = as.character
@@ -167,9 +168,15 @@ get_most_frequent <- function(x, collapse = NULL){
 #' Return numbetr of unique things in x
 #' @export
 #' @param x vector
+#' @param na.rm whether to ignore NAs when determining uniqueness
 #' @rdname time_savers
-n_unique <- function(x) {
-  length(unique(x))
+n_unique <- function(x, na.rm = FALSE){
+  if(isTRUE(na.rm)){
+    calc_len <- length_cc
+  } else{
+    calc_len <- length
+  }
+  calc_len(unique(x))
 }
 
 

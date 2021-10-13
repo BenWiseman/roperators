@@ -35,7 +35,7 @@ NULL
   unname(mapply(function(x,y) gsub(pattern = y, replacement = '', x = x), x, y))
 }
 
-#Added in ulrike's suggestion for making compatible with vector or scalar input
+# Added in ulrike's suggestion for making compatible with vector or scalar input
 #' @rdname string_arithmetic
 #' @export
 `%s*%`  <- function(x, y) {
@@ -50,7 +50,6 @@ NULL
   return(out)
   #lengths(regmatches(x, gregexpr(y, x)))
 }
-
 
 
 #### For assignment operators  ------------------
@@ -118,13 +117,12 @@ NULL
     v_name  <- substitute(x)
     v_value <- paste0(x,y)
     eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
-    }
-  else{
+  } else {
     #.create_operator(x, y, `+`)
     v_name  <- substitute(x)
     v_value <- x+y
     eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
-    }
+  }
 }
 
 #' @rdname assign_ops
@@ -135,12 +133,12 @@ NULL
     v_name  <- substitute(x)
     v_value <- gsub(y, '', x)
     eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
-    } else{
+  } else{
       #.create_operator(x, y, `-`)
       v_name  <- substitute(x)
       v_value <- x-y
       eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
-    }
+  }
 }
 
 #' @rdname assign_ops
@@ -555,6 +553,8 @@ NULL
 #' This takes two arguments just like \code{grepl} - a string and a pattern.
 #' TRUE if \code{grepl(pattern, x, ignore.case=TRUE)} would be TRUE
 #'
+#'
+#'
 #' @param x a character vector
 #' @param pattern a single character expression
 #'
@@ -577,8 +577,8 @@ NULL
 #'
 #' @rdname logicals
 #' @export
-`%like%`<- function(x, pattern){
-  if(length(pattern) != 1) stop("roperators: \n right-hand-side isn't length 1 but it MUST be")
+`%rlike%`<- function(x, pattern){
+  if(length(pattern) != 1) rop_stop("right-hand-side isn't length 1 but it MUST be")
   grepl(pattern, x, ignore.case = TRUE)
 }
 
@@ -588,8 +588,9 @@ NULL
 #'
 #' @description
 #' This takes two arguments just like \code{grepl} - a string and a pattern.
-#' TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE
-#' It's like \code{%like%} but stricter.
+#' TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE.
+#' It's like \code{\%like\%} from data.table (but slower, preferably use data.table).
+#'
 #'
 #' @param x a character vector
 #' @param pattern a single character expression
@@ -608,7 +609,7 @@ NULL
 #' @rdname logicals
 #' @export
 `%perl%`<- function(x, pattern){
-  if(length(pattern) != 1) stop("roperators: \n right-hand-side isn't length 1 but it MUST be")
+  if(length(pattern) != 1) rop_stop("right-hand-side isn't length 1 but it MUST be")
   grepl(pattern, x, ignore.case=FALSE, perl = TRUE)
 }
 

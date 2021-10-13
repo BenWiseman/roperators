@@ -5,6 +5,8 @@
 \alias{\%ni\%}
 \alias{\%xor\%}
 \alias{\%aon\%}
+\alias{\%rlike\%}
+\alias{\%perl\%}
 \title{Logical operators}
 \usage{
 x \%ni\% y
@@ -12,14 +14,27 @@ x \%ni\% y
 x \%xor\% y
 
 x \%aon\% y
+
+x \%rlike\% pattern
+
+x \%perl\% pattern
 }
 \arguments{
-\item{x}{a vector}
+\item{x}{a character vector}
 
 \item{y}{a vector}
+
+\item{pattern}{a single character expression}
 }
 \description{
 These are some convienience functions, such as a not-in, and xor operator.
+
+This takes two arguments just like \code{grepl} - a string and a pattern.
+TRUE if \code{grepl(pattern, x, ignore.case=TRUE)} would be TRUE
+
+This takes two arguments just like \code{grepl} - a string and a pattern.
+TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE.
+It's like \code{\%like\%} from data.table (but slower, preferably use data.table).
 }
 \examples{
  #### Not in ####
@@ -48,5 +63,31 @@ These are some convienience functions, such as a not-in, and xor operator.
 
  FALSE \%aon\% TRUE
  # FALSE
+
+# Apply a regular expression/substitution to x:
+
+ x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
+
+ # where x has an O
+
+ x[x \\%like\\% "O"]
+
+ # [1] "foo" "dOe" "obo"
+
+ # find x where middle letter is "O"
+
+ x[x \\%like\\% "[a-z]O[a-z]"]
+
+ # will print [1] "foo" "dOe"
+
+# Apply a regular expression/substitution to x:
+
+ x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
+
+ # find x where middle letter is upper-case "O"
+
+ x[x \\%perl\\% "[a-z]O[a-z]"]
+
+ # will print [1] "dOe"
 
 }

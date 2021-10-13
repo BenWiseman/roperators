@@ -97,3 +97,10 @@ is.R_x64 <- function(){
 is.R_revo <- function(){
   "RevoUtils" %in% names(sessionInfo()[["otherPkgs"]])
 }
+
+#' TRUE if running RStudio interactively
+#' @rdname os
+#' @export
+is.RStudio <- function(){
+  identical(.Platform$GUI, "RStudio")
+}

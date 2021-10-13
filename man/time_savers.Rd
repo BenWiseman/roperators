@@ -2,30 +2,47 @@
 % Please edit documentation in R/shorthand.R
 \name{get_1st}
 \alias{get_1st}
+\alias{get_last}
 \alias{get_nth}
 \alias{get_1st_word}
 \alias{get_last_word}
+\alias{get_most_frequent}
+\alias{n_unique}
 \title{Little functions to replace common minor functions. useful in apply sttements}
 \usage{
 get_1st(x, type = "v")
+
+get_last(x, type = "v")
 
 get_nth(x, n, type = "v")
 
 get_1st_word(x, type = "v", split = " ")
 
 get_last_word(x, type = "v", split = " ")
+
+get_most_frequent(x, collapse = NULL)
+
+n_unique(x, na.rm = FALSE)
 }
 \arguments{
-\item{x}{an R object, usually a character vector}
+\item{x}{vector}
 
-\item{type}{'v' (default) for vector x[1]; 'l' for list x[[1]]}
+\item{type}{'v' (default) for vector x\link{1}; 'l' for list x[\link{1}]}
 
 \item{n}{integer, the nth element to select}
 
-\item{split}{character that seperated words. Default = ' '}
+\item{split}{character that separated words. Default = ' '}
+
+\item{collapse}{OPTIONAL character - paste output into single string with collapse}
+
+\item{na.rm}{whether to ignore NAs when determining uniqueness}
 }
 \description{
 Little functions to replace common minor functions. useful in apply sttements
+
+Get most common thing(s)
+
+Return numbetr of unique things in x
 }
 \examples{
 unlist(lapply(strsplit(rownames(mtcars), ' '), get_1st))

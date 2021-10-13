@@ -7,6 +7,10 @@
 \alias{is.os_win}
 \alias{is.os_lnx}
 \alias{is.os_unx}
+\alias{is.os_x64}
+\alias{is.R_x64}
+\alias{is.R_revo}
+\alias{is.RStudio}
 \title{Operating system checks}
 \usage{
 get_os()
@@ -18,6 +22,14 @@ is.os_win()
 is.os_lnx()
 
 is.os_unx()
+
+is.os_x64()
+
+is.R_x64()
+
+is.R_revo()
+
+is.RStudio()
 }
 \description{
 Determine the current operating system as well as provide flags to indicate
