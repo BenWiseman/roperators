@@ -37,7 +37,7 @@ VignetteBuilder:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Collate: 
     'complete_cases.R'
     'content_checks.R'
@@ -46,5 +46,6 @@ Collate:
     'type_checks.R'
     'operators.R'
     'os_checks.R'
+    'paste_functions.R'
     'shorthand.R'
     'utils.R'

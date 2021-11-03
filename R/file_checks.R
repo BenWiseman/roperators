@@ -57,6 +57,11 @@ is_rda_file <- function(x){
 }
 
 #' @rdname file_checks
+is_rds_file <- function(x){
+  check_ext_against(x, ext = c("rds"))
+}
+
+#' @rdname file_checks
 #' @export
 is_spss_file <- function(x){
   check_ext_against(x, ext = c("sav"))

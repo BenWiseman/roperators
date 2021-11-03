@@ -8,6 +8,7 @@
 \alias{is_r_file}
 \alias{is_rdata_file}
 \alias{is_rda_file}
+\alias{is_rds_file}
 \alias{is_spss_file}
 \alias{check_ext_against}
 \title{File Extension Checks}
@@ -23,6 +24,8 @@ is_r_file(x)
 is_rdata_file(x)
 
 is_rda_file(x)
+
+is_rds_file(x)
 
 is_spss_file(x)
 

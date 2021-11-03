@@ -70,13 +70,13 @@ It's like \code{\%like\%} from data.table (but slower, preferably use data.table
 
  # where x has an O
 
- x[x \\%like\\% "O"]
+ x[x \%rlike\% "O"]
 
  # [1] "foo" "dOe" "obo"
 
  # find x where middle letter is "O"
 
- x[x \\%like\\% "[a-z]O[a-z]"]
+ x[x \%rlike\% "[a-z]O[a-z]"]
 
  # will print [1] "foo" "dOe"
 
@@ -86,7 +86,7 @@ It's like \code{\%like\%} from data.table (but slower, preferably use data.table
 
  # find x where middle letter is upper-case "O"
 
- x[x \\%perl\\% "[a-z]O[a-z]"]
+ x[x \%perl\% "[a-z]O[a-z]"]
 
  # will print [1] "dOe"
 

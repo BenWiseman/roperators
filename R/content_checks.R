@@ -20,3 +20,4 @@ is.constant <- function(x){
 is.binary <- function(x){
   n_unique_cc(x) <= 2
 }
+

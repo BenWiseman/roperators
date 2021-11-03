@@ -24,7 +24,7 @@ use \code{\%regex<-\%} instead.
 
  # change any number to "x"
 
-  x \\%regex=\\% c("\\\\d+", "x")
+  x \%regex=\% c("\\\\d+", "x")
 
  print(x)
 

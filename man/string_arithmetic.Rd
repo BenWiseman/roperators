@@ -27,10 +27,10 @@ String division is not present in languages like Python, although arguably it is
 more useful than string multiplication and can be used with regulr expressions.
 }
 \examples{
-("ab" \\%+\\% "c") == "abc" # TRUE
-("abc" \\%-\\% "b") == "ac" # TRUE
-("ac" \\%s*\\% 2) == "acac" # TRUE
-("acac" \\%s/\\% "c") == 2  # TRUE
+("ab" \%+\% "c") == "abc" # TRUE
+("abc" \%-\% "b") == "ac" # TRUE
+("ac" \%s*\% 2) == "acac" # TRUE
+("acac" \%s/\% "c") == 2  # TRUE
 # String division with a regular expression:
 'an apple a day keeps the malignant spirit of Steve Jobs at bay' \%s/\% 'Steve Jobs|apple'
 

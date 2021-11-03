@@ -49,6 +49,7 @@ bool  <- function(x, ...) as.logical(x, ...)
 #' as.class(foo, "roman")
 #' # [1] CCLV
 #' @rdname cleaner_conversions
+#' @export
 as.class <- function(x, class){
   eval(parse(text = paste0("as.", class, "('", as.character(x), "')")))
 }
@@ -112,7 +113,7 @@ f.as.numeric <- function(x){
 #' @export
 #' @rdname time_savers
 get_1st <- function(x, type = 'v') {
-  if(ttype %in% c('l', "list")) x[[1]]
+  if(type %in% c('l', "list")) x[[1]]
   else x[1]
 }
 

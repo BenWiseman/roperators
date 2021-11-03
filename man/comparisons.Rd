@@ -28,17 +28,7 @@ x \%>=<\% y
 \item{y}{a vector}
 }
 \description{
-These operators introduce improved NA handling, reliable floating point tests,
-and intervals. Specifically:
-\itemize{
-\item{Equality that handles missing values}
-\item{Floating point equality, an important bit of functionality missing in base R (\code{\%~=\%})}
-\item{Strict (value and type) equality, for those familiar with Javascript's \code{===}}
-\item{Greater/less than or equal to with missing value equality}
-\item{Greater/less than or equal to with floating point and missing equality}
-\item{Between (ends excluded)}
-\item{Between (ends included)}
-}
+
 }
 \examples{
  ## Greater/Less than | Equal

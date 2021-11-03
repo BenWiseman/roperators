@@ -79,7 +79,8 @@ is.os_unx <- function(){
 #' @rdname os
 #' @export
 is.os_x64 <- function(){
-  grepl("(64-bit)", sessionInfo()[["platform"]])
+  #grepl("(64-bit)", sessionInfo()[["platform"]]) |
+  grepl("x86_64", Sys.info()[["machine"]])
 }
 
 
@@ -87,7 +88,7 @@ is.os_x64 <- function(){
 #' @rdname os
 #' @export
 is.R_x64 <- function(){
-  Sys.getenv("R_ARCH") == "/x64"
+  if(is.os_unx) grepl("x86_64", Sys.getenv("R_PLATFORM")) else  Sys.getenv("R_ARCH") == "/x64"
 }
 
 

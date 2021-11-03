@@ -13,10 +13,10 @@ NULL
 #' @param y a string
 #'
 #' @examples
-#' ("ab" \%+\% "c") == "abc" # TRUE
-#' ("abc" \%-\% "b") == "ac" # TRUE
-#' ("ac" \%s*\% 2) == "acac" # TRUE
-#' ("acac" \%s/\% "c") == 2  # TRUE
+#' ("ab" %+% "c") == "abc" # TRUE
+#' ("abc" %-% "b") == "ac" # TRUE
+#' ("ac" %s*% 2) == "acac" # TRUE
+#' ("acac" %s/% "c") == 2  # TRUE
 #' # String division with a regular expression:
 #' 'an apple a day keeps the malignant spirit of Steve Jobs at bay' %s/% 'Steve Jobs|apple'
 #'
@@ -61,7 +61,7 @@ NULL
 #' @description
 #' Modifies the stored value of the left-hand-side object by the right-hand-side object.
 #' Equivalent of operators such as \code{+=} \code{-=} \code{*=} \code{/=} in languages like c++ or python.
-#' \code{\%+=\%} and \code{\%-=\%} can also work with strings.
+#' \code{%+=%} and \code{%-=%} can also work with strings.
 #'
 #' @param x a stored value
 #' @param y value to modify stored value by
@@ -69,11 +69,11 @@ NULL
 #' @examples
 #' x <- 1
 #'
-#' x \%+=\% 2
+#' x %+=% 2
 #'
 #' x == 3 # TRUE
 #'
-#' x \%-=\% 3
+#' x %-=% 3
 #'
 #' x == 0 # TRUE
 #'
@@ -81,28 +81,28 @@ NULL
 #' test <- iris
 #'
 #' # Simply modify in-place
-#' test$Sepal.Length[test$Species == 'setosa' & test$Petal.Length < 1.5] \%+=\% 1
+#' test$Sepal.Length[test$Species == 'setosa' & test$Petal.Length < 1.5] %+=% 1
 #'
 #' # Which is much nicer than typing:
 #' test$Sepal.Length[test$Species == 'setosa' & test$Petal.Length < 1.5] <-
 #' test$Sepal.Length[test$Species == 'setosa' & test$Petal.Length < 1.5] + 1
 #' # ...which is over the 100 character limit for R doccumentation!
 #'
-#' # \%+=\% and \%-=\% also work with strings
+#' # %+=% and %-=% also work with strings
 #'
 #'    x <- "ab"
 #'
-#'    x \%+=\% "c"
+#'    x %+=% "c"
 #'
-#'    x \%-=\% "b"
+#'    x %-=% "b"
 #'
 #'    x == "ac" # TRUE
 #'
-#' # \%-=\% can also take regular expressions
+#' # %-=% can also take regular expressions
 #'
 #'    x <- "foobar"
 #'
-#'    x \%-=\% "[f|b]"
+#'    x %-=% "[f|b]"
 #'
 #'    print(x)
 #'    # "ooar"
@@ -113,7 +113,7 @@ NULL
 #' @export
 `%+=%`   <- function(x, y){
   if(is.character(x) | is.character(y)){
-    #.create_operator(x, y, `\%+\%`)
+    #.create_operator(x, y, `%+%`)
     v_name  <- substitute(x)
     v_value <- paste0(x,y)
     eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
@@ -129,7 +129,7 @@ NULL
 #' @export
 `%-=%`  <- function(x, y){
   if(is.character(x) | is.character(y)){
-    #.create_operator(x, y, `\%-\%`)
+    #.create_operator(x, y, `%-%`)
     v_name  <- substitute(x)
     v_value <- gsub(y, '', x)
     eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
@@ -192,7 +192,7 @@ NULL
 #' This takes two arguments just like \code{gsub} - a patterns and a replacement.
 #' It will only overwrite the parts of any character where the pattern is matched with the second argument.
 #' If you want to overwrite whole elements via a regex (i.e. replace the entire element if it matches),
-#' use \code{\%regex<-\%} instead.
+#' use \code{%regex<-%} instead.
 #'
 #' @param x a character vector
 #' @param value c(pattern, replacement)
@@ -204,7 +204,7 @@ NULL
 #'
 #'  # change any number to "x"
 #'
-#'   x \%regex=\% c("\\d+", "x")
+#'   x %regex=% c("\\d+", "x")
 #'
 #'  print(x)
 #'
@@ -228,8 +228,8 @@ NULL
 #' This takes two arguments just like \code{gsub} - a patterns and a replacement.
 #' It will totally overwrite any element where the pattern is matched with the second.
 #' If you want to simply apply a regex (i.e. replace only the specific bit that matches),
-#' use \code{\%regex=\%} instead. If you want to replace with nothing (""), just just \code{\%-\%} or
-#' \code{\%-=\% instead}.
+#' use \code{%regex=%} instead. If you want to replace with nothing (""), just just \code{%-%} or
+#' \code{%-=% instead}.
 #'
 #' @param x a character vector
 #' @param value c(pattern, replacement)
@@ -263,7 +263,7 @@ NULL
 #' Assign value to a vector's missing values
 #'
 #' @description
-#' \code{\%na<-\%} is a simple shortcut to assign a specific value to all
+#' \code{%na<-%} is a simple shortcut to assign a specific value to all
 #' NA elements contained in x.
 #'
 #' @param x a vector
@@ -311,7 +311,7 @@ NULL
 #' and intervals. Specifically:
 #'\itemize{
 #'  \item{Equality that handles missing values}
-#'  \item{Floating point equality, an important bit of functionality missing in base R (\code{\%~=\%})}
+#'  \item{Floating point equality, an important bit of functionality missing in base R (\code{%~=%})}
 #'  \item{Strict (value and type) equality, for those familiar with Javascript's \code{===}}
 #'  \item{Greater/less than or equal to with missing value equality}
 #'  \item{Greater/less than or equal to with floating point and missing equality}
@@ -547,7 +547,7 @@ NULL
 
 
 
-#' SQL-like like
+#' mySQL-like rlike
 #'
 #' @description
 #' This takes two arguments just like \code{grepl} - a string and a pattern.
@@ -565,13 +565,13 @@ NULL
 #'
 #'  # where x has an O
 #'
-#'  x[x \%like\% "O"]
+#'  x[x %rlike% "O"]
 #'
 #'  # [1] "foo" "dOe" "obo"
 #'
 #'  # find x where middle letter is "O"
 #'
-#'  x[x \%like\% "[a-z]O[a-z]"]
+#'  x[x %rlike% "[a-z]O[a-z]"]
 #'
 #'  # will print [1] "foo" "dOe"
 #'
@@ -589,7 +589,7 @@ NULL
 #' @description
 #' This takes two arguments just like \code{grepl} - a string and a pattern.
 #' TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE.
-#' It's like \code{\%like\%} from data.table (but slower, preferably use data.table).
+#' It's like \code{%like%} from data.table (but slower, preferably use data.table).
 #'
 #'
 #' @param x a character vector
@@ -602,7 +602,7 @@ NULL
 #'
 #'  # find x where middle letter is upper-case "O"
 #'
-#'  x[x \%perl\% "[a-z]O[a-z]"]
+#'  x[x %perl% "[a-z]O[a-z]"]
 #'
 #'  # will print [1] "dOe"
 #'

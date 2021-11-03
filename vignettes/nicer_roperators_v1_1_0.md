@@ -493,3 +493,70 @@ To help with basic checks, and for those times when something should either be a
 
 Some of you may have been thinking: “oh, so it’s like using `magrittr` to write cleaner code?” And, yes, it’s kind of the same idea - making R coding a bit nicer around the edges. Also like `magrittr`, it’s a tiny, self contained package so you can easily use it in production code. 
 I use `roperators` and `magrittr` together religously and you should too. After all, why make things unpleasant for yourself when you don’t need to? Just think about how much more clean and tidy your R code could be if you used string arithmetic operators, in-place modifiers, direct replacement for missing values, better logical operators (especially for NA handling and floating point equality), terse conversions, simplified checks, and magrittr pipes!
+
+
+## System Checks
+
+Often I want to have my packages know what kind of operating system they're running on. For example, 
+if I'm writing parallel code, my code needs to know if it's dealing with a unix-based OS or Windows or which kind of R is running. As such, we 
+added some simplified checks. 
+
+* `get_os()` to find what operating system is running
+* `is.os_mac()` `TRUE` if running on Mac OSX/darwin.
+* `is.os_win()` `TRUE` if running on Windows
+* `is.os_lnx()` `TRUE` if running on Linux the way God intended.
+* `is.os_unx()` `TRUE` if running on a Unix-based operating system like Linux or OSX 
+* `is.os_x64()` `TRUE` if running on 64-bit operating system
+* `is.R_x64()`  `TRUE` if running 64-bit R
+* `is.R_revo()` `TRUE` if running revolution R (i.e. Microsoft R Open)
+* `is.RStudio()` `TRUE` if running in Rstudio
+
+## Content Checks
+
+For checking if a field has at most 1 or 2 unique values. 
+
+* `is.constant()` `TRUE` unless there's more than 1 unique value
+* `is.binary()` `TRUE` unless there are more than 2 unique values
+
+## Complete Cases Shortcuts
+
+If you're tired of tryping `, na.rm = TRUE` we made these functions for you.Basically, just add _cc (complete cases) to a function name and it'll add `na.rm = TRUE` for you. They work just like the base functions, only with `na.rm = TRUE`, similar to `paste0()` being just `paste(..., sep ="")`
+
+* `length_cc()`
+* `n_unique_cc()`
+* `min_cc()`
+* `max_cc()`
+* `range_cc()`
+* `all_cc()`
+* `any_cc()`
+* `sum_cc()`
+* `prod_cc()`
+* `mean_cc()`
+* `median_cc()`
+* `var_cc()`
+* `cov_cc()`
+* `cor_cc()`
+* `sd_cc()`
+* `weighted_mean_cc()`
+* `quantile_cc()`
+* `IQR_cc()`
+* `mad_cc()`
+* `rowSums_cc()`
+* `colSums_cc()`
+* `rowMeans_cc()`
+* `colMeans_cc()`
+
+
+## File Checks
+
+When you need to check that the extension of a file is okay, you can uses these 
+checks. Basically these check the file extensions and for custom cases use `check_ext_against()`.
+
+* `is_txt_file()`
+* `is_csv_file()`
+* `is_excel_file()`
+* `is_r_file()`
+* `is_rdata_file()`
+* `is_rda_file()`
+* `is_rds_file()`
+* `is_spss_file()`
