@@ -31,3 +31,6 @@ use \code{\%regex=\%} instead. If you want to replace with nothing (""), just ju
 
  # "x" "b" "c" "x"
 }
+\author{
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+}

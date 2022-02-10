@@ -17,7 +17,7 @@
 \alias{cov_cc}
 \alias{cor_cc}
 \alias{sd_cc}
-\alias{weighted_mean_cc}
+\alias{weighted.mean_cc}
 \alias{quantile_cc}
 \alias{IQR_cc}
 \alias{mad_cc}
@@ -57,7 +57,7 @@ cor_cc(x, y = NULL, ...)
 
 sd_cc(x, ...)
 
-weighted_mean_cc(x, w, ...)
+weighted.mean_cc(x, w, ...)
 
 quantile_cc(x, ...)
 
@@ -84,6 +84,9 @@ colMeans_cc(x, ..., rescale = FALSE)
 \item{y}{\code{NULL} (default) or a vector, matrix or data frame with
     compatible dimensions to \code{x}.   The default is equivalent to
     \code{y = x} (but more efficient).}
+
+\item{w}{a numerical vector of weights the same length as \code{x} giving
+    the weights to use for elements of \code{x}.}
 
 \item{rescale}{whether to rescale the matrix/df/vector before calculating
 summaries}

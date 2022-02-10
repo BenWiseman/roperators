@@ -77,10 +77,12 @@ x \%===\% int(y) # TRUE
  3 \%>=<\% c(1, 3)
  # TRUE
 
-
 }
 \seealso{
 Other comparisons: 
 \code{\link{floating_point_comparisons}}
+}
+\author{
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
 }
 \concept{comparisons}

@@ -76,3 +76,6 @@ test$Sepal.Length[test$Species == 'setosa' & test$Petal.Length < 1.5] + 1
    print(x)
    # "ooar"
 }
+\author{
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+}

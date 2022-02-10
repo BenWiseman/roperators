@@ -35,3 +35,6 @@ more useful than string multiplication and can be used with regulr expressions.
 'an apple a day keeps the malignant spirit of Steve Jobs at bay' \%s/\% 'Steve Jobs|apple'
 
 }
+\author{
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+}

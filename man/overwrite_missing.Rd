@@ -29,5 +29,7 @@ NA elements contained in x.
 
  print(x)
  # 1 2 3 4
-
+}
+\author{
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
 }

@@ -24,8 +24,9 @@ Convert factor with numeric labels into numeric vector
  # Or...
  as.numeric(as.character(x)) # A tad unsightly
 
-
 }
 \author{
 Ulrike Grömping, \email{groemping@beuth-hochschule.de}
+
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
 }

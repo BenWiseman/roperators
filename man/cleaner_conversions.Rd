@@ -49,3 +49,12 @@ foo <- 255
 as.class(foo, "roman")
 # [1] CCLV
 }
+\author{
+Steven Nydick, \email{steven.nydick@kornferry.com}
+
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+}

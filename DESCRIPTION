@@ -19,6 +19,11 @@ Description: Provides string arithmetic, reassignment operators, logical operato
   is easier to read, write, and maintain while providing a friendlier experience
   to new R users from other language backgrounds (such as 'Python') who are used
   to concepts such as x += 1 and 'foo' + 'bar'.
+  Includes operators for not in, easy floating point comparisons, === equivilent, and SQL-like 
+  like operations (), etc. 
+  We also added in some extra helper functions, such as OS checks, pasting
+  in Oxford comma format, and functions to get the first, last, nth, or most common 
+  element of a vector or word in a string. 
 License: MIT + file LICENSE
 Copyright: Korn Ferry International
 URL: https://benwiseman.github.io/Roperators/,
@@ -31,6 +36,8 @@ Imports:
 Suggests:
     magrittr,
     knitr,
+    markdown,
+    rmarkdown,
     prettydoc
 VignetteBuilder:
     knitr

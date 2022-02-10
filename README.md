@@ -4,22 +4,22 @@ Make your R code nicer with roperators
 ## A Package to Make R a Little Nicer
 
 Vignette will usually be updated here first: </br>
-<https://www.happylittlescripts.com/2018/09/make-your-r-code-nicer-with-roperators.html>
-</br>
+![](https://benwiseman.github.io/roperators/) </br>
 
 When I first started with R, there were a few things that bothered me
 greatly. While I can’t change dynamic typing, it is possible to do
 things such as:
 
-1)  String addition, subtraction, multiplication, and division </br>
-2)  In-place modifiers (*à la* `+=`) </br>
-3)  Direct assignments to only NA or regex-matched elements </br>
-4)  Comparison operators for between, floating point equality, and more
+1.  String addition, subtraction, multiplication, and division </br>
+2.  In-place modifiers (*à la* `+=`) </br>
+3.  Direct assignments to only NA or regex-matched elements </br>
+4.  Comparison operators for between, floating point equality, and more
     </br>
-5)  Extra logical operators to make code more consistent </br>
-6)  Make nicer (shorter) conversion functions (`int()` as opposed to
+5.  Extra logical operators to make code more consistent </br>
+6.  Make nicer (shorter) conversion functions (`int()` as opposed to
     `as.integer()`) </br>
-7)  Simple checks for usability (e.g `is.bad_for_calcs()`)
+7.  Simple checks for usability (e.g `is.bad_for_calcs()` or
+    `is.os_x64()`)
 
 The above functionality, I’d found myself manually adding into my R
 projects to clean up the code. Then me an my colleges thought: ‘that all
@@ -105,8 +105,7 @@ something like this:
 iris_data$Sepal.Length <- iris_data$Sepal.Length + 1
 ```
 
-Or
-worse…
+Or worse…
 
 ``` r
 iris_data$Sepal.Length[iris_data$Species == 'setosa'] <- iris_data$Sepal.Length[iris_data$Species == 'setosa'] + 1
@@ -130,12 +129,12 @@ iris_data$Sepal.Length[iris_data$Species == 'setosa'] %+=% 1
 
 The current in-place modifiers included in `roperators` are:
 
-  - `%+=%`, `%-=%` - Add to and subtract from a variable. Also works on
+-   `%+=%`, `%-=%` - Add to and subtract from a variable. Also works on
     character strings
-  - `%*=%`, `%/=%`, and `%^=%` - Multiply, divide, and exponentiation a
+-   `%*=%`, `%/=%`, and `%^=%` - Multiply, divide, and exponentiation a
     variable.
-  - `%root=%` and `%log=%` - Transform a variable by the nth root or log
-  - `%regex=%` - Apply a regular expression to text
+-   `%root=%` and `%log=%` - Transform a variable by the nth root or log
+-   `%regex=%` - Apply a regular expression to text
 
 The last two are similar depending on whether you want to modify the
 text or replace it outright. Note that they both take two values
@@ -176,7 +175,7 @@ print(x)
 
     ## [1] "[redacted]" "[redacted]" "c"          "[redacted]"
 
-## Make More Comparisons and Logical Operators Great Again
+## More Comparisons and Logical Operators
 
 This category of `roperators` is an answer to all those who cry out for
 help when what should be simple logical statements are either
@@ -208,8 +207,7 @@ x == y
 
 Think about how many `if` statements you’ve had break due to a lack of
 missing-value equality capability. You can also use `%<=%` and `%>=%` to
-handle missing values instead of `<=` and
-`>=`
+handle missing values instead of `<=` and `>=`
 
 ### When `(0.1 + 0.1 + 0.1) == 0.3` should be `TRUE` (i.e. almost always)
 
@@ -265,8 +263,8 @@ If you have any sense of style, just use `%~=%` instead.
 ### When `x` is between `a` and `b`
 
 This is a simple shortcut with two variants for end-exclusive and
-end-inclusive between. you just need to feed in `c(lower_bound,
-upper_bound)`
+end-inclusive between. you just need to feed in
+`c(lower_bound, upper_bound)`
 
 ``` r
 5 %><% c(1, 10)  # TRUE
@@ -356,11 +354,12 @@ a lot of hate-mail.
 
 ### Numeric to factor
 
-One of the ugliest things I see in R code is the infamous `x <-
-as.numeric(as.character(x))` when trying to turn a factor with numeric
-labels (most of which are the fault of dynamic typing) into a number. I
-can still recall the rage I felt the first time a factor was converted
-into its levels rather than its labels when using `as.numeric()`.
+One of the ugliest things I see in R code is the infamous
+`x <- as.numeric(as.character(x))` when trying to turn a factor with
+numeric labels (most of which are the fault of dynamic typing) into a
+number. I can still recall the rage I felt the first time a factor was
+converted into its levels rather than its labels when using
+`as.numeric()`.
 
 The simple solution is just a shorthand: `x <- f.as.numeric(x)` - just
 chuck an f in front of it and be done with it.
@@ -370,13 +369,13 @@ chuck an f in front of it and be done with it.
 I’ll give this one to PyPeople, R’s conversion syntax is cumbersome.
 That’s why `roperators` includes:
 
-  - `chr()` short for `as.character()`
-  - `num()` short for `as.numeric()`
-  - `int()` short for `as.integer()`
-  - `dbl()` short for `as.double()`
-  - `chr()` short for `as.character()` (if only `str()` wasn’t already
+-   `chr()` short for `as.character()`
+-   `num()` short for `as.numeric()`
+-   `int()` short for `as.integer()`
+-   `dbl()` short for `as.double()`
+-   `chr()` short for `as.character()` (if only `str()` wasn’t already
     taken)
-  - `bool()` short for `as.logical()`
+-   `bool()` short for `as.logical()`
 
 Now things like this:
 
@@ -401,12 +400,22 @@ print(percent_true)
 Which is arguably easier on the eyes, especially for people who grew up
 in other programming languages.
 
+We also added `as.class` to allow arbitrary conversions in those few
+moments you find yourself wanting to pipe into a conversion that changes
+by a variable.
+
+``` r
+foo <- 204
+as.class(foo, "roman")
+```
+
+    ## [1] CCIV
+
 ## Add more type checks
 
 Sometimes you just want to know that everything is going to be okay.
 Rather than running multiple checks. If you wanted to be sure something
-was going to work in R, you could do something like
-this:
+was going to work in R, you could do something like this:
 
 ``` r
 if(is.atomic(x) & (length(x) >= 1) & !is.na(x) & !is_nan(x) & !is.na(as.numeric(x)) & !is.factor(x) & !is.infinite(x) ){
@@ -428,31 +437,136 @@ you from `any(is.bad_for_calcs((x))` because we’re nice like that.
 
 Beyond that, you’ll also find:
 
-  - `is.scalar()`
-  - `is.irregular_list()`
-  - `is.bad_for_indexing()`
+-   `is.scalar()`
+-   `is.irregular_list()`
+-   `is.bad_for_indexing()`
 
 To help with basic checks, and for those times when something should
 either be a certain class or `NULL`:
 
-  - `is.scalar_or_null()`
-  - `is.numeric_or_null()`
-  - `is.character_or_null()`
-  - `is.logical_or_null()`
-  - `is.df_or_null()`
-  - `is.list_or_null()`
-  - `is.atomic_nan()` (I didn’t want to put it all by itself)
+-   `is.scalar_or_null()`
+-   `is.numeric_or_null()`
+-   `is.character_or_null()`
+-   `is.logical_or_null()`
+-   `is.df_or_null()`
+-   `is.list_or_null()`
+-   `is.atomic_nan()` (I didn’t want to put it all by itself)
 
-## Bonus - Use `roperators` with `magrittr`
+## System Checks
 
-Some of you may have been thinking: “oh, so it’s like using `magrittr`
-to write cleaner code?” And, yes, it’s kind of the same idea - making R
-coding a bit nicer around the edges. Also like `magrittr`, it’s a tiny,
-self contained package so you can easily use it in production code. I
-use `roperators` and `magrittr` together religously and you should too.
-After all, why make things unpleasant for yourself when you don’t need
-to? Just think about how much more clean and tidy your R code could be
-if you used string arithmetic operators, in-place modifiers, direct
-replacement for missing values, better logical operators (especially for
-NA handling and floating point equality), terse conversions, simplified
-checks, and magrittr pipes\!
+Often I want to have my packages know what kind of operating system
+they’re running on. For example, if I’m writing parallel code, my code
+needs to know if it’s dealing with a unix-based OS or Windows or which
+kind of R is running. As such, we added some simplified checks.
+
+-   `get_os()` to find what operating system is running
+-   `is.os_mac()` `TRUE` if running on Mac OSX/darwin.
+-   `is.os_win()` `TRUE` if running on Windows
+-   `is.os_lnx()` `TRUE` if running on Linux the way God intended.
+-   `is.os_unx()` `TRUE` if running on a Unix-based operating system
+    like Linux or OSX
+-   `is.os_x64()` `TRUE` if running on 64-bit operating system
+-   `is.R_x64()` `TRUE` if running 64-bit R
+-   `is.R_revo()` `TRUE` if running revolution R (i.e. Microsoft R Open)
+-   `is.RStudio()` `TRUE` if running in Rstudio
+
+## Content Checks
+
+For checking if a field has at most 1 or 2 unique values.
+
+-   `is.constant()` `TRUE` unless there’s more than 1 unique value
+-   `is.binary()` `TRUE` unless there are more than 2 unique values
+
+## Complete Cases Shortcuts
+
+If you’re tired of tryping `, na.rm = TRUE` we made these functions for
+you.Basically, just add \_cc (complete cases) to a function name and
+it’ll add `na.rm = TRUE` for you. They work just like the base
+functions, only with `na.rm = TRUE`, similar to `paste0()` being just
+`paste(..., sep ="")`
+
+-   `length_cc()`
+-   `n_unique_cc()`
+-   `min_cc()`
+-   `max_cc()`
+-   `range_cc()`
+-   `all_cc()`
+-   `any_cc()`
+-   `sum_cc()`
+-   `prod_cc()`
+-   `mean_cc()`
+-   `median_cc()`
+-   `var_cc()`
+-   `cov_cc()`
+-   `cor_cc()`
+-   `sd_cc()`
+-   `weighted.mean_cc()`
+-   `quantile_cc()`
+-   `IQR_cc()`
+-   `mad_cc()`
+-   `rowSums_cc()`
+-   `colSums_cc()`
+-   `rowMeans_cc()`
+-   `colMeans_cc()`
+
+## File Checks
+
+When you need to check that the extension of a file is okay, you can
+uses these checks. Basically these check the file extensions and for
+custom cases use `check_ext_against()`.
+
+-   `is_txt_file()`
+-   `is_csv_file()`
+-   `is_excel_file()`
+-   `is_r_file()`
+-   `is_rdata_file()`
+-   `is_rda_file()`
+-   `is_rds_file()`
+-   `is_spss_file()`
+
+## File Readers
+
+If you work with pipe- or tab-delimited tables, we added `read.tsv()`
+and `read.psv()`
+
+## Paste & Cat helpers
+
+## Get first, last, nth, most frequent element/word
+
+For basic vectors, it’s pretty intuitive
+
+``` r
+my_stuff <- c(1:10, 10, 5)
+
+# These are straight forward
+get_1st(my_stuff)    # 1
+get_nth(my_stuff, 3) # 3
+get_last(my_stuff)   # 5
+
+# Returns numeric vector of mode(s) if x is numeric
+get_most_frequent(my_stuff) # c(10, 5)
+
+# Else it returns a character vector
+my_chars <- c("a", "b", "b", "a", "g", "o", "l", "d")
+get_most_frequent(my_chars) # c("a", "b")
+
+# can collapse into a single string (for convienience)
+get_most_frequent(my_chars, collapse = " & ") # "a & b"
+```
+
+For pulling apart strings
+
+``` r
+generic_string <- "Who's A good boy? Winston's a good boy!"
+
+get_1st_word(generic_string)    # Who's
+get_nth_word(generic_string, 3) # good
+get_last_word(generic_string)   # boy!
+
+# default ignores case and punctuation
+get_most_frequent_word(generic_string) # c("a", "boy", "good")
+
+# can change like so:
+get_most_frequent_word(generic_string, ignore.case = FALSE, ignore.punct = FALSE) 
+# "good"
+```

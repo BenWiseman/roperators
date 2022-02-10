@@ -46,3 +46,8 @@ is.os_lnx()
 is.os_unx()
 
 }
+\author{
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+
+Steven Nydick, \email{steven.nydick@kornferry.com}
+}

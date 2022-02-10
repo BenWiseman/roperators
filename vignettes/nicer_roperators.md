@@ -537,7 +537,7 @@ If you're tired of tryping `, na.rm = TRUE` we made these functions for you.Basi
 * `cov_cc()`
 * `cor_cc()`
 * `sd_cc()`
-* `weighted_mean_cc()`
+* `weighted.mean_cc()`
 * `quantile_cc()`
 * `IQR_cc()`
 * `mad_cc()`
@@ -560,3 +560,50 @@ checks. Basically these check the file extensions and for custom cases use `chec
 * `is_rda_file()`
 * `is_rds_file()`
 * `is_spss_file()`
+
+
+## Paste & Cat helpers
+
+
+## Get first, last, nth, most frequent element/word
+
+For basic vectors, it's pretty intuitive
+
+```r
+my_stuff <- c(1:10, 10, 5)
+
+# These are straight forward
+get_1st(my_stuff)    # 1
+get_nth(my_stuff, 3) # 3
+get_last(my_stuff)   # 5
+
+# Returns numeric vector of mode(s) if x is numeric
+get_most_frequent(my_stuff) # c(10, 5)
+
+# Else it returns a character vector
+my_chars <- c("a", "b", "b", "a", "g", "o", "l", "d")
+get_most_frequent(my_chars) # c("a", "b")
+
+# can collapse into a single string (for convienience)
+get_most_frequent(my_chars, collapse = " & ") # "a & b"
+
+```
+
+For pulling apart strings
+
+```r
+generic_string <- "Who's A good boy? Winston's a good boy!"
+
+get_1st_word(generic_string)    # Who's
+get_nth_word(generic_string, 3) # good
+get_last_word(generic_string)   # boy!
+
+# default ignores case and punctuation
+get_most_frequent_word(generic_string) # c("a", "boy", "good")
+
+# can change like so:
+get_most_frequent_word(generic_string, ignore.case = FALSE, ignore.punct = FALSE) 
+# "good"
+
+```
+

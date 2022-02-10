@@ -1,40 +1,30 @@
+# helepers for creating nicer messages/strings
+
 #' New Paste and Cat Rules
 #'
-#' @inheritParams base::paste
-#' @inheritParams base::cat
+#' @description
+#' The available functions are:
+#'
+#' `paste_()`is the same as `paste0` but uses an underscore to separate
+#'
+#' `cat0()` is analogous to `paste0` but for cat
+#'
+#' `catN()` is the same as `cat0` but automatically inserts a new line after the cat
+#'
+#' `paste_series()` paste a series of things with a conjunction
+#'
+#' `paste_oxford()` shortcut for `paste_series` as oxford comma
+#'
+#'
 #' @param conjunction the conjunction to use to collapse the final elements
 #'        in the series (such as and, or, &, or something else)
 #' @param use_oxford_comma whether to use the oxford comma in the series
 #'        (standard in American English) or to not use the oxford comma
-#'
-#' @details paste_ is the same as paste0 but uses an underscore to separate
-#'          values, cat0 is analogous to paste0 but for cat, and catN is the
-#'          same as cat0 but automatically inserts a new line after the cat
-#'          statement (so is similar to message).
-#'
+#' @inheritParams base::paste
+#' @inheritParams base::cat
 #' @author Steven Nydick, \email{steven.nydick@@kornferry.com}
-#'
-#' @examples
-#' # works if adding entries sequentially
-#' paste_series("a")
-#' paste_series("a", "b")
-#' paste_series("a", "b", "c")
-#'
-#' # works if putting entries into c function
-#' paste_series(c("a", "b", "c"), "d")
-#'
-#' # can use oxford comma or not
-#' paste_series("a", "b", "c",
-#'              use_oxford_comma = TRUE)
-#' paste_series("a", "b", "c",
-#'              use_oxford_comma = FALSE)
-#'
-#' # makes no difference if fewer than 3 items
-#' paste_series("a", "b",
-#'              use_oxford_comma = TRUE)
-#'
 #' @name paste_and_cat
-NULL
+
 
 #' @rdname paste_and_cat
 #' @export
@@ -43,7 +33,7 @@ paste_ <- function(...,
   paste(...,
         sep      = "_",
         collapse = collapse)
-} # END paste_ FUNCTION
+}
 
 
 #' @rdname paste_and_cat
@@ -59,7 +49,7 @@ cat0 <- function(...,
       fill   = fill,
       labels = labels,
       append = append)
-} # END cat0 FUNCTION
+}
 
 #' @rdname paste_and_cat
 #' @export
@@ -73,8 +63,24 @@ catN <- function(...,
        fill   = fill,
        labels = labels,
        append = append)
-} # END catN FUNCTION
+}
 
+
+#' @examples
+#'
+#' paste_series("a")
+#' paste_series("a", "b")
+#' paste_series("a", "b", "c")
+#' # works if putting entries into c function
+#' paste_series(c("a", "b", "c"), "d")
+#' # can use oxford comma or not
+#' paste_series("a", "b", "c",
+#'              use_oxford_comma = TRUE)
+#' paste_series("a", "b", "c",
+#'              use_oxford_comma = FALSE)
+#' # makes no difference if fewer than 3 items
+#' paste_series("a", "b",
+#'              use_oxford_comma = TRUE)
 #' @rdname paste_and_cat
 #' @export
 paste_series <- function(...,
@@ -94,7 +100,7 @@ paste_series <- function(...,
   # return early if we only have 0-to-2 entries (no need for sep then)
   if(n <= 2){
     return(paste(x, collapse = paste0(" ", conjunction, " ")))
-  } # END ifelse STATEMENT
+  }
 
   # indicate the index for oxford or not
   # - take all but last 1 IF oxford
@@ -106,10 +112,11 @@ paste_series <- function(...,
   x[n]       <- paste(conjunction, x[n])
 
   # paste everything together
-  paste(x,
-        collapse = " ")
-} # END paste_comma FUNCTION
+  paste(x, collapse = " ")
+}
 
 #' @rdname paste_and_cat
 #' @export
-paste_oxford <- paste_series
+paste_oxford <- function(...){
+  paste_series(...)
+}

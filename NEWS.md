@@ -5,7 +5,7 @@
 * New complete cases functions (`length_cc()`, `min_cc()`, `max_cc()`,
   `range_cc()`, `all_cc()`, `any_cc()`, `sum_cc()`, `prod_cc()`, `mean_cc()`,
   `median_cc()`, `var_cc()`, `cov_cc()`, `cor_cc()`, `sd_cc()`,
-  `weighted_mean_cc()`, `quantile_cc()`, `IQR_cc()`, `mad_cc()`,
+  `weighted.mean_cc()`, `quantile_cc()`, `IQR_cc()`, `mad_cc()`,
   `rowSums_cc()`, `colSums_cc()`, `rowMeans_cc()`, `colMeans_cc()`) that set
   default argument to standard base/stats functions for only calculating on
   complete cases.
@@ -22,3 +22,11 @@
   is constant (contains only ONE value type, ignoring NA) or binary (contains
   at most TWO value types, ignoring NA).
 * New `get_most_frequent()` function to get most frequent thing(s) in x.
+* New `get_most_frequent_word()` function to get most frequent word from string. 
+* New `get_nth_word()` function to get nth word from string
+* New `as.class()` pipe-able function for arbitrary class conversions
+* New `paste_()`is the same as `paste0` but uses an underscore to separate
+* New `cat0()` is analogous to `paste0` but for cat
+* New `catN()` is the same as `cat0` but automatically inserts a new line after the cat
+* New `paste_series()` paste a series of things with a conjunction
+* New `paste_oxford()` shortcut for `paste_series` as oxford comma

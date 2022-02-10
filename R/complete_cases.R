@@ -7,6 +7,7 @@
 #' @inheritParams base::mean
 #' @inheritParams base::sum
 #' @inheritParams stats::cor
+#' @inheritParams stats::weighted.mean
 #' @param rescale whether to rescale the matrix/df/vector before calculating
 #'        summaries
 #' @param ... arguments to pass to wrapped functions
@@ -131,7 +132,7 @@ sd_cc <- function(x, ...){
 
 #' @rdname complete_cases
 #' @export
-weighted_mean_cc <- function(x, w, ...){
+weighted.mean_cc <- function(x, w, ...){
   stats::weighted.mean(x, w, ..., na.rm = TRUE)
 }
 

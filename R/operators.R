@@ -20,6 +20,7 @@ NULL
 #' # String division with a regular expression:
 #' 'an apple a day keeps the malignant spirit of Steve Jobs at bay' %s/% 'Steve Jobs|apple'
 #'
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @name string_arithmetic
 NULL
 
@@ -66,6 +67,7 @@ NULL
 #' @param x a stored value
 #' @param y value to modify stored value by
 #'
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @examples
 #' x <- 1
 #'
@@ -209,6 +211,7 @@ NULL
 #'  print(x)
 #'
 #'  # "axb" "b" "c" "dx"
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @rdname overwrite_by_regex
 #' @export
 `%regex=%`<- function(x, value){
@@ -246,6 +249,7 @@ NULL
 #'  print(x)
 #'
 #'  # "x" "b" "c" "x"
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @rdname assign_by_regex
 #' @export
 `%regex<-%`<- function(x, value){
@@ -283,7 +287,7 @@ NULL
 #'
 #'  print(x)
 #'  # 1 2 3 4
-#'
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @rdname overwrite_missing
 #' @export
 `%na<-%` <- function(x, value) {
@@ -369,7 +373,7 @@ NULL
 #'  3 %>=<% c(1, 3)
 #'  # TRUE
 #'
-#'
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @name comparisons
 NULL
 
@@ -429,7 +433,6 @@ NULL
 #'  Floating point comparison operators
 #'
 #'@description
-#'
 #'  These are an important set of operators missing from base R. In particular,
 #'  using \code{==} on two non-interger numbers can give unexpected results (see examples.)
 #'
@@ -455,7 +458,7 @@ NULL
 #'  (0.1 + 0.1 + 0.1) %>~% 0.3 # TRUE
 #'  (0.1 + 0.1 + 0.1) %<~% 0.3 # TRUE
 #'
-#'
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @name floating_point_comparisons
 NULL
 
@@ -521,6 +524,7 @@ NULL
 #'  FALSE %aon% TRUE
 #'  # FALSE
 #'
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @name logicals
 NULL
 
@@ -553,7 +557,8 @@ NULL
 #' This takes two arguments just like \code{grepl} - a string and a pattern.
 #' TRUE if \code{grepl(pattern, x, ignore.case=TRUE)} would be TRUE
 #'
-#'
+#' @note
+#' data.table has a %like% operator which you should try to use instead if working with data.table!
 #'
 #' @param x a character vector
 #' @param pattern a single character expression
@@ -614,9 +619,3 @@ NULL
 }
 
 
-#################              MISC                               ##############
-
-
-
-
-###############################################################################

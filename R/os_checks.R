@@ -14,6 +14,8 @@
 #' is.os_lnx()
 #' is.os_unx()
 #'
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
+#' @author Steven Nydick, \email{steven.nydick@@kornferry.com}
 #' @name os
 NULL
 
@@ -96,7 +98,7 @@ is.R_x64 <- function(){
 #' @rdname os
 #' @export
 is.R_revo <- function(){
-  "RevoUtils" %in% names(sessionInfo()[["otherPkgs"]])
+  "RevoUtils" %in% names(utils::sessionInfo()[["otherPkgs"]])
 }
 
 #' TRUE if running RStudio interactively

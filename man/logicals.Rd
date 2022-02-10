@@ -36,6 +36,9 @@ This takes two arguments just like \code{grepl} - a string and a pattern.
 TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE.
 It's like \code{\%like\%} from data.table (but slower, preferably use data.table).
 }
+\note{
+data.table has a \%like\% operator which you should try to use instead if working with data.table!
+}
 \examples{
  #### Not in ####
 
@@ -90,4 +93,7 @@ It's like \code{\%like\%} from data.table (but slower, preferably use data.table
 
  # will print [1] "dOe"
 
+}
+\author{
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
 }

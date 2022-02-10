@@ -30,3 +30,6 @@ use \code{\%regex<-\%} instead.
 
  # "axb" "b" "c" "dx"
 }
+\author{
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+}

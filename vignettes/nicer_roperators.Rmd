@@ -167,7 +167,7 @@ x %regex<-% c('i', '[redacted]')
 print(x)
 ```
 
-## Make More Comparisons and Logical Operators Great Again
+## More Comparisons and Logical Operators
 
 
 This category of `roperators` is an answer to all those who cry out for help when
@@ -345,7 +345,13 @@ print(percent_true)
 
 Which is arguably easier on the eyes, especially for people who grew up in other programming languages. 
 
+We also added `as.class` to allow arbitrary conversions in those few moments you find yourself wanting to 
+pipe into a conversion that changes by a variable. 
 
+```{r}
+foo <- 204
+as.class(foo, "roman")
+```
 ## Add more type checks
 
 Sometimes you just want to know that everything is going to be okay. Rather than running
@@ -386,11 +392,6 @@ To help with basic checks, and for those times when something should either be a
 * `is.list_or_null()`
 * `is.atomic_nan()` (I didn't want to put it all by itself)
 
-
-## Bonus - Use `roperators` with `magrittr`
-
-Some of you may have been thinking: “oh, so it’s like using `magrittr` to write cleaner code?” And, yes, it’s kind of the same idea - making R coding a bit nicer around the edges. Also like `magrittr`, it’s a tiny, self contained package so you can easily use it in production code. 
-I use `roperators` and `magrittr` together religously and you should too. After all, why make things unpleasant for yourself when you don’t need to? Just think about how much more clean and tidy your R code could be if you used string arithmetic operators, in-place modifiers, direct replacement for missing values, better logical operators (especially for NA handling and floating point equality), terse conversions, simplified checks, and magrittr pipes!
 
 ## System Checks
 
@@ -434,7 +435,7 @@ If you're tired of tryping `, na.rm = TRUE` we made these functions for you.Basi
 * `cov_cc()`
 * `cor_cc()`
 * `sd_cc()`
-* `weighted_mean_cc()`
+* `weighted.mean_cc()`
 * `quantile_cc()`
 * `IQR_cc()`
 * `mad_cc()`
@@ -459,4 +460,56 @@ checks. Basically these check the file extensions and for custom cases use `chec
 * `is_spss_file()`
 
 
+
+
+## File Readers
+
+If you work with pipe- or tab-delimited tables, we added `read.tsv()` and `read.psv()`
+
+
+
+## Paste & Cat helpers
+
+
+## Get first, last, nth, most frequent element/word
+
+For basic vectors, it's pretty intuitive
+
+```{r, eval=FALSE}
+my_stuff <- c(1:10, 10, 5)
+
+# These are straight forward
+get_1st(my_stuff)    # 1
+get_nth(my_stuff, 3) # 3
+get_last(my_stuff)   # 5
+
+# Returns numeric vector of mode(s) if x is numeric
+get_most_frequent(my_stuff) # c(10, 5)
+
+# Else it returns a character vector
+my_chars <- c("a", "b", "b", "a", "g", "o", "l", "d")
+get_most_frequent(my_chars) # c("a", "b")
+
+# can collapse into a single string (for convienience)
+get_most_frequent(my_chars, collapse = " & ") # "a & b"
+
+```
+
+For pulling apart strings
+
+```{r, eval=FALSE}
+generic_string <- "Who's A good boy? Winston's a good boy!"
+
+get_1st_word(generic_string)    # Who's
+get_nth_word(generic_string, 3) # good
+get_last_word(generic_string)   # boy!
+
+# default ignores case and punctuation
+get_most_frequent_word(generic_string) # c("a", "boy", "good")
+
+# can change like so:
+get_most_frequent_word(generic_string, ignore.case = FALSE, ignore.punct = FALSE) 
+# "good"
+
+```
 

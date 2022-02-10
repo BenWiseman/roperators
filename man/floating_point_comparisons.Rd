@@ -42,10 +42,12 @@ See this for details:
  (0.1 + 0.1 + 0.1) \%>~\% 0.3 # TRUE
  (0.1 + 0.1 + 0.1) \%<~\% 0.3 # TRUE
 
-
 }
 \seealso{
 Other comparisons: 
 \code{\link{comparisons}}
+}
+\author{
+Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
 }
 \concept{comparisons}
