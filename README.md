@@ -1,10 +1,11 @@
+
+Make your R code nicer with roperators
+================
+
 [![CRAN version](https://img.shields.io/cran/v/roperators?style=flat-square)](https://cran.r-project.org/package=roperators)
 [![metacran downloads](https://cranlogs.r-pkg.org/badges/last-month/roperators)](https://cran.r-project.org/package=roperators)
 [![License](https://img.shields.io/cran/l/roperators?style=flat-square)](https://cran.r-project.org/package=roperators)
 [![GitHub commits](https://badgen.net/github/last-commit/BenWiseman/roperators)](https://GitHub.com/BenWiseman/roperators/commit/)
-
-Make your R code nicer with roperators
-================
 
 ## A Package to Make R a Little Nicer
 
