@@ -1,6 +1,6 @@
 Package: roperators
 Title: Additional Operators to Help you Write Cleaner R Code
-Version: 1.2.0
+Version: 1.2.0.9000
 Authors@R:
     c(person('Ben', 'Wiseman',
              role  = c('cre', 'aut', 'ccp'),

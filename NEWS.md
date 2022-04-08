@@ -1,3 +1,8 @@
+# roperators 1.2.0.9000
+
+* Cleaned up a lot of the code to be standardized and added additional examples
+  where they were missing.
+
 # roperators 1.2.0
 
 * Cleaned up roxygen comments, DESCRIPTION, and NAMESPACE files.

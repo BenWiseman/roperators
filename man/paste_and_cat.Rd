@@ -68,29 +68,29 @@ in the series (such as and, or, &, or something else)}
 }
 \description{
 The available functions are:
-
-\code{paste_()}is the same as \code{paste0} but uses an underscore to separate
-
-\code{cat0()} is analogous to \code{paste0} but for cat
-
-\code{catN()} is the same as \code{cat0} but automatically inserts a new line after the cat
-
-\code{paste_series()} paste a series of things with a conjunction
-
-\code{paste_oxford()} shortcut for \code{paste_series} as oxford comma
+\itemize{
+\item \code{paste_()}is the same as \code{paste0} but uses an underscore to separate
+\item \code{cat0()} is analogous to \code{paste0} but for cat
+\item \code{catN()} is the same as \code{cat0} but automatically inserts a new line after
+the cat
+\item \code{paste_series()} paste a series of things with a conjunction
+\item \code{paste_oxford()} shortcut for \code{paste_series} as oxford comma
+}
 }
 \examples{
-
 paste_series("a")
 paste_series("a", "b")
 paste_series("a", "b", "c")
+
 # works if putting entries into c function
 paste_series(c("a", "b", "c"), "d")
+
 # can use oxford comma or not
 paste_series("a", "b", "c",
              use_oxford_comma = TRUE)
 paste_series("a", "b", "c",
              use_oxford_comma = FALSE)
+
 # makes no difference if fewer than 3 items
 paste_series("a", "b",
              use_oxford_comma = TRUE)

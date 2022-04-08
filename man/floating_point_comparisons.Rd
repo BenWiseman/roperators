@@ -5,7 +5,7 @@
 \alias{\%~=\%}
 \alias{\%>~\%}
 \alias{\%<~\%}
-\title{Floating point comparison operators}
+\title{Floating Point Comparisons}
 \usage{
 x \%~=\% y
 
@@ -20,28 +20,28 @@ x \%<~\% y
 }
 \description{
 These are an important set of operators missing from base R. In particular,
-using \code{==} on two non-interger numbers can give unexpected results (see examples.)
+using \code{==} on two non-interger numbers can give unexpected results
+(see examples).
 
 See this for details:
 \url{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html}
 }
 \examples{
- ## Floating point test of equality ####
+## Floating Point Test of Equality
 
- # Basic Equality - no roperators:
- (0.1 + 0.1 + 0.1) == 0.3   # FALSE
- # Basic Equality - with roperators:
- (0.1 + 0.1 + 0.1) \%~=\% 0.3 # TRUE
+# Basic Equality - no roperators:
+(0.1 + 0.1 + 0.1) == 0.3   # FALSE
+# Basic Equality - with roperators:
+(0.1 + 0.1 + 0.1) \%~=\% 0.3 # TRUE
 
 
- # NOTE: for floating point >= and <=
- (0.1 + 0.1 + 0.1) \%>=\% 0.3 # TRUE
- (0.1 + 0.1 + 0.1) \%<=\% 0.3 # FALSE
+# NOTE: for floating point >= and <=
+(0.1 + 0.1 + 0.1) \%>=\% 0.3 # TRUE
+(0.1 + 0.1 + 0.1) \%<=\% 0.3 # FALSE
 
- # Use >~ and <~ for greater/less than or approx equal
- (0.1 + 0.1 + 0.1) \%>~\% 0.3 # TRUE
- (0.1 + 0.1 + 0.1) \%<~\% 0.3 # TRUE
-
+# Use >~ and <~ for greater/less than or approx equal
+(0.1 + 0.1 + 0.1) \%>~\% 0.3 # TRUE
+(0.1 + 0.1 + 0.1) \%<~\% 0.3 # TRUE
 }
 \seealso{
 Other comparisons: 

@@ -7,7 +7,7 @@
 \alias{\%aon\%}
 \alias{\%rlike\%}
 \alias{\%perl\%}
-\title{Logical operators}
+\title{Logical Operators}
 \usage{
 x \%ni\% y
 
@@ -27,72 +27,66 @@ x \%perl\% pattern
 \item{pattern}{a single character expression}
 }
 \description{
-These are some convienience functions, such as a not-in, and xor operator.
+These are some convenience functions, such as a not-in, and xor operator.
 
 This takes two arguments just like \code{grepl} - a string and a pattern.
-TRUE if \code{grepl(pattern, x, ignore.case=TRUE)} would be TRUE
+TRUE if \code{grepl(pattern, x, ignore.case=TRUE)} would be TRUE.
 
 This takes two arguments just like \code{grepl} - a string and a pattern.
 TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE.
-It's like \code{\%like\%} from data.table (but slower, preferably use data.table).
+It's like \verb{\%like\%} from data.table (but slower, preferably use data.table).
 }
 \note{
-data.table has a \%like\% operator which you should try to use instead if working with data.table!
+data.table has a \%like\% operator which you should try to use instead if
+working with data.tables!
 }
 \examples{
- #### Not in ####
+## Not In
+"z" \%ni\%  c("a", "b", "c")
+#  TRUE
 
- "z" \%ni\%  c("a", "b", "c")
- #  TRUE
+## Exclusive Or
+TRUE \%xor\% TRUE
+# FALSE
 
- #### Exclusive or  ####
+FALSE \%xor\% FALSE
+# FALSE
 
- TRUE \%xor\% TRUE
- # FALSE
+FALSE \%xor\% TRUE
+# TRUE
 
- FALSE \%xor\% FALSE
- # FALSE
+## All-Or-Nothing
+TRUE \%aon\% TRUE
+# TRUE
 
- FALSE \%xor\% TRUE
- # TRUE
+FALSE \%aon\% FALSE
+# TRUE
 
- #### All-or-nothing ####
+FALSE \%aon\% TRUE
+# FALSE
+# Apply a regular expression/substitution to x:
+x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
 
- TRUE \%aon\% TRUE
- # TRUE
+# where x has an O
 
- FALSE \%aon\% FALSE
- # TRUE
+x[x \%rlike\% "O"]
 
- FALSE \%aon\% TRUE
- # FALSE
+# [1] "foo" "dOe" "obo"
 
+# find x where middle letter is "O"
+
+x[x \%rlike\% "[a-z]O[a-z]"]
+
+# will print [1] "foo" "dOe"
 # Apply a regular expression/substitution to x:
 
- x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
+x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
 
- # where x has an O
+# find x where middle letter is upper-case "O"
 
- x[x \%rlike\% "O"]
+x[x \%perl\% "[a-z]O[a-z]"]
 
- # [1] "foo" "dOe" "obo"
-
- # find x where middle letter is "O"
-
- x[x \%rlike\% "[a-z]O[a-z]"]
-
- # will print [1] "foo" "dOe"
-
-# Apply a regular expression/substitution to x:
-
- x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
-
- # find x where middle letter is upper-case "O"
-
- x[x \%perl\% "[a-z]O[a-z]"]
-
- # will print [1] "dOe"
-
+# will print [1] "dOe"
 }
 \author{
 Ben Wiseman, \email{benjamin.wiseman@kornferry.com}

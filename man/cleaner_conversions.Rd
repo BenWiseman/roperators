@@ -7,7 +7,7 @@
 \alias{num}
 \alias{bool}
 \alias{as.class}
-\title{Cleaner conversion functions}
+\title{Cleaner Conversion Functions}
 \usage{
 chr(x, ...)
 
@@ -29,32 +29,25 @@ as.class(x, class)
 \item{class}{chatracter name of the class to convert x to}
 }
 \description{
-Cleaner conversion functions
+Cleaner Conversion Functions
 
-convert x to arbitrary class
+Convert x to Arbitrary Class
 }
 \note{
 These are shorthand aliases for common conversions There is nothing magical
-here, but it can make your code more readable
+here, but it can make your code more readable.
 }
 \examples{
-chr(42)   # "42" = as.character
-int(42.1) # 42L  = as.integer
+chr(42)    # "42" = as.character
+int(42.1)  # 42L  = as.integer
 dbl("42L") # 42.0 = as.double
-num("42") # 42   = as.numeric
-bool(42)  # TRUE = as.logical
-
+num("42")  # 42   = as.numeric
+bool(42)   # TRUE = as.logical
 
 foo <- 255
 as.class(foo, "roman")
 # [1] CCLV
 }
 \author{
-Steven Nydick, \email{steven.nydick@kornferry.com}
-
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
-
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
-
 Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
 }

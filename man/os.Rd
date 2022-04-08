@@ -11,7 +11,7 @@
 \alias{is.R_x64}
 \alias{is.R_revo}
 \alias{is.RStudio}
-\title{Operating system checks}
+\title{Operating System Checks}
 \usage{
 get_os()
 

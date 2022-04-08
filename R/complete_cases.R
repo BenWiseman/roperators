@@ -1,5 +1,6 @@
 #' Statistics/Summaries with (Only) Missing Data Removed
 #'
+#' @description
 #' Univariate and bivariate summaries and statistics with the least missing
 #' data removed (such as complete-cases correlations). These are typically
 #' default arguments to standard statistics functions.
@@ -40,7 +41,7 @@ length_cc <- function(x, ...){
     sum(!is.na(x))
   } else{
     length(x, ...)
-  } # END ifelse STATEMENT
+  }
 }
 
 #' @rdname complete_cases

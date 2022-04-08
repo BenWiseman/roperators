@@ -2,7 +2,7 @@
 % Please edit documentation in R/operators.R
 \name{\%regex<-\%}
 \alias{\%regex<-\%}
-\title{Assign to vector only where regular expression is matched}
+\title{Assign to Vector Only Where Regular Expression is Matched}
 \usage{
 x \%regex<-\% value
 }
@@ -14,22 +14,20 @@ x \%regex<-\% value
 \description{
 This takes two arguments just like \code{gsub} - a patterns and a replacement.
 It will totally overwrite any element where the pattern is matched with the second.
-If you want to simply apply a regex (i.e. replace only the specific bit that matches),
-use \code{\%regex=\%} instead. If you want to replace with nothing (""), just just \code{\%-\%} or
-\code{\%-=\% instead}.
+If you want to simply apply a regex (i.e. replace only the specific bit that
+matches), use \verb{\%regex=\%} instead. If you want to replace with nothing
+(""), just just \verb{\%-\%} or \verb{\%-=\% instead}.
 }
 \examples{
 # Overwrite elements that match regex:
+x <- c("a1b", "b1", "c", "d0")
 
- x <- c("a1b", "b1", "c", "d0")
+# overwrite any element containing a number
+x \%regex<-\% c("\\\\d+", "x")
 
- # overwrite any element containing a number
+print(x)
 
- x \%regex<-\% c("\\\\d+", "x")
-
- print(x)
-
- # "x" "b" "c" "x"
+# "x" "b" "c" "x"
 }
 \author{
 Ben Wiseman, \email{benjamin.wiseman@kornferry.com}

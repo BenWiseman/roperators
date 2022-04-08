@@ -1,20 +1,14 @@
-# helepers for creating nicer messages/strings
-
 #' New Paste and Cat Rules
 #'
 #' @description
 #' The available functions are:
 #'
-#' `paste_()`is the same as `paste0` but uses an underscore to separate
-#'
-#' `cat0()` is analogous to `paste0` but for cat
-#'
-#' `catN()` is the same as `cat0` but automatically inserts a new line after the cat
-#'
-#' `paste_series()` paste a series of things with a conjunction
-#'
-#' `paste_oxford()` shortcut for `paste_series` as oxford comma
-#'
+#' * `paste_()`is the same as `paste0` but uses an underscore to separate
+#' * `cat0()` is analogous to `paste0` but for cat
+#' * `catN()` is the same as `cat0` but automatically inserts a new line after
+#'   the cat
+#' * `paste_series()` paste a series of things with a conjunction
+#' * `paste_oxford()` shortcut for `paste_series` as oxford comma
 #'
 #' @param conjunction the conjunction to use to collapse the final elements
 #'        in the series (such as and, or, &, or something else)
@@ -24,7 +18,7 @@
 #' @inheritParams base::cat
 #' @author Steven Nydick, \email{steven.nydick@@kornferry.com}
 #' @name paste_and_cat
-
+NULL
 
 #' @rdname paste_and_cat
 #' @export
@@ -67,17 +61,19 @@ catN <- function(...,
 
 
 #' @examples
-#'
 #' paste_series("a")
 #' paste_series("a", "b")
 #' paste_series("a", "b", "c")
+#'
 #' # works if putting entries into c function
 #' paste_series(c("a", "b", "c"), "d")
+#'
 #' # can use oxford comma or not
 #' paste_series("a", "b", "c",
 #'              use_oxford_comma = TRUE)
 #' paste_series("a", "b", "c",
 #'              use_oxford_comma = FALSE)
+#'
 #' # makes no difference if fewer than 3 items
 #' paste_series("a", "b",
 #'              use_oxford_comma = TRUE)
