@@ -1,3 +1,7 @@
+# roperators 1.2.1
+
+* added `sort_factor()`
+
 # roperators 1.2.0.9000
 
 * Cleaned up a lot of the code to be standardized and added additional examples

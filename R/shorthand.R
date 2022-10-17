@@ -245,6 +245,30 @@ get_most_frequent_word <- function(x,
   return(out)
 }
 
+#' Sort a factor with optional reference level
+#' @param x A vector to be turned into a sorted factor
+#' @param ref Character - optional level to be set first
+#' @param decreasing Logical - sort resulting factor in decreasing order
+#' @param force_ref Logical - force ref level even if `ref` is not in the data
+#' @rdname sort_factor
+#' @export
+sort_factor <- function(x, ref = NULL, decreasing = FALSE, force_ref = FALSE){
+  # check if ref exists in x.
+  # skip if force_ref is TRUE -> allow user to make factor level with 0 observations
+  if(!force_ref){
+    if(length(ref) && !ref %in% x) ref <- NULL # make NULL if it doesn't exist
+  }
+  # Will make this a pipe when more people have R >= 4.1
+  lbl <- factor(x)
+  lbl <- summary(lbl)
+  lbl <- sort(lbl, decreasing = decreasing)
+  lbl <- names(lbl)
+  lbl <- c(ref, lbl)
+  out <- factor(x, levels = lbl, labels=lbl)
+  return(out)
+}
+
+
 #' Return Number of Unique Things
 #'
 #' @param x vector
