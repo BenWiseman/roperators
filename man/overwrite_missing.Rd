@@ -2,7 +2,7 @@
 % Please edit documentation in R/operators.R
 \name{\%na<-\%}
 \alias{\%na<-\%}
-\title{Assign Value to a Vector's Missing Values}
+\title{Assign value to a vector's missing values}
 \usage{
 x \%na<-\% value
 }
@@ -12,23 +12,23 @@ x \%na<-\% value
 \item{value}{value to replace vector's missing values with}
 }
 \description{
-\verb{\%na<-\%} is a simple shortcut to assign a specific value to all
+\code{\%na<-\%} is a simple shortcut to assign a specific value to all
 NA elements contained in x.
 }
 \examples{
-x <- c("a", NA, "c")
+ x <- c("a", NA, "c")
 
-x \%na<-\% "b"
+ x \%na<-\% "b"
 
-print(x)
-# "a" "b" "c"
+ print(x)
+ # "a" "b" "c"
 
-x <- c(1, NA, 3, NA)
+ x <- c(1, NA, 3, NA)
 
-x \%na<-\% c(2,4)
+ x \%na<-\% c(2,4)
 
-print(x)
-# 1 2 3 4
+ print(x)
+ # 1 2 3 4
 }
 \author{
 Ben Wiseman, \email{benjamin.wiseman@kornferry.com}

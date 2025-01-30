@@ -2,7 +2,7 @@
 % Please edit documentation in R/shorthand.R
 \name{f.as.numeric}
 \alias{f.as.numeric}
-\title{Convert Factor with Numeric Labels into Numeric Vector}
+\title{Convert factor with numeric labels into numeric vector}
 \usage{
 f.as.numeric(x)
 }
@@ -10,18 +10,20 @@ f.as.numeric(x)
 \item{x}{a factor with numeric labels}
 }
 \description{
-Convert Factor with Numeric Labels into Numeric Vector
+Convert factor with numeric labels into numeric vector
 }
 \examples{
-x <- factor(c(11, 22, 33, 99))
-as.numeric(x)
-# 1 2 3 4   # NOT typically the desired.expected output
 
-f.as.numeric(x)
-# 11 22 33 99  # Typically desired output
+ x <- factor(c(11, 22, 33, 99))
+ as.numeric(x)
+ # 1 2 3 4   # NOT typically the desired.expected output
 
-# Or...
-as.numeric(as.character(x)) # A tad unsightly
+ f.as.numeric(x)
+ # 11 22 33 99  # Typically desired output
+
+ # Or...
+ as.numeric(as.character(x)) # A tad unsightly
+
 }
 \author{
 Ulrike Grömping, \email{groemping@beuth-hochschule.de}

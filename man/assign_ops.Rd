@@ -9,7 +9,7 @@
 \alias{\%^=\%}
 \alias{\%log=\%}
 \alias{\%root=\%}
-\title{Assignment Operators}
+\title{Assignment operators}
 \usage{
 x \%+=\% y
 
@@ -31,10 +31,9 @@ x \%root=\% y
 \item{y}{value to modify stored value by}
 }
 \description{
-Modifies the stored value of the left-hand-side object by the right-hand-side
-object. Equivalent of operators such as \verb{+=} \verb{-=} \verb{*=} \verb{/=}
-in languages like c++ or python. \verb{\%+=\%} and \verb{\%-=\%} can also work
-with strings.
+Modifies the stored value of the left-hand-side object by the right-hand-side object.
+Equivalent of operators such as \code{+=} \code{-=} \code{*=} \code{/=} in languages like c++ or python.
+\code{\%+=\%} and \code{\%-=\%} can also work with strings.
 }
 \examples{
 x <- 1
@@ -60,22 +59,22 @@ test$Sepal.Length[test$Species == 'setosa' & test$Petal.Length < 1.5] + 1
 
 # \%+=\% and \%-=\% also work with strings
 
-x <- "ab"
+   x <- "ab"
 
-x \%+=\% "c"
+   x \%+=\% "c"
 
-x \%-=\% "b"
+   x \%-=\% "b"
 
-x == "ac" # TRUE
+   x == "ac" # TRUE
 
 # \%-=\% can also take regular expressions
 
-x <- "foobar"
+   x <- "foobar"
 
-x \%-=\% "[f|b]"
+   x \%-=\% "[f|b]"
 
-print(x)
-# "ooar"
+   print(x)
+   # "ooar"
 }
 \author{
 Ben Wiseman, \email{benjamin.wiseman@kornferry.com}

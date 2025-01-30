@@ -215,7 +215,7 @@ Think about how many `if` statements you’ve had break due to a lack of
 missing-value equality capability. You can also use `%<=%` and `%>=%` to
 handle missing values instead of `<=` and `>=`
 
-### When `(0.1 + 0.1 + 0.1) == 0.3` should be `TRUE` (i.e. almost always)
+### When `(0.1 + 0.1 + 0.1) == 0.3` should be `TRUE` (i.e. almost always)
 
 The floating point trap is a particular kind of mongrel. Innocent young
 statistics students are seldom warned about it, and so they go about,
@@ -473,7 +473,7 @@ kind of R is running. As such, we added some simplified checks.
     like Linux or OSX
 -   `is.os_x64()` `TRUE` if running on 64-bit operating system
 -   `is.R_x64()` `TRUE` if running 64-bit R
--   `is.R_revo()` `TRUE` if running revolution R (i.e. Microsoft R Open)
+-   `is.R_revo()` `TRUE` if running revolution R (i.e. Microsoft R Open)
 -   `is.RStudio()` `TRUE` if running in Rstudio
 
 ## Content Checks

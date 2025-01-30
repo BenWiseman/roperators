@@ -1,7 +1,7 @@
 Package: roperators
 Title: Additional Operators to Help you Write Cleaner R Code
-Version: 1.2.0.9000
-Authors@R:
+Version: 1.3.14
+Authors@R: 
     c(person('Ben', 'Wiseman',
              role  = c('cre', 'aut', 'ccp'),
              email = 'benjamin.wiseman@kornferry.com'),
@@ -19,40 +19,28 @@ Description: Provides string arithmetic, reassignment operators, logical operato
   is easier to read, write, and maintain while providing a friendlier experience
   to new R users from other language backgrounds (such as 'Python') who are used
   to concepts such as x += 1 and 'foo' + 'bar'.
-  Includes operators for not in, easy floating point comparisons, === equivilent, and SQL-like 
+  Includes operators for not in, easy floating point comparisons, === equivalent, and SQL-like 
   like operations (), etc. 
   We also added in some extra helper functions, such as OS checks, pasting
   in Oxford comma format, and functions to get the first, last, nth, or most common 
   element of a vector or word in a string. 
 License: MIT + file LICENSE
 Copyright: Korn Ferry International
-URL: https://benwiseman.github.io/Roperators/,
-     https://github.com/BenWiseman/roperators
-Depends:
-    R (>= 3.0.0)
-Imports:
-    stats,
-    tools
-Suggests:
-    magrittr,
-    knitr,
-    markdown,
-    rmarkdown,
-    prettydoc
-VignetteBuilder:
-    knitr
+URL: https://benwiseman.github.io/roperators/,
+        https://github.com/BenWiseman/roperators
+Depends: R (>= 3.0.0)
+Imports: stats, tools
+Suggests: magrittr, knitr, markdown, rmarkdown, prettydoc, rvest
+VignetteBuilder: knitr
 Encoding: UTF-8
-LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
-Collate: 
-    'complete_cases.R'
-    'content_checks.R'
-    'file_checks.R'
-    'ip_checks.R'
-    'type_checks.R'
-    'operators.R'
-    'os_checks.R'
-    'paste_functions.R'
-    'shorthand.R'
-    'utils.R'
+RoxygenNote: 7.2.1
+Collate: 'complete_cases.R' 'content_checks.R' 'file_checks.R'
+        'ip_checks.R' 'type_checks.R' 'operators.R' 'os_checks.R'
+        'paste_functions.R' 'shorthand.R' 'utils.R'
+NeedsCompilation: no
+Packaged: 2023-07-20 05:06:56 UTC; benaparte
+Author: Ben Wiseman [cre, aut, ccp],
+  Steven Nydick [aut, ccp] (<https://orcid.org/0000-0002-2908-1188>),
+  Jeff Jones [aut, led]
+Repository: CRAN
+Date/Publication: 2023-07-20 05:30:02 UTC

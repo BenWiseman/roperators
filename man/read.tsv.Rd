@@ -3,7 +3,7 @@
 \name{read.tsv}
 \alias{read.tsv}
 \alias{read.psv}
-\title{Read TSV Files}
+\title{like read.csv, but for tsv and default header = TRUE}
 \usage{
 read.tsv(file, ...)
 
@@ -15,5 +15,7 @@ read.psv(file, ...)
 \item{...}{other args used by read.table}
 }
 \description{
-Like read.csv but for tsv and default header = TRUE.
+like read.csv, but for tsv and default header = TRUE
+
+like read.csv, but for pipe-delineated and defaults to header = TRUE
 }

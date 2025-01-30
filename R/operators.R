@@ -1,14 +1,13 @@
 #' @include type_checks.R
 NULL
 
-# String Operators -------------------------------------------------------------
-
-#' String Operators
+#### String operators   -----------------
+#' String operators
 #'
 #' @description
 #' Perform string concatenation and arithmetic is a similar way to other languages.
-#' String division is not present in languages like Python, although arguably it is
-#' more useful than string multiplication and can be used with regulr expressions.
+#'  String division is not present in languages like Python, although arguably it is
+#'  more useful than string multiplication and can be used with regulr expressions.
 #'
 #' @param x a string
 #' @param y a string
@@ -18,11 +17,10 @@ NULL
 #' ("abc" %-% "b") == "ac" # TRUE
 #' ("ac" %s*% 2) == "acac" # TRUE
 #' ("acac" %s/% "c") == 2  # TRUE
-#'
 #' # String division with a regular expression:
 #' 'an apple a day keeps the malignant spirit of Steve Jobs at bay' %s/% 'Steve Jobs|apple'
+#'
 #' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
-
 #' @name string_arithmetic
 NULL
 
@@ -35,14 +33,14 @@ NULL
 #' @rdname string_arithmetic
 #' @export
 `%-%`   <- function(x, y) {
-  unname(mapply(function(x, y) gsub(pattern = y, replacement = '', x = x), x, y))
+  unname(mapply(function(x,y) gsub(pattern = y, replacement = '', x = x), x, y))
 }
 
 # Added in ulrike's suggestion for making compatible with vector or scalar input
 #' @rdname string_arithmetic
 #' @export
 `%s*%`  <- function(x, y) {
-  mapply(function(x, y)  paste0(rep(x, y), collapse = ''), x, y)
+  mapply(function(x,y)  paste0(rep(x, y), collapse = ''), x, y)
 }
 
 #' @rdname string_arithmetic
@@ -51,17 +49,20 @@ NULL
   out <- mapply(function(x, y) lengths(regmatches(x, gregexpr(y, x))), x, y)
   names(out) <- y
   return(out)
+  #lengths(regmatches(x, gregexpr(y, x)))
 }
 
-# For Assigment Operators ------------------------------------------------------
 
-#' Assignment Operators
+#### For assignment operators  ------------------
+
+#### Apply mathematical operator and reassignment
+
+#' Assignment operators
 #'
 #' @description
-#' Modifies the stored value of the left-hand-side object by the right-hand-side
-#' object. Equivalent of operators such as `+=` `-=` `*=` `/=`
-#' in languages like c++ or python. `%+=%` and `%-=%` can also work
-#' with strings.
+#' Modifies the stored value of the left-hand-side object by the right-hand-side object.
+#' Equivalent of operators such as \code{+=} \code{-=} \code{*=} \code{/=} in languages like c++ or python.
+#' \code{%+=%} and \code{%-=%} can also work with strings.
 #'
 #' @param x a stored value
 #' @param y value to modify stored value by
@@ -91,22 +92,22 @@ NULL
 #'
 #' # %+=% and %-=% also work with strings
 #'
-#' x <- "ab"
+#'    x <- "ab"
 #'
-#' x %+=% "c"
+#'    x %+=% "c"
 #'
-#' x %-=% "b"
+#'    x %-=% "b"
 #'
-#' x == "ac" # TRUE
+#'    x == "ac" # TRUE
 #'
 #' # %-=% can also take regular expressions
 #'
-#' x <- "foobar"
+#'    x <- "foobar"
 #'
-#' x %-=% "[f|b]"
+#'    x %-=% "[f|b]"
 #'
-#' print(x)
-#' # "ooar"
+#'    print(x)
+#'    # "ooar"
 #' @name assign_ops
 NULL
 
@@ -114,13 +115,15 @@ NULL
 #' @export
 `%+=%`   <- function(x, y){
   if(is.character(x) | is.character(y)){
+    #.create_operator(x, y, `%+%`)
     v_name  <- substitute(x)
-    v_value <- paste0(x, y)
-    reassign(v_name, v_value)
+    v_value <- paste0(x,y)
+    eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
   } else {
+    #.create_operator(x, y, `+`)
     v_name  <- substitute(x)
-    v_value <- x + y
-    reassign(v_name, v_value)
+    v_value <- x+y
+    eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
   }
 }
 
@@ -128,47 +131,52 @@ NULL
 #' @export
 `%-=%`  <- function(x, y){
   if(is.character(x) | is.character(y)){
+    #.create_operator(x, y, `%-%`)
     v_name  <- substitute(x)
     v_value <- gsub(y, '', x)
-    reassign(v_name, v_value)
     eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
   } else{
-    v_name  <- substitute(x)
-    v_value <- x - y
-    reassign(v_name, v_value)
+      #.create_operator(x, y, `-`)
+      v_name  <- substitute(x)
+      v_value <- x-y
+      eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
   }
 }
 
 #' @rdname assign_ops
 #' @export
 `%*=%`   <- function(x, y) {
+  #.create_operator(x, y, `*`)
   v_name  <- substitute(x)
-  v_value <- x * y
-  reassign(v_name, v_value)
+  v_value <- x*y
+  eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
 }
 
 #' @rdname assign_ops
 #' @export
 `%/=%`   <- function(x, y) {
+  #.create_operator(x, y, `/`)
   v_name  <- substitute(x)
-  v_value <- x / y
-  reassign(v_name, v_value)
+  v_value <- x/y
+  eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
 }
 
 #' @rdname assign_ops
 #' @export
 `%^=%`   <- function(x, y) {
+  #.create_operator(x, y, `^`)
   v_name  <- substitute(x)
   v_value <- x^y
-  reassign(v_name, v_value)
+  eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
 }
 
 #' @rdname assign_ops
 #' @export
 `%log=%` <- function(x, y){
-  v_name  <- substitute(x)
+  #.create_operator(x, y, log)
+  v_name  <- substitute(x) #with user defined functions, can't run in parent frame
   v_value <- log(x, y)
-  reassign(v_name, v_value)
+  eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
 }
 
 #' @rdname assign_ops
@@ -176,106 +184,109 @@ NULL
 `%root=%`<- function(x, y) {
   v_name  <- substitute(x)
   v_value <- x^(1/y)
-  reassign(v_name, v_value)
+  eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
 }
 
 
-#' Modify Existing Object by Regular Expression
+#' Modify existing object by regular expression
 #'
 #' @description
-#' This takes two arguments just like `gsub` - a patterns and a replacement.
-#' It will only overwrite the parts of any character where the pattern is matched
-#' with the second argument. If you want to overwrite whole elements via a regex
-#' (i.e. replace the entire element if it matches), use `%regex<-%` instead.
+#' This takes two arguments just like \code{gsub} - a patterns and a replacement.
+#' It will only overwrite the parts of any character where the pattern is matched with the second argument.
+#' If you want to overwrite whole elements via a regex (i.e. replace the entire element if it matches),
+#' use \code{%regex<-%} instead.
 #'
 #' @param x a character vector
 #' @param value c(pattern, replacement)
 #'
 #' @examples
 #' # Apply a regular expression/substitution to x:
-#' x <- c("a1b", "b1", "c", "d0")
 #'
-#' # change any number to "x"
-#' x %regex=% c("\\d+", "x")
+#'  x <- c("a1b", "b1", "c", "d0")
 #'
-#' print(x)
+#'  # change any number to "x"
 #'
-#' # "axb" "b" "c" "dx"
+#'   x %regex=% c("\\d+", "x")
+#'
+#'  print(x)
+#'
+#'  # "axb" "b" "c" "dx"
 #' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @rdname overwrite_by_regex
 #' @export
 `%regex=%`<- function(x, value){
-  if(length(value) != 2){
-    rop_warn("right-hand-side isn't length 2 but it MUST be in the form c(pattern, replacement)")
-  }
-  v_name  <- substitute(x)
+  if(length(value) != 2) warning("roperators: \n right-hand-side isn't length 2 but it MUST be in the form c(pattern, replacement)")
+  v_name  <- substitute(x) #with user defined functions, can't run in parent frame
   v_value <- gsub(value[1], value[2], x)
-  reassign(v_name, v_value)
+  eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
 }
 
 
-# Conditional Assignment Operators ---------------------------------------------
+####### CONDITIONAL ASSIGNMENT    ----------------------------------------------
 
-#' Assign to Vector Only Where Regular Expression is Matched
+
+#' Assign to vector only where regular expression is matched
 #'
 #' @description
-#' This takes two arguments just like `gsub` - a patterns and a replacement.
+#' This takes two arguments just like \code{gsub} - a patterns and a replacement.
 #' It will totally overwrite any element where the pattern is matched with the second.
-#' If you want to simply apply a regex (i.e. replace only the specific bit that
-#' matches), use `%regex=%` instead. If you want to replace with nothing
-#' (""), just just `%-%` or `%-=% instead`.
+#' If you want to simply apply a regex (i.e. replace only the specific bit that matches),
+#' use \code{%regex=%} instead. If you want to replace with nothing (""), just just \code{%-%} or
+#' \code{%-=% instead}.
 #'
 #' @param x a character vector
 #' @param value c(pattern, replacement)
 #'
 #' @examples
 #' # Overwrite elements that match regex:
-#' x <- c("a1b", "b1", "c", "d0")
 #'
-#' # overwrite any element containing a number
-#' x %regex<-% c("\\d+", "x")
+#'  x <- c("a1b", "b1", "c", "d0")
 #'
-#' print(x)
+#'  # overwrite any element containing a number
 #'
-#' # "x" "b" "c" "x"
+#'  x %regex<-% c("\\d+", "x")
+#'
+#'  print(x)
+#'
+#'  # "x" "b" "c" "x"
 #' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @rdname assign_by_regex
 #' @export
 `%regex<-%`<- function(x, value){
-  if(length(value) != 2){
-    rop_warn("right-hand-side isn't length 2 but it MUST be in the form c(pattern, replacement)")
-  }
-
-  v_name  <- substitute(x)
-  idx     <- grep(value[1], x)
+  if(length(value) != 2) warning("roperators: \n right-hand-side isn't length 2 but it MUST be in the form c(pattern, replacement)")
+  v_name  <- substitute(x) #with user defined functions, can't run in parent frame
+  idx <- grep(value[1], x)
   v_value <- x
   v_value[idx] <- value[2]
-  reassign(v_name, v_value)
+  eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
 }
 
-#' Assign Value to a Vector's Missing Values
+
+
+
+#' Assign value to a vector's missing values
 #'
 #' @description
-#' `%na<-%` is a simple shortcut to assign a specific value to all
+#' \code{%na<-%} is a simple shortcut to assign a specific value to all
 #' NA elements contained in x.
 #'
 #' @param x a vector
 #' @param value value to replace vector's missing values with
 #'
 #' @examples
-#' x <- c("a", NA, "c")
+#'  x <- c("a", NA, "c")
 #'
-#' x %na<-% "b"
+#'  x %na<-% "b"
 #'
-#' print(x)
-#' # "a" "b" "c"
+#'  print(x)
+#'  # "a" "b" "c"
 #'
-#' x <- c(1, NA, 3, NA)
+#'  x <- c(1, NA, 3, NA)
 #'
-#' x %na<-% c(2,4)
+#'  x %na<-% c(2,4)
 #'
-#' print(x)
-#' # 1 2 3 4
+#'  print(x)
+#'  # 1 2 3 4
 #' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @rdname overwrite_missing
 #' @export
@@ -286,51 +297,58 @@ NULL
   } else {
     i <- which(is.na(x))
     if(length(x) != length(value)){
-      rop_warn("using a replacement vector of unequal size")
+      warning('roperators: \n using a replacement vector of unequal size')
     }
     x[i] <- value[i]
   }
   v_value <- x
-  reassign(v_name, v_value)
+  eval(call("<-", v_name, v_value), envir = parent.frame(n = 1))
 }
 
-# Boolean Return Operators (because why not)  ----------------------------------
 
-#' Enhanced Comparisons
+#### Boolean return operators (because why not)  --------------------------
+
+#' Enhanced comparisons
 #'
 #' @description
 #' These operators introduce improved NA handling, reliable floating point tests,
 #' and intervals. Specifically:
 #'
-#' * Equality that handles missing values
-#' * Floating point equality, an important bit of functionality missing in base
-#'   R (`%~=%`)
-#' * Strict (value and type) equality, for those familiar with Javascript's `===`
-#' * Greater/less than or equal to with missing value equality
-#' * Greater/less than or equal to with floating point and missing equality
-#' * Between (ends excluded)
-#' * Between (ends included)
+#'  Equality that handles missing values
+#'
+#'  Floating point equality, an important bit of functionality missing in base R (\code{%~=%})
+#'
+#'  Strict (value and type) equality, for those familiar with Javascript \code{===}
+#'
+#'  Greater/less than or equal to with missing value equality
+#'
+#'  Greater/less than or equal to with floating point and missing equality
+#'
+#'  Between (ends excluded)
+#'
+#'  Between (ends included)
 #'
 #' @param x a vector
 #' @param y a vector
 #'
 #' @examples
-#' ## Greater/Less than | Equal
+#'  ## Greater/Less than | Equal
 #'
-#' c(1, NA, 3, 4)  ==  c(1, NA, 4, 3)
-#' #  TRUE    NA  FALSE FALSE
+#'  c(1, NA, 3, 4)  ==  c(1, NA, 4, 3)
+#'  #  TRUE    NA  FALSE FALSE
 #'
-#' c(1, NA, 3, 4) %==% c(1, NA, 4, 3)
-#' #  TRUE  TRUE  FALSE FALSE
+#'  c(1, NA, 3, 4) %==% c(1, NA, 4, 3)
+#'  #  TRUE  TRUE  FALSE FALSE
 #'
-#' c(1, NA, 3, 4) %>=% c(1, NA, 4, 3)
-#' #  TRUE  TRUE FALSE  TRUE
+#'  c(1, NA, 3, 4) %>=% c(1, NA, 4, 3)
+#'  #  TRUE  TRUE FALSE  TRUE
 #'
-#' c(1, NA, 3, 4) %<=% c(1, NA, 4, 3)
-#' #  TRUE  TRUE TRUE  FALSE
+#'  c(1, NA, 3, 4) %<=% c(1, NA, 4, 3)
+#'  #  TRUE  TRUE TRUE  FALSE
 #'
-#' # Strict equality - a la javascript's ===
-#' # Only tru if the class and value of x and y are the same
+#'
+#'  # Strict equality - a la javascript's ===
+#'  # Only tru if the class and value of x and y are the same
 #' x <- int(2)
 #' y <- 2
 #' x == y         # TRUE
@@ -338,26 +356,28 @@ NULL
 #' x %===% int(y) # TRUE
 #'
 #'
-#' # NOTE parentheses surrounding expression before this operator are necessary
-#' # Without parentheses it would be interpreted as .1 + .1 + (.1 %~=% .3)
+#'  # NOTE parentheses surrounding expression before this operator are necessary
+#'  # Without parentheses it would be interpreted as .1 + .1 + (.1 %~=% .3)
 #'
-#' ## Between
 #'
-#' # ends excluded
+#'  #### Between ####
 #'
-#' 2 %><% c(1, 3)
-#' # TRUE
+#'  # ends excluded
 #'
-#' 3 %><% c(1, 3)
-#' # FALSE
+#'  2 %><% c(1, 3)
+#'  # TRUE
 #'
-#' # ends included
+#'  3 %><% c(1, 3)
+#'  # FALSE
 #'
-#' 2 %>=<% c(1, 3)
-#' # TRUE
+#'  # ends included
 #'
-#' 3 %>=<% c(1, 3)
-#' # TRUE
+#'  2 %>=<% c(1, 3)
+#'  # TRUE
+#'
+#'  3 %>=<% c(1, 3)
+#'  # TRUE
+#'
 #' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @name comparisons
 NULL
@@ -399,55 +419,50 @@ NULL
   ((x <= y) & !bad_x & !bad_y) | is.bad_and_equal(x, y)
 }
 
-# between (ends excluded)
+#' between (ends excluded)
 #' @rdname comparisons
 #' @export
 `%><%` <- function(x, y){
-  if(length(y) != 2){
-    rop_warn("right-hand-side isn't length 2 but it MUST be in the form c(lower_bound, upper_bound)")
-  }
+  if(length(y) != 2) warning("roperators: \n  right-hand-side isn't length 2 but it MUST be in the form c(lower_bound, upper_bound)")
   x > y[1] & x < y[2]
 }
 
-# between (ends included)
+#' between (ends included)
 #' @rdname comparisons
 #' @export
 `%>=<%`<- function(x, y){
-  if(length(y) != 2){
-    rop_warn("right-hand-side isn't length 2 but it MUST be in the form c(lower_bound, upper_bound)")
-  }
+  if(length(y) != 2) warning("roperators: \n right-hand-side isn't length 2 but it MUST be in the form c(lower_bound, upper_bound)")
   x >= y[1] & x <= y[2]
 }
 
-#' Floating Point Comparisons
+#'  Floating point comparison operators
 #'
-#' @description
-#' These are an important set of operators missing from base R. In particular,
-#' using `==` on two non-interger numbers can give unexpected results
-#' (see examples).
+#'@description
+#'  These are an important set of operators missing from base R. In particular,
+#'  using \code{==} on two non-interger numbers can give unexpected results (see examples.)
 #'
-#' See this for details:
-#' \url{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html}
-#'
+#'  See this for details:
+#'  \url{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html}
 #' @param x numeric
 #' @param y numeric
 #'
 #' @examples
-#' ## Floating Point Test of Equality
+#'  ## Floating point test of equality ####
 #'
-#' # Basic Equality - no roperators:
-#' (0.1 + 0.1 + 0.1) == 0.3   # FALSE
-#' # Basic Equality - with roperators:
-#' (0.1 + 0.1 + 0.1) %~=% 0.3 # TRUE
+#'  # Basic Equality - no roperators:
+#'  (0.1 + 0.1 + 0.1) == 0.3   # FALSE
+#'  # Basic Equality - with roperators:
+#'  (0.1 + 0.1 + 0.1) %~=% 0.3 # TRUE
 #'
 #'
-#' # NOTE: for floating point >= and <=
-#' (0.1 + 0.1 + 0.1) %>=% 0.3 # TRUE
-#' (0.1 + 0.1 + 0.1) %<=% 0.3 # FALSE
+#'  # NOTE: for floating point >= and <=
+#'  (0.1 + 0.1 + 0.1) %>=% 0.3 # TRUE
+#'  (0.1 + 0.1 + 0.1) %<=% 0.3 # FALSE
 #'
-#' # Use >~ and <~ for greater/less than or approx equal
-#' (0.1 + 0.1 + 0.1) %>~% 0.3 # TRUE
-#' (0.1 + 0.1 + 0.1) %<~% 0.3 # TRUE
+#'  # Use >~ and <~ for greater/less than or approx equal
+#'  (0.1 + 0.1 + 0.1) %>~% 0.3 # TRUE
+#'  (0.1 + 0.1 + 0.1) %<~% 0.3 # TRUE
+#'
 #' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @name floating_point_comparisons
 NULL
@@ -477,40 +492,43 @@ NULL
   ((x <= y) & !bad_x & !bad_y) | is.bad_and_equal(x, y) | isTRUE(all.equal(x, y))
 }
 
-# Logicals ---------------------------------------------------------------------
-
-#' Logical Operators
+# Logicals
+#' Logical operators
 #'
 #' @description
-#' These are some convenience functions, such as a not-in, and xor operator.
+#' These are some convienience functions, such as a not-in, and xor operator.
 #'
 #' @param x a vector
 #' @param y a vector
 #'
 #' @examples
-#' ## Not In
-#' "z" %ni%  c("a", "b", "c")
-#' #  TRUE
+#'  #### Not in ####
 #'
-#' ## Exclusive Or
-#' TRUE %xor% TRUE
-#' # FALSE
+#'  "z" %ni%  c("a", "b", "c")
+#'  #  TRUE
 #'
-#' FALSE %xor% FALSE
-#' # FALSE
+#'  #### Exclusive or  ####
 #'
-#' FALSE %xor% TRUE
-#' # TRUE
+#'  TRUE %xor% TRUE
+#'  # FALSE
 #'
-#' ## All-Or-Nothing
-#' TRUE %aon% TRUE
-#' # TRUE
+#'  FALSE %xor% FALSE
+#'  # FALSE
 #'
-#' FALSE %aon% FALSE
-#' # TRUE
+#'  FALSE %xor% TRUE
+#'  # TRUE
 #'
-#' FALSE %aon% TRUE
-#' # FALSE
+#'  #### All-or-nothing ####
+#'
+#'  TRUE %aon% TRUE
+#'  # TRUE
+#'
+#'  FALSE %aon% FALSE
+#'  # TRUE
+#'
+#'  FALSE %aon% TRUE
+#'  # FALSE
+#'
 #' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
 #' @name logicals
 NULL
@@ -536,49 +554,52 @@ NULL
   (x && y) || (!x && !y)
 }
 
+
+
 #' mySQL-like rlike
 #'
 #' @description
-#' This takes two arguments just like `grepl` - a string and a pattern.
-#' TRUE if `grepl(pattern, x, ignore.case=TRUE)` would be TRUE.
+#' This takes two arguments just like \code{grepl} - a string and a pattern.
+#' TRUE if \code{grepl(pattern, x, ignore.case=TRUE)} would be TRUE
 #'
 #' @note
-#' data.table has a %like% operator which you should try to use instead if
-#' working with data.tables!
+#' data.table has a %like% operator which you should try to use instead if working with data.table!
 #'
 #' @param x a character vector
 #' @param pattern a single character expression
 #'
 #' @examples
 #' # Apply a regular expression/substitution to x:
-#' x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
 #'
-#' # where x has an O
+#'  x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
 #'
-#' x[x %rlike% "O"]
+#'  # where x has an O
 #'
-#' # [1] "foo" "dOe" "obo"
+#'  x[x %rlike% "O"]
 #'
-#' # find x where middle letter is "O"
+#'  # [1] "foo" "dOe" "obo"
 #'
-#' x[x %rlike% "[a-z]O[a-z]"]
+#'  # find x where middle letter is "O"
 #'
-#' # will print [1] "foo" "dOe"
+#'  x[x %rlike% "[a-z]O[a-z]"]
+#'
+#'  # will print [1] "foo" "dOe"
+#'
 #' @rdname logicals
 #' @export
 `%rlike%`<- function(x, pattern){
-  if(length(pattern) != 1){
-    rop_stop("right-hand-side isn't length 1 but it MUST be")
-  }
+  if(length(pattern) != 1) rop_stop("right-hand-side isn't length 1 but it MUST be")
   grepl(pattern, x, ignore.case = TRUE)
 }
+
+
 
 #' SQL-like like
 #'
 #' @description
-#' This takes two arguments just like `grepl` - a string and a pattern.
-#' TRUE if `grepl(pattern, x, ignore.case=FALSE, perl=TRUE)` would be TRUE.
-#' It's like `%like%` from data.table (but slower, preferably use data.table).
+#' This takes two arguments just like \code{grepl} - a string and a pattern.
+#' TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE.
+#' It's like \code{%like%} from data.table (but slower, preferably use data.table).
 #'
 #'
 #' @param x a character vector
@@ -587,22 +608,77 @@ NULL
 #' @examples
 #' # Apply a regular expression/substitution to x:
 #'
-#' x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
+#'  x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
 #'
-#' # find x where middle letter is upper-case "O"
+#'  # find x where middle letter is upper-case "O"
 #'
-#' x[x %perl% "[a-z]O[a-z]"]
+#'  x[x %perl% "[a-z]O[a-z]"]
 #'
-#' # will print [1] "dOe"
+#'  # will print [1] "dOe"
+#'
 #' @rdname logicals
 #' @export
 `%perl%`<- function(x, pattern){
-  if(length(pattern) != 1){
-    rop_stop("right-hand-side isn't length 1 but it MUST be")
-  }
-
-  grepl(pattern = pattern,
-        x       = x,
-        ignore.case = FALSE,
-        perl    = TRUE)
+  if(length(pattern) != 1) rop_stop("right-hand-side isn't length 1 but it MUST be")
+  grepl(pattern, x, ignore.case=FALSE, perl = TRUE)
 }
+
+
+
+##### Mathematical operators
+#' Choose and permute
+#'
+#' @description
+#' Shorthand for some common mathematical operators
+#'
+#' @param n whole number (from n choose/permute k)
+#' @param k whole number (from n choose/permute k)
+#'
+#' @examples
+#' # Calculate 5 choose 3
+#' print(5 %C% 3)
+#' # Calculate 5 permute 3
+#' print(5 %P% 3)
+#'
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
+#' @name choose_permute
+NULL
+#' operator for combinations
+#' @rdname choose_permute
+#' @export
+"%C%" <- function(n, k) {
+  choose(n, k)
+}
+
+#' operator for permutations
+#' @rdname choose_permute
+#' @export
+"%P%" <- function(n, k) {
+  factorial(n) / factorial(n - k)
+}
+
+
+#' Inline integration
+#' @description
+#' inline call to integrate that returns integration value rather than list
+#'
+#' @param f function (with numeric return)
+#' @param range vector of two numbers c(low, high)
+#'
+#' @examples
+#' f <- function(x) x^2
+#' print(f %integrate% c(0, 1))
+#' # vs base
+#' x <- integrate(f, 0, 1)
+#' str(x)
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
+#' @name integrate
+NULL
+
+#' @rdname integrate
+#' @export
+"%integrate%" <- function(f, range) {
+  x <- integrate(f, range[1], range[2])
+  return(x$value)
+}
+

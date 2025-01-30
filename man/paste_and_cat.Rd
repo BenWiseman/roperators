@@ -30,26 +30,11 @@ paste_oxford(...)
 \item{collapse}{an optional character string to separate the results.  Not
     \code{\link[base]{NA_character_}}.}
 
-\item{file}{A \link[base]{connection}, or a character string naming the file
-    to print to.  If \code{""} (the default), \code{cat} prints to the
-    standard output connection, the console unless redirected by
-    \code{\link[base]{sink}}.
-    If it is \code{"|cmd"}, the output is piped to the command given
-    by \file{cmd}, by opening a pipe connection.
-  }
+\item{file}{character - A connection, or a character string naming the file to print to. If "" (the default), cat prints to the standard output connection, the console unless redirected by sink.}
 
-\item{fill}{a logical or (positive) numeric controlling how the output is
-    broken into successive lines.  If \code{FALSE} (default), only newlines
-    created explicitly by \samp{"\\n"} are printed.  Otherwise, the
-    output is broken into lines with print width equal to the option
-    \code{width} if \code{fill} is \code{TRUE}, or the value of
-    \code{fill} if this is numeric.  Linefeeds are only inserted
-    \emph{between} elements, strings wider than \code{fill} are not
-    wrapped.  Non-positive \code{fill} values are
-    ignored, with a warning.}
+\item{fill}{a logical or (positive) numeric controlling how the output is broken into successive lines. see \code{?cat}}
 
-\item{labels}{character vector of labels for the lines printed.
-    Ignored if \code{fill} is \code{FALSE}.}
+\item{labels}{character vector of labels for the lines printed. Ignored if fill is FALSE.}
 
 \item{append}{logical. Only used if the argument \code{file} is the
     name of file (and not a connection or \code{"|cmd"}).
@@ -57,40 +42,37 @@ paste_oxford(...)
     \code{file}; otherwise, it will overwrite the contents of
     \code{file}.}
 
-\item{sep}{a character string to separate the terms.  Not
-    \code{\link[base]{NA_character_}}.}
+\item{sep}{a character vector of strings to append after each element}
 
-\item{conjunction}{the conjunction to use to collapse the final elements
-in the series (such as and, or, &, or something else)}
+\item{conjunction}{indicates the ending conjunction. e.g. setting to "and" would make c("a", "b", "c") paste into "a, b, and c"}
 
-\item{use_oxford_comma}{whether to use the oxford comma in the series
-(standard in American English) or to not use the oxford comma}
+\item{use_oxford_comma}{logical - do you want to use an oxford comma at the end?}
 }
 \description{
 The available functions are:
-\itemize{
-\item \code{paste_()}is the same as \code{paste0} but uses an underscore to separate
-\item \code{cat0()} is analogous to \code{paste0} but for cat
-\item \code{catN()} is the same as \code{cat0} but automatically inserts a new line after
-the cat
-\item \code{paste_series()} paste a series of things with a conjunction
-\item \code{paste_oxford()} shortcut for \code{paste_series} as oxford comma
-}
+
+\code{paste_()}is the same as \code{paste0} but uses an underscore to separate
+
+\code{cat0()} is analogous to \code{paste0} but for cat
+
+\code{catN()} is the same as \code{cat0} but automatically inserts a new line after the cat
+
+\code{paste_series()} paste a series of things with a conjunction
+
+\code{paste_oxford()} shortcut for \code{paste_series} as oxford comma
 }
 \examples{
+
 paste_series("a")
 paste_series("a", "b")
 paste_series("a", "b", "c")
-
 # works if putting entries into c function
 paste_series(c("a", "b", "c"), "d")
-
 # can use oxford comma or not
 paste_series("a", "b", "c",
              use_oxford_comma = TRUE)
 paste_series("a", "b", "c",
              use_oxford_comma = FALSE)
-
 # makes no difference if fewer than 3 items
 paste_series("a", "b",
              use_oxford_comma = TRUE)

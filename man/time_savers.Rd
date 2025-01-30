@@ -10,7 +10,8 @@
 \alias{get_most_frequent}
 \alias{get_most_frequent_word}
 \alias{n_unique}
-\title{Get Parts from Vectors}
+\alias{seq_around}
+\title{Little functions to replace common minor functions. useful in apply sttements}
 \usage{
 get_1st(x, type = "v")
 
@@ -37,90 +38,91 @@ get_most_frequent_word(
 )
 
 n_unique(x, na.rm = FALSE)
+
+seq_around(origin = 1, n = 1, spacing = 0.25)
 }
 \arguments{
 \item{x}{vector}
 
 \item{type}{'v' (default) for vector \code{x[1]}; 'l' for list \code{x[[1]]}}
 
-\item{n}{integer, the nth element to select}
+\item{n}{number of points to create}
 
 \item{split}{character that separated words. Default = ' '}
 
-\item{collapse}{OPTIONAL character - paste output into single string with
-collapse}
+\item{collapse}{OPTIONAL character - paste output into single string with collapse}
 
 \item{ignore.punct}{logical - ignore punctuation marks}
 
 \item{ignore.case}{logical - ignore case (if true, will return in lower)}
 
-\item{punct.regex}{character - regex used to remove punctuation
-(by default \verb{[[:punct:]]})}
+\item{punct.regex}{character - regex used to remove punctuation (by default \verb{[[:punct:]]})}
 
 \item{punct.replace}{character - what to replace punctuation with (default is "")}
 
 \item{na.rm}{whether to ignore NAs when determining uniqueness}
+
+\item{origin}{number to center sequence around}
+
+\item{spacing}{distance between any two points in the sequence}
 }
 \value{
-A vector of most common element(s). Will be character unless x is
-numeric and you don't tell it to collapse into a single string!
+a vector of most common element(s). Will be character unless x is numeric and you don't tell it to collapse into a single string!
+
+a vector of most common element(s). Will be character unless x is numeric and you don't tell it to collapse into a single string!
+
+Numeric vector. Will default to 1 if arguments are left blank to conform with default seq() behaviour.
 }
 \description{
-These are little functions to replace common minor functions and typically
-useful in apply statements.
+Little functions to replace common minor functions. useful in apply sttements
+
+Get most common thing(s)
+
+Return number of unique things in x
+
+Return vector of n points evenly spaced around the origin point
 }
 \examples{
-unlist(lapply(strsplit(rownames(mtcars), ' '), get_1st))
-#[1] "Mazda"    "Mazda"    "Datsun"   "Hornet"   "Hornet"   "Valiant"  "Duster"   "Merc"     "Merc"     "Merc"     "Merc"     "Merc"
-#[13] "Merc"     "Merc"     "Cadillac" "Lincoln"  "Chrysler" "Fiat"     "Honda"    "Toyota"   "Toyota"   "Dodge"    "AMC"      "Camaro"
-#[25] "Pontiac"  "Fiat"     "Porsche"  "Lotus"    "Ford"     "Ferrari"  "Maserati" "Volvo"
+# listr of car names
+car_names <- strsplit(row.names(mtcars)[1:5], " ")
 
-unlist(lapply(strsplit(rownames(mtcars), ' '), get_nth, 2))
-#[1] "RX4"         "RX4"         "710"         "4"           "Sportabout"  NA            "360"         "240D"        "230"
-#[10] "280"         "280C"        "450SE"       "450SL"       "450SLC"      "Fleetwood"   "Continental" "Imperial"    "128"
-#[19] "Civic"       "Corolla"     "Corona"      "Challenger"  "Javelin"     "Z28"         "Firebird"    "X1-9"        "914-2"
-#[28] "Europa"      "Pantera"     "Dino"        "Bora"        "142E"
+sapply(car_names, get_1st)
+# [1] "Mazda"  "Mazda"  "Datsun" "Hornet" "Hornet"
+
+sapply(car_names, get_nth, 2)
+# [1] "RX4"        "RX4"        "710"        "4"          "Sportabout"
 
 # OR if you just want to pull a simple string apart (e.g. someone's full name):
 
-get_1st_word(rownames(mtcars))
-#[1] "Mazda"    "Mazda"    "Datsun"   "Hornet"   "Hornet"   "Valiant"  "Duster"   "Merc"     "Merc"     "Merc"     "Merc"     "Merc"
-#[13] "Merc"     "Merc"     "Cadillac" "Lincoln"  "Chrysler" "Fiat"     "Honda"    "Toyota"   "Toyota"   "Dodge"    "AMC"      "Camaro"
-#[25] "Pontiac"  "Fiat"     "Porsche"  "Lotus"    "Ford"     "Ferrari"  "Maserati" "Volvo"
+get_1st_word(rownames(mtcars)[1:5])
+#[1] "Mazda"    "Mazda"    "Datsun"   "Hornet"   "Hornet"
 
-get_last_word(rownames(mtcars))
-#[1] "RX4"         "Wag"         "710"         "Drive"       "Sportabout"  "Valiant"     "360"         "240D"        "230"
-#[10] "280"         "280C"        "450SE"       "450SL"       "450SLC"      "Fleetwood"   "Continental" "Imperial"    "128"
-#[19] "Civic"       "Corolla"     "Corona"      "Challenger"  "Javelin"     "Z28"         "Firebird"    "X1-9"        "914-2"
-#[28] "Europa"      "L"           "Dino"        "Bora"        "142E"
+get_last_word(rownames(mtcars)[1:5])
+#[1] "RX4"         "Wag"         "710"         "Drive"       "Sportabout"
+
+get_nth_word(rownames(mtcars)[1:5], 2)
+#[1] "RX4"        "RX4"        "710"        "4"          "Sportabout"
+
 
 my_stuff <- c(1:10, 10, 5)
-
 # These are straight forward
 get_1st(my_stuff)
 get_nth(my_stuff, 3)
 get_last(my_stuff)
-
-# Returns numeric vector of mode(s) if x is numeric
 get_most_frequent(my_stuff)
-
-# Else it returns a character vector
 my_chars <- c("a", "b", "b", "a", "g", "o", "l", "d")
 get_most_frequent(my_chars)
-
-# Can collapse into a single string (for convienience)
 get_most_frequent(my_chars, collapse = " & ")
 generic_string <- "Who's A good boy? Winston's a good boy!"
 
 get_1st_word(generic_string)
 get_nth_word(generic_string, 3)
 get_last_word(generic_string)
-
 # default ignores case and punctuation
 get_most_frequent_word(generic_string)
-
 # can change like so:
 get_most_frequent_word(generic_string, ignore.case = FALSE, ignore.punct = FALSE)
+
 }
 \author{
 Ben Wiseman, \email{benjamin.wiseman@kornferry.com}

@@ -19,16 +19,3 @@ a logical value
 \description{
 Misc/useful functions to easily determine what is contained in a vector.
 }
-\examples{
-x <- rep(1, 10)
-is.constant(x)
-is.binary(x)
-
-x <- c(rep_len(1:2, 10), NA)
-is.constant(x)
-is.binary(x)
-
-x <- c(rep_len(1:3, 10), NA)
-is.constant(x)
-is.binary(x)
-}

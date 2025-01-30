@@ -62,7 +62,7 @@ is.null_or_na(x)
 
 \item{na.rm}{If true, NA values aren't considered bad for calculations}
 
-\item{...}{values to be tested}
+\item{...}{Values to be testes}
 
 \item{y}{object to be tested}
 }
@@ -70,7 +70,7 @@ is.null_or_na(x)
 a logical value
 }
 \description{
-Misc/useful type checks to prevent duplicated code.
+Misc/useful type checks to prevent duplicated code
 }
 \author{
 Steven Nydick, \email{steven.nydick@kornferry.com}

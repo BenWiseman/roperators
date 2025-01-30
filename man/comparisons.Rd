@@ -8,7 +8,7 @@
 \alias{\%<=\%}
 \alias{\%><\%}
 \alias{\%>=<\%}
-\title{Enhanced Comparisons}
+\title{Enhanced comparisons}
 \usage{
 x \%==\% y
 
@@ -30,34 +30,39 @@ x \%>=<\% y
 \description{
 These operators introduce improved NA handling, reliable floating point tests,
 and intervals. Specifically:
-\itemize{
-\item Equality that handles missing values
-\item Floating point equality, an important bit of functionality missing in base
-R (\verb{\%~=\%})
-\item Strict (value and type) equality, for those familiar with Javascript's \verb{===}
-\item Greater/less than or equal to with missing value equality
-\item Greater/less than or equal to with floating point and missing equality
-\item Between (ends excluded)
-\item Between (ends included)
-}
+
+Equality that handles missing values
+
+Floating point equality, an important bit of functionality missing in base R (\code{\%~=\%})
+
+Strict (value and type) equality, for those familiar with Javascript \code{===}
+
+Greater/less than or equal to with missing value equality
+
+Greater/less than or equal to with floating point and missing equality
+
+Between (ends excluded)
+
+Between (ends included)
 }
 \examples{
-## Greater/Less than | Equal
+ ## Greater/Less than | Equal
 
-c(1, NA, 3, 4)  ==  c(1, NA, 4, 3)
-#  TRUE    NA  FALSE FALSE
+ c(1, NA, 3, 4)  ==  c(1, NA, 4, 3)
+ #  TRUE    NA  FALSE FALSE
 
-c(1, NA, 3, 4) \%==\% c(1, NA, 4, 3)
-#  TRUE  TRUE  FALSE FALSE
+ c(1, NA, 3, 4) \%==\% c(1, NA, 4, 3)
+ #  TRUE  TRUE  FALSE FALSE
 
-c(1, NA, 3, 4) \%>=\% c(1, NA, 4, 3)
-#  TRUE  TRUE FALSE  TRUE
+ c(1, NA, 3, 4) \%>=\% c(1, NA, 4, 3)
+ #  TRUE  TRUE FALSE  TRUE
 
-c(1, NA, 3, 4) \%<=\% c(1, NA, 4, 3)
-#  TRUE  TRUE TRUE  FALSE
+ c(1, NA, 3, 4) \%<=\% c(1, NA, 4, 3)
+ #  TRUE  TRUE TRUE  FALSE
 
-# Strict equality - a la javascript's ===
-# Only tru if the class and value of x and y are the same
+
+ # Strict equality - a la javascript's ===
+ # Only tru if the class and value of x and y are the same
 x <- int(2)
 y <- 2
 x == y         # TRUE
@@ -65,26 +70,28 @@ x \%===\% y      # FALSE
 x \%===\% int(y) # TRUE
 
 
-# NOTE parentheses surrounding expression before this operator are necessary
-# Without parentheses it would be interpreted as .1 + .1 + (.1 \%~=\% .3)
+ # NOTE parentheses surrounding expression before this operator are necessary
+ # Without parentheses it would be interpreted as .1 + .1 + (.1 \%~=\% .3)
 
-## Between
 
-# ends excluded
+ #### Between ####
 
-2 \%><\% c(1, 3)
-# TRUE
+ # ends excluded
 
-3 \%><\% c(1, 3)
-# FALSE
+ 2 \%><\% c(1, 3)
+ # TRUE
 
-# ends included
+ 3 \%><\% c(1, 3)
+ # FALSE
 
-2 \%>=<\% c(1, 3)
-# TRUE
+ # ends included
 
-3 \%>=<\% c(1, 3)
-# TRUE
+ 2 \%>=<\% c(1, 3)
+ # TRUE
+
+ 3 \%>=<\% c(1, 3)
+ # TRUE
+
 }
 \seealso{
 Other comparisons: 

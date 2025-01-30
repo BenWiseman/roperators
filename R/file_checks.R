@@ -1,7 +1,6 @@
 #' File Extension Checks
 #'
-#' @description
-#' Check whether file extension is as specified.
+#' Check whether file extension is as specified
 #'
 #' @param x file(s) to be tested
 #' @param ext extension to test against
@@ -32,25 +31,25 @@ is_txt_file <- function(x){
 #' @export
 is_csv_file <- function(x){
   check_ext_against(x, ext = c("csv"))
-}
+} # END is_csv_file FUNCTION
 
 #' @rdname file_checks
 #' @export
 is_excel_file <- function(x){
   check_ext_against(x, ext = c("xls", "xlsx"))
-}
+} # END is_excel_file FUNCTION
 
 #' @rdname file_checks
 #' @export
 is_r_file <- function(x){
   check_ext_against(x, ext = c("r"))
-}
+} # END is_r_file FUNCTION
 
 #' @rdname file_checks
 #' @export
 is_rdata_file <- function(x){
   check_ext_against(x, ext = c("rdata"))
-}
+} # END is_rdata_file CHECK
 
 #' @rdname file_checks
 is_rda_file <- function(x){
@@ -66,11 +65,11 @@ is_rds_file <- function(x){
 #' @export
 is_spss_file <- function(x){
   check_ext_against(x, ext = c("sav"))
-}
+} # END is_spss_file FUNCTION
 
 #' @rdname file_checks
 #' @export
 check_ext_against <- function(x,
                               ext = "txt"){
   tolower(tools::file_ext(x)) %in% ext
-}
+} # END check_ext_against FUNCTION

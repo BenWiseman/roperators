@@ -40,7 +40,7 @@ check_ext_against(x, ext = "txt")
 a logical value
 }
 \description{
-Check whether file extension is as specified.
+Check whether file extension is as specified
 }
 \note{
 These only check the file extension and not the contents of the file. Checking
