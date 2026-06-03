@@ -24,27 +24,23 @@ library(roperators)
 > Small, friendly operators and helpers that let your R code read the way you already think it.
 
 R is a wonderful language to work in — but here and there it asks you to write
-something a little clunkier than the thought in your head. `roperators` quietly
-smooths those moments over. There's nothing magic going on underneath: just a
-handful of small, well-behaved operators and helpers, all in base R, that make
-everyday code calmer to read and write — and a gentle welcome for folks arriving
+something clunkier than the thought in your head. `roperators` smooths those
+moments over. Nothing magic underneath: just a handful of small, well-behaved
+operators and helpers, all in base R — and a friendly welcome for folks arriving
 from Python and elsewhere.
 
-(It's pronounced *rop-er-ators*, by the way — not *r-operators*.)
+```{r}
+"foo" %+% "bar"               # add strings
+(0.1 + 0.1 + 0.1) %~=% 0.3    # floating-point equality that works
+c(1, NA) %==% c(1, NA)        # NA == NA treated as TRUE
+```
 
-## Find the right tool
-
-<div id="rop-finder">
-  <p><em>This interactive finder works best on the
-  <a href="https://benwiseman.github.io/roperators/">package website</a> — search
-  by what you're trying to do (“join two strings”, “missing values”, “read a
-  file”…) and jump straight to it.</em></p>
-</div>
+(It's pronounced *rop-er-ators*, not *r-operators*.)
 
 ## Installation
 
 ```r
-# the released version, from CRAN:
+# released version, from CRAN:
 install.packages("roperators")
 
 # or the development version, from GitHub:
@@ -52,9 +48,23 @@ install.packages("roperators")
 remotes::install_github("BenWiseman/roperators")
 ```
 
-```r
+```{r}
 library(roperators)
+
+"hello " %+% "world"   # your first win
 ```
+
+## Find the right tool
+
+<div id="rop-finder">
+  <p><em>On the <a href="https://benwiseman.github.io/roperators/">package
+  website</a> this is an interactive finder — search by what you're trying to do
+  (“join two strings”, “missing values”, “read a file”…) and jump straight to the
+  docs. Either way, the <a href="https://benwiseman.github.io/roperators/reference/index.html">full
+  reference</a> lists everything.</em></p>
+</div>
+
+*New here? Take the [5-minute guided tour](https://benwiseman.github.io/roperators/articles/nicer_roperators.html), or skim the tour of features below.*
 
 ## String arithmetic
 
@@ -83,9 +93,9 @@ d <- iris
 d$Sepal.Length[d$Species == "setosa"] %+=% 1   # add 1, in place
 ```
 
-There's a whole little family — `%-=%`, `%*=%`, `%/=%`, `%^=%`, `%root=%`,
-`%log=%` — plus `%regex=%` (apply a regex in place), `%regex<-%` (overwrite
-matching elements), and `%na<-%` (gently fill in the `NA`s):
+There's a whole family — `%-=%`, `%*=%`, `%/=%`, `%^=%`, `%root=%`, `%log=%` —
+plus `%regex=%` (apply a regex in place), `%regex<-%` (overwrite matching
+elements), and `%na<-%` (fill in the `NA`s):
 
 ```{r}
 x <- c(1, NA, 3, NA)
@@ -95,8 +105,8 @@ x
 
 ## Comparisons that behave
 
-`NA` and floating point trip up almost everyone at some point — and honestly,
-it's not your fault, it's just the defaults. Here's a softer landing:
+`NA` and floating point trip up almost everyone — it's not your fault, just the
+defaults:
 
 ```{r}
 c(1, NA, 3) == c(1, NA, 4)    # base R: the NA leaks through
@@ -115,22 +125,24 @@ approximately equal).
 
 ## Logical & SQL-style pattern matching
 
+A few logical conveniences, plus SQL-style pattern matching:
+
 ```{r}
 "z" %ni% c("a", "b", "c")          # not in
 TRUE %xor% FALSE                   # exclusive or
 c("FOO", "bar") %rlike% "foo"      # case-insensitive LIKE
 ```
 
-## ✨ New in 1.4
+## f-strings & safe everyday operators
 
-A few new friends arrived in this release:
+A few of these arrived in 1.4 (see the [changelog](https://benwiseman.github.io/roperators/news/index.html)):
 
 ```{r}
 # f-strings: interpolate expressions straight into a string
 name <- "Ben"; n <- 2
 f("Hi {name}, you have {n} message{if (n != 1) 's'}")
 
-# %else%: a calm fallback if an expression decides to error
+# %else%: a fallback when an expression errors
 sqrt("not a number") %else% NA_real_
 
 # %/0%: safe division, so a stray zero never poisons your means
@@ -146,7 +158,7 @@ sqrt("not a number") %else% NA_real_
 as.percent(c(0.1, 0.005, 2/3))
 ```
 
-## Shorter conversions & gentle checks
+## Shorter conversions & quick checks
 
 Shorter names for the conversions you reach for all the time:
 
@@ -156,7 +168,7 @@ int("42"); chr(42); num("4.2"); bool("TRUE")   # as.integer(), as.character(), .
 # no more as.numeric(as.character(factor_var)):
 f.as.numeric(factor(c(11, 22, 33)))
 
-# one tidy question instead of five:
+# TRUE where a value is NA, NaN, or Inf:
 is.bad_for_calcs(c(1, NA, Inf, NaN))
 ```
 
@@ -164,12 +176,12 @@ There's a matching set of `is.*_or_null()` predicates too, along with
 `is.scalar()`, `is.constant()`, `is.binary()`, and friends — handy for keeping
 your guard clauses short.
 
-## A little drawer of everyday helpers
+## Everyday helpers
 
 ```{r}
 get_1st_word("Ada Lovelace")           # and get_last_word / get_nth_word
 get_most_frequent(c("a", "b", "b"))    # the mode(s)
-paste_oxford("Tom", "Dick", "Harry")   # Oxford-comma joining, done for you
+paste_oxford("Tom", "Dick", "Harry")   # Oxford-comma joining
 
 mean_cc(c(1, 2, NA))                   # *_cc = the base function with na.rm = TRUE
 ```
@@ -177,12 +189,29 @@ mean_cc(c(1, 2, NA))                   # *_cc = the base function with na.rm = T
 …plus OS checks (`get_os()`, `is.os_mac()`, …), file-extension checks
 (`is_csv_file()`, …), and `read.tsv()` / `read.psv()`.
 
-## Learn more
+## At a glance
 
-* `vignette("nicer_roperators")` — the unhurried, guided tour.
-* Full reference: <https://benwiseman.github.io/roperators/>
+| You want…                       | Reach for                           |
+|---------------------------------|-------------------------------------|
+| String concat / subtract        | `%+%` / `%-%`                       |
+| String repeat / count           | `%s*%` / `%s/%`                     |
+| In-place maths                  | `%+=%` `%-=%` `%*=%` `%/=%` `%^=%`  |
+| Fill NAs / regex edit in place  | `%na<-%` / `%regex=%` / `%regex<-%` |
+| NA-aware (in)equality           | `%==%` `%>=%` `%<=%`                |
+| Floating-point equality         | `%~=%` `%>~%` `%<~%`                |
+| Strict (value + class) equality | `%===%`                            |
+| Between (excl / incl)           | `%><%` / `%>=<%`                   |
+| Not-in / xor / all-or-nothing   | `%ni%` / `%xor%` / `%aon%`         |
+| String interpolation            | `f()`                              |
+| Inline error fallback           | `%else%`                           |
+| Safe divide / tolerance         | `%/0%` / `%+-%`                    |
+| Fuzzy string match              | `%~%`                              |
 
-A gentle heads-up on names: a few are shared on purpose with the wider world
-(`%+%` with ggplot2, `%like%`-style matching with data.table). If you've got
-those loaded too, just reach for the namespaced form (`roperators::%+%`) where it
-matters, and everyone gets along fine.
+## Next steps
+
+* **[Take the 5-minute guided tour →](https://benwiseman.github.io/roperators/articles/nicer_roperators.html)**
+* **[Browse all functions →](https://benwiseman.github.io/roperators/reference/index.html)**
+
+A quick note on shared names: `%+%` is also ggplot2's, and `%like%`-style
+matching is data.table's. If you load those too, use the namespaced form
+(`roperators::%+%`) where it matters.

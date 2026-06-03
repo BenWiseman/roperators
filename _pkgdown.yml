@@ -17,6 +17,13 @@ template:
 navbar:
   bg: primary
   type: dark
+  structure:
+    left:  [getstarted, reference, articles, news]
+    right: [search, github]
+  components:
+    getstarted:
+      text: Get started
+      href: articles/nicer_roperators.html
 
 reference:
 - title: Operators — arithmetic & strings
@@ -45,12 +52,14 @@ reference:
   - "%~%"
 
 - title: Strings & interpolation
+  desc: Build and format strings, including f-string interpolation.
   contents:
   - f
   - as.percent
   - paste_and_cat
 
 - title: Inline control flow
+  desc: A fallback operator for expressions that might error.
   contents:
   - "%else%"
 
@@ -64,6 +73,7 @@ reference:
   - file_checks
 
 - title: Vectors, extraction & statistics
+  desc: Pull elements and words out of vectors, count uniques, build sequences, and run complete-cases summaries.
   contents:
   - get_1st
   - n_unique
@@ -71,6 +81,7 @@ reference:
   - complete_cases
 
 - title: System, environment & I/O
+  desc: Detect the operating system and R environment, check file types, and read delimited files.
   contents:
   - os
   - read.tsv

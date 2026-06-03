@@ -1,16 +1,29 @@
 /* ----------------------------------------------------------------------------
-   roperators — warm, cosy flourishes on top of the gruvbox-light theme
+   roperators — warm, cosy theme on top of gruvbox-light, designed so the whole
+   page reads as one crafted surface (not a default-pkgdown README).
+   The "I'm trying to…" finder styles itself from pkgdown/extra.js.
    ------------------------------------------------------------------------- */
 
-/* a touch more air for comfortable reading */
-.contents, main {
-  line-height: 1.66;
-}
+/* comfortable reading rhythm */
+.contents, main { line-height: 1.66; }
 
-/* headings: warm serif, gently weighted */
+/* headings: warm serif with a short sap-green accent bar instead of a hairline */
 h1, h2, h3, h4, .page-header h1 {
   font-weight: 600;
   letter-spacing: -0.01em;
+}
+.contents h2 {
+  margin-top: 2.4rem;
+  padding-bottom: 0.15rem;
+}
+.contents h2::after {
+  content: "";
+  display: block;
+  width: 2.4rem;
+  height: 3px;
+  margin-top: 0.45rem;
+  background: $primary;
+  border-radius: 3px;
 }
 
 /* the README tagline (a blockquote) becomes a soft "hero" panel */
@@ -23,31 +36,15 @@ blockquote {
   line-height: 1.5;
 }
 
-/* section rules with a warm hairline under the big headings */
-.contents h2 {
-  border-bottom: 1px solid rgba($primary, 0.22);
-  padding-bottom: 0.3rem;
-  margin-top: 2.2rem;
-}
-
-/* softer, warmer code blocks */
+/* warmer code blocks that read as deliberate panels */
 pre {
-  border: 1px solid rgba($primary, 0.18);
+  border: 1px solid rgba($primary, 0.2);
   border-radius: $border-radius;
   box-shadow: 0 1px 2px rgba(51, 49, 46, 0.05);
 }
 code a, a code { color: inherit; }
 
-/* the cheat-sheet table: warm header, gentle zebra, rounded corners */
-table {
-  border-radius: $border-radius;
-  overflow: hidden;
-}
-table thead { background: rgba($primary, 0.12); }
-table tbody tr:nth-child(odd) { background: rgba($primary, 0.035); }
-table td, table th { border-color: rgba($primary, 0.12); }
-
-/* links: warm, with a friendlier hover */
+/* links: warm, friendlier hover */
 a { text-underline-offset: 0.15em; }
 a:hover { text-decoration-thickness: 2px; }
 
@@ -58,6 +55,56 @@ a:hover { text-decoration-thickness: 2px; }
   letter-spacing: 0.01em;
 }
 
-/* The "I'm trying to…" task finder styles itself from pkgdown/extra.js, so its
-   appearance always ships with its markup and can't fall out of step with a
-   cached stylesheet — see injectStyles() there. */
+/* ----------------------------------------------------------------------------
+   Home page: turn the run of README sections into designed "feature cards" that
+   echo the finder, so the page has rhythm and craft all the way down.
+   ------------------------------------------------------------------------- */
+.template-home .section.level2 {
+  margin: 1.5rem 0;
+  padding: 1.3rem 1.5rem 0.7rem;
+  background: #fffdf9;
+  border: 1px solid rgba($primary, 0.16);
+  border-radius: calc(#{$border-radius} * 1.4);
+  scroll-margin-top: 5rem;
+}
+.template-home .section.level2 > h2:first-child { margin-top: 0; }
+.template-home .section.level2:hover { border-color: rgba($primary, 0.32); }
+
+/* tables (e.g. the cheat sheet): warm header, rounded, scrollable on phones */
+.contents table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  border-radius: $border-radius;
+}
+.contents table thead { background: rgba($primary, 0.12); }
+.contents table tbody tr:nth-child(odd) { background: rgba($primary, 0.035); }
+.contents table td, .contents table th { border-color: rgba($primary, 0.12); }
+.contents table td code { white-space: normal; }
+
+/* ----------------------------------------------------------------------------
+   Reference index: scannable cards instead of a grey wall of monospace.
+   ------------------------------------------------------------------------- */
+.template-reference-index dl {
+  background: #fffdf9;
+  border: 1px solid rgba($primary, 0.16);
+  border-radius: $border-radius;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.7rem;
+  transition: border-color 0.1s ease, box-shadow 0.1s ease;
+}
+.template-reference-index dl:hover {
+  border-color: $primary;
+  box-shadow: 0 3px 12px rgba($primary, 0.12);
+}
+.template-reference-index dt { margin-bottom: 0.35rem; line-height: 1.9; }
+.template-reference-index dt code {
+  display: inline-block;
+  margin: 0.1rem 0.18rem 0.1rem 0;
+  background: rgba($primary, 0.08);
+  border-radius: 0.3rem;
+  padding: 0.05rem 0.35rem;
+}
+.template-reference-index dt code a { color: $primary; }
+.template-reference-index dd { margin: 0; }
