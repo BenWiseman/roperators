@@ -12,7 +12,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/BenWiseman/roperators/blob/v1.4.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/BenWiseman/roperators/blob/master/DESCRIPTION)
 
 Wiseman B, Nydick S, Jones J (2026). *roperators: Additional Operators
 to Help You Write Cleaner R Code*. R package version 1.4.0,
