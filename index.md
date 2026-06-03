@@ -12,6 +12,13 @@ helpers, all in base R, that make everyday code calmer to read and write
 
 (It’s pronounced *rop-er-ators*, by the way — not *r-operators*.)
 
+## Find the right tool
+
+*This interactive finder works best on the [package
+website](https://benwiseman.github.io/roperators/) — search by what
+you’re trying to do (“join two strings”, “missing values”, “read a
+file”…) and jump straight to it.*
+
 ## Installation
 
 ``` r

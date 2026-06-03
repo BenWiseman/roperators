@@ -13,7 +13,7 @@
 <link href="deps/Fraunces-0.4.10/font.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Additional Operators to Help You Write Cleaner R Code">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><script src="extra.js"></script><meta property="og:title" content="Additional Operators to Help You Write Cleaner R Code">
 <meta name="description" content="A set of additional operators and helper functions to make R code easier to read, write, and maintain. Includes string arithmetic (such as foo + bar), in-place reassignment operators (such as x += 1), logical operators that handle missing values, floating-point and strict (JavaScript-style) equality tests, between operators, and SQL-style pattern matching. Also provides convenience helpers for type conversion, operating-system checks, complete-cases statistics, and string manipulation, such as Oxford-comma pasting and extracting the first, last, n-th, or most common element of a vector or word in a string. The goal is to give R users, particularly those coming from other languages such as Python, a friendlier and more consistent syntax.">
 <meta property="og:description" content="A set of additional operators and helper functions to make R code easier to read, write, and maintain. Includes string arithmetic (such as foo + bar), in-place reassignment operators (such as x += 1), logical operators that handle missing values, floating-point and strict (JavaScript-style) equality tests, between operators, and SQL-style pattern matching. Also provides convenience helpers for type conversion, operating-system checks, complete-cases statistics, and string manipulation, such as Oxford-comma pasting and extracting the first, last, n-th, or most common element of a vector or word in a string. The goal is to give R users, particularly those coming from other languages such as Python, a friendlier and more consistent syntax.">
 </head>
@@ -65,6 +65,15 @@
 </blockquote>
 <p>R is a wonderful language to work in — but here and there it asks you to write something a little clunkier than the thought in your head. <code>roperators</code> quietly smooths those moments over. There’s nothing magic going on underneath: just a handful of small, well-behaved operators and helpers, all in base R, that make everyday code calmer to read and write — and a gentle welcome for folks arriving from Python and elsewhere.</p>
 <p>(It’s pronounced <em>rop-er-ators</em>, by the way — not <em>r-operators</em>.)</p>
+<div class="section level2">
+<h2 id="find-the-right-tool">Find the right tool<a class="anchor" aria-label="anchor" href="#find-the-right-tool"></a>
+</h2>
+<div id="rop-finder">
+<p>
+<em>This interactive finder works best on the <a href="https://benwiseman.github.io/roperators/">package website</a> — search by what you’re trying to do (“join two strings”, “missing values”, “read a file”…) and jump straight to it.</em>
+</p>
+</div>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>

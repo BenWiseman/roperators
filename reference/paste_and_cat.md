@@ -97,6 +97,13 @@ Steven Nydick, <steven.nydick@kornferry.com>
 ## Examples
 
 ``` r
+paste_("a", "b", "c")          # "a_b_c"  (paste0 with an underscore)
+#> [1] "a_b_c"
+cat0("no", "spaces", "here")   # prints: nospaceshere
+#> nospaceshere
+catN("...and this one", " ends with a newline")
+#> ...and this one ends with a newline
+
 
 paste_series("a")
 #> [1] "a"

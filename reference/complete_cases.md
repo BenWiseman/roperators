@@ -110,4 +110,15 @@ var_cc(y)
 #> [1] 1.09564
 cor_cc(x, y) # correlation between available cases
 #> [1] 0.2796028
+
+# the row/column helpers also drop NAs by default
+m <- matrix(c(1, NA, 3, 4, 5, 9), nrow = 2)
+rowMeans_cc(m)
+#> [1] 3.0 6.5
+colSums_cc(m)
+#> [1]  1  7 14
+
+# colMeans_cc()/rowMeans_cc() can z-score each column first via rescale = TRUE
+colMeans_cc(matrix(1:6, nrow = 3), rescale = TRUE)
+#> [1] 0 0
 ```
