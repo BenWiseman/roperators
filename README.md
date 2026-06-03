@@ -26,6 +26,20 @@ helpers, all in base R, that make everyday code calmer to read and write
 
 (It’s pronounced *rop-er-ators*, by the way — not *r-operators*.)
 
+## Find the right tool
+
+<div id="rop-finder">
+
+<p>
+
+<em>This interactive finder works best on the
+<a href="https://benwiseman.github.io/roperators/">package website</a> —
+search by what you’re trying to do (“join two strings”, “missing
+values”, “read a file”…) and jump straight to it.</em>
+</p>
+
+</div>
+
 ## Installation
 
 ``` r

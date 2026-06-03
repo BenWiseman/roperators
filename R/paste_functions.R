@@ -28,6 +28,11 @@
 #'   return a character vector. \code{cat0()} and \code{catN()} are called for
 #'   their side effect (printing) and return \code{NULL} invisibly.
 #'
+#' @examples
+#' paste_("a", "b", "c")          # "a_b_c"  (paste0 with an underscore)
+#' cat0("no", "spaces", "here")   # prints: nospaceshere
+#' catN("...and this one", " ends with a newline")
+#'
 #' @author Steven Nydick, \email{steven.nydick@@kornferry.com}
 #' @name paste_and_cat
 NULL

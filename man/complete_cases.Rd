@@ -116,4 +116,12 @@ var_cc(x)    # variance of complete cases
 var_cc(y)
 cor_cc(x, y) # correlation between available cases
 
+# the row/column helpers also drop NAs by default
+m <- matrix(c(1, NA, 3, 4, 5, 9), nrow = 2)
+rowMeans_cc(m)
+colSums_cc(m)
+
+# colMeans_cc()/rowMeans_cc() can z-score each column first via rescale = TRUE
+colMeans_cc(matrix(1:6, nrow = 3), rescale = TRUE)
+
 }

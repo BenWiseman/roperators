@@ -72,6 +72,10 @@ A small family of \code{paste}/\code{cat} conveniences:
 }
 }
 \examples{
+paste_("a", "b", "c")          # "a_b_c"  (paste0 with an underscore)
+cat0("no", "spaces", "here")   # prints: nospaceshere
+catN("...and this one", " ends with a newline")
+
 
 paste_series("a")
 paste_series("a", "b")
