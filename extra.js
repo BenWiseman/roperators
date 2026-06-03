@@ -78,9 +78,41 @@
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
+  // The widget carries its own styles so its look always arrives with its
+  // markup — independent of the (cacheable, version-pinned) site stylesheet.
+  function injectStyles() {
+    if (document.getElementById("rop-finder-style")) { return; }
+    var css = [
+      ".rop-finder{margin:1.6rem 0 2.6rem;padding:1.4rem;background:linear-gradient(180deg,rgba(63,125,88,.08),rgba(63,125,88,.03));border:1px solid rgba(63,125,88,.22);border-radius:.85rem}",
+      ".rop-finder__label{display:block;font-family:Fraunces,Georgia,serif;font-size:1.5rem;font-weight:600;margin-bottom:.55rem}",
+      ".rop-finder__input{width:100%;font-size:1.05rem;padding:.7rem 1rem;border:1.5px solid rgba(63,125,88,.35);border-radius:.55rem;background:#fffdf9;color:#33312e}",
+      ".rop-finder__input:focus{outline:none;border-color:#3f7d58;box-shadow:0 0 0 .2rem rgba(63,125,88,.18)}",
+      ".rop-finder__chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.9rem 0 .3rem}",
+      ".rop-finder__chip{font-size:.85rem;padding:.25rem .75rem;border:1px solid rgba(63,125,88,.3);border-radius:999px;background:transparent;color:#3f7d58;cursor:pointer}",
+      ".rop-finder__chip:hover{background:rgba(63,125,88,.12)}",
+      ".rop-finder__chip.is-active{background:#3f7d58;color:#fff;border-color:#3f7d58}",
+      ".rop-finder__count{font-size:.8rem;color:rgba(51,49,46,.6);margin:.35rem 0 .8rem}",
+      ".rop-finder__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:.7rem}",
+      ".rop-card{display:flex;flex-direction:column;gap:.35rem;padding:.8rem .9rem;background:#fffdf9;border:1px solid rgba(63,125,88,.18);border-radius:.55rem;color:#33312e;transition:transform .1s ease,box-shadow .1s ease,border-color .1s ease}",
+      ".rop-card,.rop-card:hover{text-decoration:none}",
+      ".rop-card:hover{transform:translateY(-2px);border-color:#3f7d58;box-shadow:0 4px 14px rgba(63,125,88,.16)}",
+      ".rop-card__cat{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:#3f7d58;font-weight:600}",
+      ".rop-card__title{font-weight:600;line-height:1.25}",
+      ".rop-card__code{display:block;font-size:.83rem;background:rgba(63,125,88,.08);padding:.3rem .45rem;border-radius:.35rem;white-space:pre-wrap;word-break:break-word}",
+      ".rop-card__out{font-size:.8rem;color:rgba(51,49,46,.6)}",
+      ".rop-card__more{margin-top:auto;font-size:.78rem;color:#3f7d58;font-weight:600}",
+      ".rop-finder__empty{color:rgba(51,49,46,.6);padding:.5rem 0}"
+    ].join("\n");
+    var s = document.createElement("style");
+    s.id = "rop-finder-style";
+    s.textContent = css;
+    document.head.appendChild(s);
+  }
+
   ready(function () {
     var mount = document.getElementById("rop-finder");
     if (!mount) { return; }            // only on the home page
+    injectStyles();
     mount.innerHTML = "";
     mount.classList.add("rop-finder");
 
