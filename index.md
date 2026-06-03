@@ -7,9 +7,9 @@
 
 | base R                                    | roperators  ← cleaner          |
 |-------------------------------------------|--------------------------------|
+| `paste0(“Hi”, name, “, you have”, n)`     | `f(“Hi {name}, you have {n}”)` |
 | `c(1, NA, 3) == c(1, NA, 4)`              | `c(1, NA, 3) %==% c(1, NA, 4)` |
 | `isTRUE(all.equal(0.1 + 0.1 + 0.1, 0.3))` | `(0.1 + 0.1 + 0.1) %~=% 0.3`   |
-| `paste0(“Hi”, name, “, you have”, n)`     | `f(“Hi {name}, you have {n}”)` |
 | `x[is.na(x)] <- 0`                        | `x %na<-% 0`                   |
 | `ifelse(b == 0, NA, a / b)`               | `a %/0% b`                     |
 
