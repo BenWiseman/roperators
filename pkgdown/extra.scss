@@ -1,0 +1,74 @@
+/* ----------------------------------------------------------------------------
+   roperators — warm, cosy flourishes on top of the gruvbox-light theme
+   ------------------------------------------------------------------------- */
+
+/* a touch more air for comfortable reading */
+.contents, main {
+  line-height: 1.66;
+}
+
+/* headings: warm serif, gently weighted */
+h1, h2, h3, h4, .page-header h1 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* the README tagline (a blockquote) becomes a soft "hero" panel */
+blockquote {
+  border-left: 0.3rem solid $primary;
+  background: rgba($primary, 0.07);
+  padding: 0.9rem 1.2rem;
+  border-radius: $border-radius;
+  font-size: 1.18rem;
+  line-height: 1.5;
+}
+
+/* section rules with a warm hairline under the big headings */
+.contents h2 {
+  border-bottom: 1px solid rgba($primary, 0.22);
+  padding-bottom: 0.3rem;
+  margin-top: 2.2rem;
+}
+
+/* softer, warmer code blocks */
+pre {
+  border: 1px solid rgba($primary, 0.18);
+  border-radius: $border-radius;
+  box-shadow: 0 1px 2px rgba(51, 49, 46, 0.05);
+}
+code a, a code { color: inherit; }
+
+/* the cheat-sheet table: warm header, gentle zebra, rounded corners */
+table {
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+table thead {
+  background: rgba($primary, 0.12);
+}
+table tbody tr:nth-child(odd) {
+  background: rgba($primary, 0.035);
+}
+table td, table th {
+  border-color: rgba($primary, 0.12);
+}
+
+/* links: warm, with a friendlier hover */
+a {
+  text-underline-offset: 0.15em;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* reference index cards lift a little on hover — invites a click */
+.template-reference-index .row > [class^="col"] {
+  transition: transform 0.12s ease;
+}
+
+/* navbar brand a touch warmer/bolder */
+.navbar-brand {
+  font-family: Fraunces, serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}

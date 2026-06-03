@@ -2,8 +2,21 @@ url: https://benwiseman.github.io/roperators/
 
 template:
   bootstrap: 5
+  theme: gruvbox-light
   bslib:
-    primary: "#1e6f5c"
+    primary: "#3f7d58"        # warm sap green
+    link-color: "#2f6b48"
+    bg: "#fdf9f2"             # warm cream paper
+    fg: "#33312e"             # soft warm ink
+    base_font: {google: "Inter"}
+    heading_font: {google: "Fraunces"}
+    code_font: {google: "JetBrains Mono"}
+    border-radius: "0.55rem"
+    navbar-padding-y: "0.6rem"
+
+navbar:
+  bg: primary
+  type: dark
 
 reference:
 - title: Operators — arithmetic & strings
