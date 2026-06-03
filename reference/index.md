@@ -61,6 +61,8 @@ and pattern-matching operators.
 
 ## Strings & interpolation
 
+Build and format strings, including f-string interpolation.
+
 - [`f()`](https://benwiseman.github.io/roperators/reference/f.md) :
   String interpolation (f-strings for R)
 - [`as.percent()`](https://benwiseman.github.io/roperators/reference/as.percent.md)
@@ -73,6 +75,8 @@ and pattern-matching operators.
   : Paste and cat helpers
 
 ## Inline control flow
+
+A fallback operator for expressions that might error.
 
 - [`` `%else%` ``](https://benwiseman.github.io/roperators/reference/inline_fallback.md)
   : Inline fallback for expressions that might error
@@ -124,6 +128,9 @@ Shorthand conversions and a family of type/content/file predicates.
 
 ## Vectors, extraction & statistics
 
+Pull elements and words out of vectors, count uniques, build sequences,
+and run complete-cases summaries.
+
 - [`get_1st()`](https://benwiseman.github.io/roperators/reference/time_savers.md)
   [`get_last()`](https://benwiseman.github.io/roperators/reference/time_savers.md)
   [`get_nth()`](https://benwiseman.github.io/roperators/reference/time_savers.md)
@@ -163,6 +170,9 @@ Shorthand conversions and a family of type/content/file predicates.
   : Statistics/Summaries with (Only) Missing Data Removed
 
 ## System, environment & I/O
+
+Detect the operating system and R environment, check file types, and
+read delimited files.
 
 - [`get_os()`](https://benwiseman.github.io/roperators/reference/os.md)
   [`get_R_version()`](https://benwiseman.github.io/roperators/reference/os.md)

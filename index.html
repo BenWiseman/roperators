@@ -34,6 +34,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/nicer_roperators.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
@@ -63,35 +64,46 @@
 <blockquote>
 <p>Small, friendly operators and helpers that let your R code read the way you already think it.</p>
 </blockquote>
-<p>R is a wonderful language to work in — but here and there it asks you to write something a little clunkier than the thought in your head. <code>roperators</code> quietly smooths those moments over. There’s nothing magic going on underneath: just a handful of small, well-behaved operators and helpers, all in base R, that make everyday code calmer to read and write — and a gentle welcome for folks arriving from Python and elsewhere.</p>
-<p>(It’s pronounced <em>rop-er-ators</em>, by the way — not <em>r-operators</em>.)</p>
-<div class="section level2">
-<h2 id="find-the-right-tool">Find the right tool<a class="anchor" aria-label="anchor" href="#find-the-right-tool"></a>
-</h2>
-<div id="rop-finder">
-<p>
-<em>This interactive finder works best on the <a href="https://benwiseman.github.io/roperators/">package website</a> — search by what you’re trying to do (“join two strings”, “missing values”, “read a file”…) and jump straight to it.</em>
-</p>
-</div>
-</div>
+<p>R is a wonderful language to work in — but here and there it asks you to write something clunkier than the thought in your head. <code>roperators</code> smooths those moments over. Nothing magic underneath: just a handful of small, well-behaved operators and helpers, all in base R — and a friendly welcome for folks arriving from Python and elsewhere.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="st">"foo"</span> <span class="op"><a href="reference/string_arithmetic.html">%+%</a></span> <span class="st">"bar"</span>               <span class="co"># add strings</span></span>
+<span><span class="co">#&gt; [1] "foobar"</span></span>
+<span><span class="op">(</span><span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="reference/floating_point_comparisons.html">%~=%</a></span> <span class="fl">0.3</span>    <span class="co"># floating-point equality that works</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span> <span class="op"><a href="reference/comparisons.html">%==%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span>        <span class="co"># NA == NA treated as TRUE</span></span>
+<span><span class="co">#&gt; [1] TRUE TRUE</span></span></code></pre></div>
+<p>(It’s pronounced <em>rop-er-ators</em>, not <em>r-operators</em>.)</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># the released version, from CRAN:</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># released version, from CRAN:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"roperators"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># or the development version, from GitHub:</span></span>
 <span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"BenWiseman/roperators"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://benwiseman.github.io/roperators/">roperators</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://benwiseman.github.io/roperators/">roperators</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="st">"hello "</span> <span class="op"><a href="reference/string_arithmetic.html">%+%</a></span> <span class="st">"world"</span>   <span class="co"># your first win</span></span>
+<span><span class="co">#&gt; [1] "hello world"</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="find-the-right-tool">Find the right tool<a class="anchor" aria-label="anchor" href="#find-the-right-tool"></a>
+</h2>
+<div id="rop-finder">
+<p>
+<em>On the <a href="https://benwiseman.github.io/roperators/">package website</a> this is an interactive finder — search by what you’re trying to do (“join two strings”, “missing values”, “read a file”…) and jump straight to the docs. Either way, the <a href="https://benwiseman.github.io/roperators/reference/index.html">full reference</a> lists everything.</em>
+</p>
+</div>
+<p><em>New here? Take the <a href="https://benwiseman.github.io/roperators/articles/nicer_roperators.html">5-minute guided tour</a>, or skim the tour of features below.</em></p>
 </div>
 <div class="section level2">
 <h2 id="string-arithmetic">String arithmetic<a class="anchor" aria-label="anchor" href="#string-arithmetic"></a>
 </h2>
 <p>Let’s start with the one nearly everyone misses coming from other languages — adding strings together:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"using infix (%) operators "</span> <span class="op"><a href="reference/string_arithmetic.html">%+%</a></span> <span class="st">"lets R do string addition"</span></span>
 <span><span class="co">#&gt; [1] "using infix (%) operators lets R do string addition"</span></span>
 <span></span>
@@ -108,7 +120,7 @@
 <h2 id="in-place-modifiers-à-la-">In-place modifiers (<em>à la</em> <code>+=</code>)<a class="anchor" aria-label="anchor" href="#in-place-modifiers-%C3%A0-la-"></a>
 </h2>
 <p>We’ve all written the same long line twice just to nudge a column up by one. You needn’t:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="va">x</span> <span class="op"><a href="reference/assign_ops.html">%+=%</a></span> <span class="fl">2</span></span>
 <span><span class="va">x</span></span>
@@ -116,8 +128,8 @@
 <span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">iris</span></span>
 <span><span class="va">d</span><span class="op">$</span><span class="va">Sepal.Length</span><span class="op">[</span><span class="va">d</span><span class="op">$</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">]</span> <span class="op"><a href="reference/assign_ops.html">%+=%</a></span> <span class="fl">1</span>   <span class="co"># add 1, in place</span></span></code></pre></div>
-<p>There’s a whole little family — <code>%-=%</code>, <code>%*=%</code>, <code>%/=%</code>, <code>%^=%</code>, <code>%root=%</code>, <code>%log=%</code> — plus <code>%regex=%</code> (apply a regex in place), <code>%regex&lt;-%</code> (overwrite matching elements), and <code>%na&lt;-%</code> (gently fill in the <code>NA</code>s):</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>There’s a whole family — <code>%-=%</code>, <code>%*=%</code>, <code>%/=%</code>, <code>%^=%</code>, <code>%root=%</code>, <code>%log=%</code> — plus <code>%regex=%</code> (apply a regex in place), <code>%regex&lt;-%</code> (overwrite matching elements), and <code>%na&lt;-%</code> (fill in the <code>NA</code>s):</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op"><a href="reference/overwrite_missing.html">%na&lt;-%</a></span> <span class="fl">0</span></span>
 <span><span class="va">x</span></span>
@@ -126,8 +138,8 @@
 <div class="section level2">
 <h2 id="comparisons-that-behave">Comparisons that behave<a class="anchor" aria-label="anchor" href="#comparisons-that-behave"></a>
 </h2>
-<p><code>NA</code> and floating point trip up almost everyone at some point — and honestly, it’s not your fault, it’s just the defaults. Here’s a softer landing:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p><code>NA</code> and floating point trip up almost everyone — it’s not your fault, just the defaults:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span>    <span class="co"># base R: the NA leaks through</span></span>
 <span><span class="co">#&gt; [1]  TRUE    NA FALSE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="reference/comparisons.html">%==%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span>  <span class="co"># roperators: NA == NA is treated as TRUE</span></span>
@@ -147,7 +159,8 @@
 <div class="section level2">
 <h2 id="logical--sql-style-pattern-matching">Logical &amp; SQL-style pattern matching<a class="anchor" aria-label="anchor" href="#logical--sql-style-pattern-matching"></a>
 </h2>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>A few logical conveniences, plus SQL-style pattern matching:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"z"</span> <span class="op"><a href="reference/logicals.html">%ni%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span>          <span class="co"># not in</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="cn">TRUE</span> <span class="op"><a href="reference/logicals.html">%xor%</a></span> <span class="cn">FALSE</span>                   <span class="co"># exclusive or</span></span>
@@ -156,16 +169,16 @@
 <span><span class="co">#&gt; [1]  TRUE FALSE</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="sparkles-new-in-14">✨ New in 1.4<a class="anchor" aria-label="anchor" href="#sparkles-new-in-14"></a>
+<h2 id="f-strings--safe-everyday-operators">f-strings &amp; safe everyday operators<a class="anchor" aria-label="anchor" href="#f-strings--safe-everyday-operators"></a>
 </h2>
-<p>A few new friends arrived in this release:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p>A few of these arrived in 1.4 (see the <a href="https://benwiseman.github.io/roperators/news/index.html">changelog</a>):</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># f-strings: interpolate expressions straight into a string</span></span>
 <span><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Ben"</span>; <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
 <span><span class="fu"><a href="reference/f.html">f</a></span><span class="op">(</span><span class="st">"Hi {name}, you have {n} message{if (n != 1) 's'}"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Hi Ben, you have 2 messages"</span></span>
 <span></span>
-<span><span class="co"># %else%: a calm fallback if an expression decides to error</span></span>
+<span><span class="co"># %else%: a fallback when an expression errors</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="st">"not a number"</span><span class="op">)</span> <span class="op"><a href="reference/inline_fallback.html">%else%</a></span> <span class="cn">NA_real_</span></span>
 <span><span class="co">#&gt; [1] NA</span></span>
 <span></span>
@@ -186,10 +199,10 @@
 <span><span class="co">#&gt; [1] "10.0%" "0.5%"  "66.7%"</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="shorter-conversions--gentle-checks">Shorter conversions &amp; gentle checks<a class="anchor" aria-label="anchor" href="#shorter-conversions--gentle-checks"></a>
+<h2 id="shorter-conversions--quick-checks">Shorter conversions &amp; quick checks<a class="anchor" aria-label="anchor" href="#shorter-conversions--quick-checks"></a>
 </h2>
 <p>Shorter names for the conversions you reach for all the time:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cleaner_conversions.html">int</a></span><span class="op">(</span><span class="st">"42"</span><span class="op">)</span>; <span class="fu"><a href="reference/cleaner_conversions.html">chr</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>; <span class="fu"><a href="reference/cleaner_conversions.html">num</a></span><span class="op">(</span><span class="st">"4.2"</span><span class="op">)</span>; <span class="fu"><a href="reference/cleaner_conversions.html">bool</a></span><span class="op">(</span><span class="st">"TRUE"</span><span class="op">)</span>   <span class="co"># as.integer(), as.character(), ...</span></span>
 <span><span class="co">#&gt; [1] 42</span></span>
 <span><span class="co">#&gt; [1] "42"</span></span>
@@ -200,20 +213,20 @@
 <span><span class="fu"><a href="reference/factor_conversion.html">f.as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">33</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 11 22 33</span></span>
 <span></span>
-<span><span class="co"># one tidy question instead of five:</span></span>
+<span><span class="co"># TRUE where a value is NA, NaN, or Inf:</span></span>
 <span><span class="fu"><a href="reference/type_checks.html">is.bad_for_calcs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, <span class="cn">Inf</span>, <span class="cn">NaN</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE  TRUE  TRUE  TRUE</span></span></code></pre></div>
 <p>There’s a matching set of <code>is.*_or_null()</code> predicates too, along with <code><a href="reference/type_checks.html">is.scalar()</a></code>, <code><a href="reference/content_checks.html">is.constant()</a></code>, <code><a href="reference/content_checks.html">is.binary()</a></code>, and friends — handy for keeping your guard clauses short.</p>
 </div>
 <div class="section level2">
-<h2 id="a-little-drawer-of-everyday-helpers">A little drawer of everyday helpers<a class="anchor" aria-label="anchor" href="#a-little-drawer-of-everyday-helpers"></a>
+<h2 id="everyday-helpers">Everyday helpers<a class="anchor" aria-label="anchor" href="#everyday-helpers"></a>
 </h2>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/time_savers.html">get_1st_word</a></span><span class="op">(</span><span class="st">"Ada Lovelace"</span><span class="op">)</span>           <span class="co"># and get_last_word / get_nth_word</span></span>
 <span><span class="co">#&gt; [1] "Ada"</span></span>
 <span><span class="fu"><a href="reference/time_savers.html">get_most_frequent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span>    <span class="co"># the mode(s)</span></span>
 <span><span class="co">#&gt; [1] "b"</span></span>
-<span><span class="fu"><a href="reference/paste_and_cat.html">paste_oxford</a></span><span class="op">(</span><span class="st">"Tom"</span>, <span class="st">"Dick"</span>, <span class="st">"Harry"</span><span class="op">)</span>   <span class="co"># Oxford-comma joining, done for you</span></span>
+<span><span class="fu"><a href="reference/paste_and_cat.html">paste_oxford</a></span><span class="op">(</span><span class="st">"Tom"</span>, <span class="st">"Dick"</span>, <span class="st">"Harry"</span><span class="op">)</span>   <span class="co"># Oxford-comma joining</span></span>
 <span><span class="co">#&gt; [1] "Tom, Dick, and Harry"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/complete_cases.html">mean_cc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>                   <span class="co"># *_cc = the base function with na.rm = TRUE</span></span>
@@ -221,15 +234,99 @@
 <p>…plus OS checks (<code><a href="reference/os.html">get_os()</a></code>, <code><a href="reference/os.html">is.os_mac()</a></code>, …), file-extension checks (<code><a href="reference/file_checks.html">is_csv_file()</a></code>, …), and <code><a href="reference/read.tsv.html">read.tsv()</a></code> / <code><a href="reference/read.tsv.html">read.psv()</a></code>.</p>
 </div>
 <div class="section level2">
-<h2 id="learn-more">Learn more<a class="anchor" aria-label="anchor" href="#learn-more"></a>
+<h2 id="at-a-glance">At a glance<a class="anchor" aria-label="anchor" href="#at-a-glance"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="47%">
+<col width="52%">
+</colgroup>
+<thead><tr>
+<th>You want…</th>
+<th>Reach for</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>String concat / subtract</td>
+<td>
+<code>%+%</code> / <code>%-%</code>
+</td>
+</tr>
+<tr>
+<td>String repeat / count</td>
+<td>
+<code>%s*%</code> / <code>%s/%</code>
+</td>
+</tr>
+<tr>
+<td>In-place maths</td>
+<td>
+<code>%+=%</code> <code>%-=%</code> <code>%*=%</code> <code>%/=%</code> <code>%^=%</code>
+</td>
+</tr>
+<tr>
+<td>Fill NAs / regex edit in place</td>
+<td>
+<code>%na&lt;-%</code> / <code>%regex=%</code> / <code>%regex&lt;-%</code>
+</td>
+</tr>
+<tr>
+<td>NA-aware (in)equality</td>
+<td>
+<code>%==%</code> <code>%&gt;=%</code> <code>%&lt;=%</code>
+</td>
+</tr>
+<tr>
+<td>Floating-point equality</td>
+<td>
+<code>%~=%</code> <code>%&gt;~%</code> <code>%&lt;~%</code>
+</td>
+</tr>
+<tr>
+<td>Strict (value + class) equality</td>
+<td><code>%===%</code></td>
+</tr>
+<tr>
+<td>Between (excl / incl)</td>
+<td>
+<code>%&gt;&lt;%</code> / <code>%&gt;=&lt;%</code>
+</td>
+</tr>
+<tr>
+<td>Not-in / xor / all-or-nothing</td>
+<td>
+<code>%ni%</code> / <code>%xor%</code> / <code>%aon%</code>
+</td>
+</tr>
+<tr>
+<td>String interpolation</td>
+<td><code><a href="reference/f.html">f()</a></code></td>
+</tr>
+<tr>
+<td>Inline error fallback</td>
+<td><code>%else%</code></td>
+</tr>
+<tr>
+<td>Safe divide / tolerance</td>
+<td>
+<code>%/0%</code> / <code>%+-%</code>
+</td>
+</tr>
+<tr>
+<td>Fuzzy string match</td>
+<td><code>%~%</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="next-steps">Next steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>
 </h2>
 <ul>
-<li>
-<code><a href="articles/nicer_roperators.html">vignette("nicer_roperators")</a></code> — the unhurried, guided tour.</li>
-<li>Full reference: <a href="https://benwiseman.github.io/roperators/" class="uri">https://benwiseman.github.io/roperators/</a>
-</li>
+<li><strong><a href="https://benwiseman.github.io/roperators/articles/nicer_roperators.html">Take the 5-minute guided tour →</a></strong></li>
+<li><strong><a href="https://benwiseman.github.io/roperators/reference/index.html">Browse all functions →</a></strong></li>
 </ul>
-<p>A gentle heads-up on names: a few are shared on purpose with the wider world (<code>%+%</code> with ggplot2, <code>%like%</code>-style matching with data.table). If you’ve got those loaded too, just reach for the namespaced form (<code>roperators::%+%</code>) where it matters, and everyone gets along fine.</p>
+<p>A quick note on shared names: <code>%+%</code> is also ggplot2’s, and <code>%like%</code>-style matching is data.table’s. If you load those too, use the namespaced form (<code>roperators::%+%</code>) where it matters.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
