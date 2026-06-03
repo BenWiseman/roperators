@@ -258,9 +258,241 @@
     });
   }
 
+  // De-yellow the rendered code blocks site-wide. Injected from JS (not only the
+  // compiled stylesheet) so it survives a stale, cache-pinned bootstrap.css.
+  function injectCodeStyles() {
+    if (document.getElementById("rop-code-style")) { return; }
+    var css = [
+      "div.sourceCode,pre.sourceCode,pre.downlit,pre{background:#fffdf9 !important;color:#33312e}",
+      ".sourceCode code,pre code,code.sourceCode{background:transparent !important}",
+      ".sourceCode span{background:transparent !important}",
+      ".sourceCode .st{color:#2f6b48}",
+      ".sourceCode .co{color:#8a857c;font-style:italic}",
+      ".sourceCode .fu{color:#33312e;font-weight:600}",
+      ".sourceCode .kw{color:#9c4221;font-weight:600}",
+      ".sourceCode .cn,.sourceCode .fl,.sourceCode .dv{color:#9c4221}",
+      ".sourceCode .va{color:#33312e}",
+      ".sourceCode .op{color:#2f6b48;font-weight:600}",
+      ".sourceCode .op a,.sourceCode .op a:hover{color:#2f6b48;text-decoration:none}"
+    ].join("\n");
+    var s = document.createElement("style");
+    s.id = "rop-code-style";
+    s.textContent = css;
+    document.head.appendChild(s);
+  }
+
+  /* ---- "Taste Test" hero --------------------------------------------------
+     base-R vs roperators duel; you pick, it reveals the real base-R gotcha and
+     celebrates (or gently roasts) your taste. Self-injects its styles. */
+  var PAIRS = [
+    { task: "Compare two vectors that contain NAs",
+      base: 'c(1, NA, 3) == c(1, NA, 4)', baseOut: "TRUE   NA  FALSE",
+      rop:  'c(1, NA, 3) %==% c(1, NA, 4)', ropOut: "TRUE TRUE FALSE",
+      reveal: "%==% treats NA == NA as TRUE, so the NA doesn’t leak through — you get the answer you meant." },
+    { task: "Check whether two decimals are equal",
+      base: 'isTRUE(all.equal(0.1 + 0.1 + 0.1, 0.3))', baseOut: "TRUE   # and plain == is FALSE!",
+      rop:  '(0.1 + 0.1 + 0.1) %~=% 0.3', ropOut: "TRUE",
+      reveal: "%~=% reads like the maths you meant — no all.equal() ceremony, no floating-point surprise." },
+    { task: "Drop values into a sentence",
+      base: 'paste0("Hi ", name, ", you have ", n, " messages")', baseOut: '"Hi Ben, you have 2 messages"',
+      rop:  'f("Hi {name}, you have {n} messages")', ropOut: '"Hi Ben, you have 2 messages"',
+      reveal: "f-strings let you read the sentence, not the plumbing of quotes and commas." },
+    { task: "Fill the NAs with zero, in place",
+      base: 'x[is.na(x)] <- 0', baseOut: "",
+      rop:  'x %na<-% 0', ropOut: "",
+      reveal: "%na<-% says exactly what you mean — no indexing riddle to decode." },
+    { task: "Divide, but a stray zero shouldn’t blow up",
+      base: 'ifelse(b == 0, NA, a / b)', baseOut: "",
+      rop:  'a %/0% b', ropOut: "",
+      reveal: "%/0% bakes in the guard: a zero divisor yields NA instead of Inf/NaN poisoning a whole mean." }
+  ];
+
+  function highlightOps(escaped) {
+    return escaped.replace(/%[^%]*%/g, function (m) { return '<span class="rop-tk-op">' + m + "</span>"; });
+  }
+  function escapeAttr(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+  }
+
+  function injectHeroStyles() {
+    if (document.getElementById("rop-hero-style")) { return; }
+    var css = [
+      ".rop-hero{margin:1.4rem 0 2rem;padding:1.5rem;background:#fffdf9;border:1px solid rgba(63,125,88,.22);border-radius:.85rem;box-shadow:0 4px 20px rgba(51,49,46,.06)}",
+      ".rop-hero__eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#2f6b48;font-weight:600}",
+      ".rop-hero__prompt{font-family:Fraunces,Georgia,serif;font-size:1.7rem;font-weight:600;margin:.2rem 0 .3rem;border:0;padding:0}",
+      ".contents .rop-hero__prompt::after{content:none;display:none}",
+      ".rop-hero__task{color:#6b6760;margin:0 0 1rem;font-size:.95rem}",
+      ".rop-hero__tasknum{display:inline-block;background:rgba(63,125,88,.1);color:#2f6b48;border-radius:999px;padding:.05rem .5rem;font-size:.78rem;font-weight:600;margin-right:.25rem}",
+      ".rop-hero__duel{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:.7rem}",
+      ".rop-hero__vs{align-self:center;font-family:Fraunces,serif;color:#2f6b48;font-weight:600;border:1px solid rgba(63,125,88,.4);border-radius:999px;width:2.1rem;height:2.1rem;display:flex;align-items:center;justify-content:center;font-size:.85rem}",
+      ".rop-hero__card{position:relative;text-align:left;display:flex;align-items:center;min-height:62px;padding:.9rem 1rem;background:#fbf7ef;border:1px solid rgba(63,125,88,.22);border-radius:.6rem;cursor:pointer;transition:transform .1s ease,border-color .1s ease,box-shadow .1s ease}",
+      ".rop-hero__card:hover{transform:translateY(-2px);border-color:#3f7d58;box-shadow:0 4px 14px rgba(63,125,88,.16)}",
+      ".rop-hero__card:focus-visible{outline:2px solid #2f6b48;outline-offset:2px}",
+      ".rop-hero__code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.92rem;color:#33312e;background:transparent;white-space:pre-wrap;word-break:break-word;padding:0}",
+      ".rop-tk-op{color:#2f6b48;font-weight:600}",
+      ".rop-hero__badge{position:absolute;top:-.6rem;right:.6rem;font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding:.1rem .45rem;border-radius:999px}",
+      ".rop-hero__card.is-rop .rop-hero__badge{background:#2f6b48;color:#fff}",
+      ".rop-hero__card.is-base .rop-hero__badge{background:#e7e2d8;color:#6b6760}",
+      ".rop-hero__card.is-locked{cursor:default}",
+      ".rop-hero__card.is-dimmed{opacity:.62}",
+      ".rop-hero__card.is-chosen-win{border-color:#3f7d58;box-shadow:0 0 0 2.5px #3f7d58}",
+      ".rop-hero__card.is-chosen-roast{border-color:#caa15a;box-shadow:0 0 0 2.5px #caa15a}",
+      ".rop-hero__card.is-answer{background:rgba(63,125,88,.08);border-color:#3f7d58}",
+      ".rop-hero__result{min-height:3.4rem;margin-top:1rem}",
+      ".rop-hero__banner{border-radius:.5rem;padding:.6rem .8rem;margin-bottom:.5rem}",
+      ".rop-hero__banner.is-win{background:rgba(63,125,88,.1);border-left:3px solid #3f7d58}",
+      ".rop-hero__banner.is-roast{background:#f6e7cf;border-left:3px solid #caa15a;color:#5c4514}",
+      ".rop-hero__banner code{background:rgba(0,0,0,.06);color:inherit;padding:.05rem .3rem;border-radius:.3rem;font-family:'JetBrains Mono',ui-monospace,monospace}",
+      ".rop-hero__answer{font-size:.92rem;color:#33312e;display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;margin-top:.2rem}",
+      ".rop-hero__copy{font:inherit;font-size:.74rem;color:#2f6b48;background:rgba(63,125,88,.1);border:1px solid rgba(63,125,88,.3);border-radius:.35rem;padding:.05rem .45rem;cursor:pointer}",
+      ".rop-hero__foot{display:flex;align-items:center;gap:.6rem;margin-top:1rem}",
+      ".rop-hero__dots{display:flex;gap:.3rem;flex:1}",
+      ".rop-hero__dot{width:.5rem;height:.5rem;border-radius:999px;background:rgba(63,125,88,.25)}",
+      ".rop-hero__dot.is-on{background:#3f7d58}",
+      ".rop-hero__next{font:inherit;font-weight:600;color:#fff;background:#3f7d58;border:none;border-radius:.5rem;padding:.45rem .9rem;cursor:pointer}",
+      ".rop-hero__next:focus-visible,.rop-hero__cta:focus-visible{outline:2px solid #2f6b48;outline-offset:2px}",
+      ".rop-hero__tally{font-size:.8rem;color:#6b6760;font-weight:600}",
+      ".rop-hero__score{font-size:1.05rem;margin:.2rem 0 .4rem}",
+      ".rop-hero__ctas{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 .6rem}",
+      ".rop-hero__cta{display:inline-block;font-weight:600;text-decoration:none;border-radius:.5rem;padding:.5rem .9rem;border:1px solid #3f7d58;color:#2f6b48}",
+      ".rop-hero__cta--primary{background:#3f7d58;color:#fff}",
+      ".rop-hero__again{font:inherit;font-size:.8rem;color:#6b6760;background:none;border:none;text-decoration:underline;cursor:pointer;padding:0}",
+      "@media (max-width:620px){.rop-hero__duel{grid-template-columns:1fr}.rop-hero__vs{justify-self:center;margin:.1rem 0}.rop-hero__ctas .rop-hero__cta{flex:1;text-align:center}}",
+      "@media (prefers-reduced-motion:reduce){.rop-hero__card,.rop-hero__card:hover{transition:none;transform:none}}"
+    ].join("\n");
+    var s = document.createElement("style");
+    s.id = "rop-hero-style";
+    s.textContent = css;
+    document.head.appendChild(s);
+  }
+
+  function copyText(text, btn) {
+    var done = function () { btn.textContent = "Copied!"; setTimeout(function () { btn.textContent = "Copy"; }, 1400); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () {});
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  }
+
+  function buildHero(mount) {
+    injectHeroStyles();
+    mount.classList.add("rop-hero");
+    mount.setAttribute("role", "group");
+    mount.setAttribute("aria-label", "Which would you rather write?");
+
+    var idx = 0, wins = 0, seen = 0, answered = false;
+    try {
+      var ss = window.sessionStorage;
+      wins = parseInt(ss.getItem("rop-taste-wins"), 10) || 0;
+      seen = parseInt(ss.getItem("rop-taste-seen"), 10) || 0;
+    } catch (e) {}
+    function save() { try { var s2 = window.sessionStorage; s2.setItem("rop-taste-wins", wins); s2.setItem("rop-taste-seen", seen); } catch (e) {} }
+    function tallyText() { return seen ? "Good taste: " + wins + "/" + seen : ""; }
+
+    function heroCard(slot, item) {
+      return '<button type="button" class="rop-hero__card" aria-pressed="false" data-rop="' + (item.rop ? 1 : 0) +
+        '" aria-label="Option ' + slot + ": " + escapeAttr(item.code) + '">' +
+        '<span class="rop-hero__badge" aria-hidden="true"></span>' +
+        '<code class="rop-hero__code">' + highlightOps(escapeHtml(item.code)) + "</code></button>";
+    }
+
+    function renderRound() {
+      answered = false;
+      var p = PAIRS[idx];
+      var ropLeft = Math.random() < 0.5;
+      var left = ropLeft ? { code: p.rop, rop: true } : { code: p.base, rop: false };
+      var right = ropLeft ? { code: p.base, rop: false } : { code: p.rop, rop: true };
+      var dots = "";
+      for (var i = 0; i < PAIRS.length; i++) { dots += '<span class="rop-hero__dot' + (i === idx ? " is-on" : "") + '"></span>'; }
+      mount.innerHTML =
+        '<div class="rop-hero__eyebrow">roperators in one decision</div>' +
+        '<h2 class="rop-hero__prompt" id="rop-hero-prompt">Which would you rather write?</h2>' +
+        '<p class="rop-hero__task"><span class="rop-hero__tasknum">' + (idx + 1) + "/" + PAIRS.length + "</span> " +
+        escapeHtml(p.task) + " — tap the one you’d rather write.</p>" +
+        '<div class="rop-hero__duel">' + heroCard("A", left) +
+        '<div class="rop-hero__vs" aria-hidden="true">vs</div>' + heroCard("B", right) + "</div>" +
+        '<div class="rop-hero__result" role="status" aria-live="polite"></div>' +
+        '<div class="rop-hero__foot"><span class="rop-hero__dots">' + dots + "</span>" +
+        '<button type="button" class="rop-hero__next" hidden>' +
+        (idx < PAIRS.length - 1 ? "Next →" : "See your taste →") + "</button>" +
+        '<span class="rop-hero__tally" aria-live="polite">' + tallyText() + "</span></div>";
+      var cards = mount.querySelectorAll(".rop-hero__card");
+      Array.prototype.forEach.call(cards, function (c) {
+        c.addEventListener("click", function () { choose(c, cards, p); });
+      });
+    }
+
+    function choose(card, cards, p) {
+      if (answered) { return; }
+      answered = true;
+      var pickedRop = card.getAttribute("data-rop") === "1";
+      if (pickedRop) { wins += 1; }
+      seen += 1; save();
+      Array.prototype.forEach.call(cards, function (c) {
+        var isRop = c.getAttribute("data-rop") === "1";
+        c.classList.add("is-locked", isRop ? "is-rop" : "is-base");
+        c.setAttribute("aria-pressed", c === card ? "true" : "false");
+        c.querySelector(".rop-hero__badge").textContent = isRop ? "roperators" : "base R";
+        if (isRop) { c.classList.add("is-answer"); }
+        if (c !== card) { c.classList.add("is-dimmed"); }
+      });
+      card.classList.add(pickedRop ? "is-chosen-win" : "is-chosen-roast");
+
+      var banner = pickedRop
+        ? '<div class="rop-hero__banner is-win"><strong>Good taste.</strong> ' + escapeHtml(p.reveal) + "</div>"
+        : '<div class="rop-hero__banner is-roast"><strong>Bold choice — R may quietly betray that one.</strong> ' +
+          (p.baseOut ? "base R returns <code>" + escapeHtml(p.baseOut) + "</code>. " : "") + escapeHtml(p.reveal) + "</div>";
+      var answer = '<div class="rop-hero__answer">the calmer way&nbsp; <code class="rop-hero__code">' +
+        highlightOps(escapeHtml(p.rop)) + '</code> <button type="button" class="rop-hero__copy">Copy</button></div>';
+      var res = mount.querySelector(".rop-hero__result");
+      res.innerHTML = banner + answer;
+      var copyBtn = res.querySelector(".rop-hero__copy");
+      if (copyBtn) { copyBtn.addEventListener("click", function () { copyText(p.rop, copyBtn); }); }
+
+      var nb = mount.querySelector(".rop-hero__next");
+      nb.hidden = false;
+      nb.addEventListener("click", nextRound);
+      nb.focus();
+      var t = mount.querySelector(".rop-hero__tally");
+      if (t) { t.textContent = tallyText(); }
+    }
+
+    function nextRound() {
+      idx += 1;
+      if (idx >= PAIRS.length) { renderScorecard(); } else { renderRound(); }
+    }
+
+    function renderScorecard() {
+      var good = wins >= Math.ceil(PAIRS.length / 2);
+      var headline = good ? "You’ve got good roperators taste." : "A base-R purist — we can work with that.";
+      mount.innerHTML =
+        '<div class="rop-hero__eyebrow">verdict</div>' +
+        '<h2 class="rop-hero__prompt">' + headline + "</h2>" +
+        '<p class="rop-hero__score">You preferred the roperator <strong>' + wins + " of " + seen + "</strong> times.</p>" +
+        '<p class="rop-hero__task">Every roperator turns a fiddly base-R line into one that reads like the thought ' +
+        "behind it — dozens of them, all base R underneath, zero dependencies.</p>" +
+        '<div class="rop-hero__ctas">' +
+        '<a class="rop-hero__cta rop-hero__cta--primary" href="#installation">Install it →</a>' +
+        '<a class="rop-hero__cta" href="reference/index.html">Browse all the tools →</a></div>' +
+        '<button type="button" class="rop-hero__again">Play again</button>';
+      var again = mount.querySelector(".rop-hero__again");
+      again.addEventListener("click", function () { idx = 0; renderRound(); });
+    }
+
+    renderRound();
+  }
+
   ready(function () {
-    var mount = document.getElementById("rop-finder");
-    if (mount) { buildFinder(mount); }
+    injectCodeStyles();
+    var finder = document.getElementById("rop-finder");
+    if (finder) { buildFinder(finder); }
+    var hero = document.getElementById("rop-hero");
+    if (hero) { buildHero(hero); }
     tidyReferenceIndex();
   });
 })();

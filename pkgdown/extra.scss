@@ -36,13 +36,39 @@ blockquote {
   line-height: 1.5;
 }
 
-/* warmer code blocks that read as deliberate panels */
-pre {
-  border: 1px solid rgba($primary, 0.2);
+/* --- de-yellow the code blocks -------------------------------------------
+   Keep gruvbox-light as the bslib base, but stop using its mustard syntax
+   tokens and amber block paper, which fight the cream page. Operators (.op)
+   become sap green so the roperators part reads as "the nice bit" everywhere.
+   (The same palette is also injected from extra.js so it survives a stale
+   cached stylesheet — the two can't drift.) */
+div.sourceCode, pre.sourceCode, pre.downlit, pre {
+  background: #fffdf9 !important;
+  color: #33312e;
+  border: 1px solid rgba($primary, 0.18);
   border-radius: $border-radius;
   box-shadow: 0 1px 2px rgba(51, 49, 46, 0.05);
 }
-code a, a code { color: inherit; }
+.sourceCode code, pre code, code.sourceCode { background: transparent !important; }
+.sourceCode span { background: transparent !important; }
+.sourceCode .st { color: #2f6b48; }                          /* strings  */
+.sourceCode .co { color: #8a857c; font-style: italic; }      /* comments / #> output */
+.sourceCode .fu { color: #33312e; font-weight: 600; }        /* functions */
+.sourceCode .kw { color: #9c4221; font-weight: 600; }        /* keywords */
+.sourceCode .cn, .sourceCode .fl, .sourceCode .dv { color: #9c4221; } /* TRUE/NA/Inf, numbers */
+.sourceCode .va { color: #33312e; }                          /* variables */
+.sourceCode .op { color: #2f6b48; font-weight: 600; }        /* operators: the stars */
+.sourceCode .op a, .sourceCode .op a:hover { color: #2f6b48; text-decoration: none; }
+pre.downlit a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+
+/* inline <code> in prose & tables: a soft sap chip, never yellow */
+p code, li code, td code {
+  background: rgba($primary, 0.08);
+  color: #2f6b48;
+  border-radius: 0.3rem;
+  padding: 0.05rem 0.35rem;
+}
+p code a, li code a, td code a { color: #2f6b48; }
 
 /* links: warm, friendlier hover */
 a { text-underline-offset: 0.15em; }
