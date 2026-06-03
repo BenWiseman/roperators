@@ -50,6 +50,20 @@ roperators  ← cleaner
 
 <td>
 
+<code>paste0(“Hi”, name, “, you have”, n)</code>
+</td>
+
+<td>
+
+<code>f(“Hi {name}, you have {n}”)</code>
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
 <code>c(1, NA, 3) == c(1, NA, 4)</code>
 </td>
 
@@ -70,20 +84,6 @@ roperators  ← cleaner
 <td>
 
 <code>(0.1 + 0.1 + 0.1) %~=% 0.3</code>
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
-<code>paste0(“Hi”, name, “, you have”, n)</code>
-</td>
-
-<td>
-
-<code>f(“Hi {name}, you have {n}”)</code>
 </td>
 
 </tr>

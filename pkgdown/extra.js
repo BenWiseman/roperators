@@ -285,6 +285,10 @@
      base-R vs roperators duel; you pick, it reveals the real base-R gotcha and
      celebrates (or gently roasts) your taste. Self-injects its styles. */
   var PAIRS = [
+    { task: "Drop values into a sentence",
+      base: 'paste0("Hi ", name, ", you have ", n, " messages")', baseOut: '"Hi Ben, you have 2 messages"',
+      rop:  'f("Hi {name}, you have {n} messages")', ropOut: '"Hi Ben, you have 2 messages"',
+      reveal: "f-strings let you read the sentence, not the plumbing of quotes and commas." },
     { task: "Compare two vectors that contain NAs",
       base: 'c(1, NA, 3) == c(1, NA, 4)', baseOut: "TRUE   NA  FALSE",
       rop:  'c(1, NA, 3) %==% c(1, NA, 4)', ropOut: "TRUE TRUE FALSE",
@@ -293,10 +297,6 @@
       base: 'isTRUE(all.equal(0.1 + 0.1 + 0.1, 0.3))', baseOut: "TRUE   # and plain == is FALSE!",
       rop:  '(0.1 + 0.1 + 0.1) %~=% 0.3', ropOut: "TRUE",
       reveal: "%~=% reads like the maths you meant — no all.equal() ceremony, no floating-point surprise." },
-    { task: "Drop values into a sentence",
-      base: 'paste0("Hi ", name, ", you have ", n, " messages")', baseOut: '"Hi Ben, you have 2 messages"',
-      rop:  'f("Hi {name}, you have {n} messages")', ropOut: '"Hi Ben, you have 2 messages"',
-      reveal: "f-strings let you read the sentence, not the plumbing of quotes and commas." },
     { task: "Fill the NAs with zero, in place",
       base: 'x[is.na(x)] <- 0', baseOut: "",
       rop:  'x %na<-% 0', ropOut: "",

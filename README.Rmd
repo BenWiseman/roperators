@@ -28,9 +28,9 @@ library(roperators)
 <table>
 <thead><tr><th>base R</th><th>roperators &nbsp;&larr; cleaner</th></tr></thead>
 <tbody>
+<tr><td><code>paste0("Hi ", name, ", you have ", n)</code></td><td><code>f("Hi {name}, you have {n}")</code></td></tr>
 <tr><td><code>c(1, NA, 3) == c(1, NA, 4)</code></td><td><code>c(1, NA, 3) %==% c(1, NA, 4)</code></td></tr>
 <tr><td><code>isTRUE(all.equal(0.1 + 0.1 + 0.1, 0.3))</code></td><td><code>(0.1 + 0.1 + 0.1) %~=% 0.3</code></td></tr>
-<tr><td><code>paste0("Hi ", name, ", you have ", n)</code></td><td><code>f("Hi {name}, you have {n}")</code></td></tr>
 <tr><td><code>x[is.na(x)] &lt;- 0</code></td><td><code>x %na&lt;-% 0</code></td></tr>
 <tr><td><code>ifelse(b == 0, NA, a / b)</code></td><td><code>a %/0% b</code></td></tr>
 </tbody>
