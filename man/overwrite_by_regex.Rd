@@ -2,34 +2,34 @@
 % Please edit documentation in R/operators.R
 \name{\%regex=\%}
 \alias{\%regex=\%}
-\title{Modify existing object by regular expression}
+\title{Modify an object in place by regular expression}
 \usage{
 x \%regex=\% value
 }
 \arguments{
 \item{x}{a character vector}
 
-\item{value}{c(pattern, replacement)}
+\item{value}{a length-2 character vector of the form \code{c(pattern, replacement)}}
+}
+\value{
+Used for the side effect of reassigning \code{x} in the calling
+  environment; returns the modified \code{x} invisibly.
 }
 \description{
-This takes two arguments just like \code{gsub} - a patterns and a replacement.
-It will only overwrite the parts of any character where the pattern is matched with the second argument.
-If you want to overwrite whole elements via a regex (i.e. replace the entire element if it matches),
-use \code{\%regex<-\%} instead.
+This takes two arguments, just like \code{gsub}: a pattern and a replacement.
+It overwrites only the matched portion of each element of \code{x}. If you
+want to overwrite whole elements that match (rather than just the matched
+portion), use \code{\%regex<-\%} instead.
 }
 \examples{
-# Apply a regular expression/substitution to x:
+x <- c("a1b", "b1", "c", "d0")
 
- x <- c("a1b", "b1", "c", "d0")
+# change any digit to "x"
+x \%regex=\% c("\\\\d+", "x")
+print(x)
+# "axb" "b" "c" "dx"
 
- # change any number to "x"
-
-  x \%regex=\% c("\\\\d+", "x")
-
- print(x)
-
- # "axb" "b" "c" "dx"
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }

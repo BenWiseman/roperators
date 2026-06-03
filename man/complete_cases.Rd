@@ -74,7 +74,7 @@ rowMeans_cc(x, ..., rescale = FALSE)
 colMeans_cc(x, ..., rescale = FALSE)
 }
 \arguments{
-\item{x}{An \R object.  Currently there are methods for
+\item{x}{an \R object.  Currently there are methods for
     numeric/logical vectors and \link[base:Dates]{date},
     \link[base]{date-time} and \link[base]{time interval} objects.  Complex vectors
     are allowed for \code{trim = 0}, only.}
@@ -90,6 +90,11 @@ colMeans_cc(x, ..., rescale = FALSE)
 
 \item{rescale}{whether to rescale the matrix/df/vector before calculating
 summaries}
+}
+\value{
+The same value as the base/stats function each one wraps (for
+  example a numeric summary, vector, or matrix), but computed with missing
+  values removed by default.
 }
 \description{
 Univariate and bivariate summaries and statistics with the least missing

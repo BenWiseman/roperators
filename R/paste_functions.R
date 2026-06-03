@@ -1,28 +1,36 @@
 # helepers for creating nicer messages/strings
 
-#' New Paste and Cat Rules
+#' Paste and cat helpers
 #'
 #' @description
-#' The available functions are:
+#' A small family of \code{paste}/\code{cat} conveniences:
 #'
-#' `paste_()`is the same as `paste0` but uses an underscore to separate
+#' \itemize{
+#'   \item \code{paste_()} - like \code{paste0()}, but separates with an
+#'     underscore.
+#'   \item \code{cat0()} - like \code{paste0()}, but for \code{cat} (no
+#'     separator).
+#'   \item \code{catN()} - like \code{cat0()}, but appends a new line.
+#'   \item \code{paste_series()} - paste a series of items together with a
+#'     conjunction, e.g. \code{"a, b, and c"}.
+#'   \item \code{paste_oxford()} - a shortcut for \code{paste_series()} using an
+#'     Oxford comma.
+#' }
 #'
-#' `cat0()` is analogous to `paste0` but for cat
-#'
-#' `catN()` is the same as `cat0` but automatically inserts a new line after the cat
-#'
-#' `paste_series()` paste a series of things with a conjunction
-#'
-#' `paste_oxford()` shortcut for `paste_series` as oxford comma
-#'
-#' @param conjunction the conjunction to use to collapse the final elements
-#'        in the series (such as and, or, &, or something else)
-#' @param use_oxford_comma whether to use the oxford comma in the series
-#'        (standard in American English) or to not use the oxford comma
+#' @param conjunction the conjunction used to join the final elements of a
+#'   series, such as \code{"and"}, \code{"or"}, or \code{"&"}
+#' @param use_oxford_comma logical; whether to use the Oxford comma (standard in
+#'   American English) before the conjunction
 #' @inheritParams base::paste
 #' @inheritParams base::cat
+#'
+#' @return \code{paste_()}, \code{paste_series()}, and \code{paste_oxford()}
+#'   return a character vector. \code{cat0()} and \code{catN()} are called for
+#'   their side effect (printing) and return \code{NULL} invisibly.
+#'
 #' @author Steven Nydick, \email{steven.nydick@@kornferry.com}
 #' @name paste_and_cat
+NULL
 
 
 #' @rdname paste_and_cat
@@ -85,8 +93,6 @@ catN <- function(...,
 #' paste_series("a", "b",
 #'              use_oxford_comma = TRUE)
 #' @rdname paste_and_cat
-#' @param  conjunction indicates the ending conjunction. e.g. setting to "and" would make c("a", "b", "c") paste into "a, b, and c"
-#' @param use_oxford_comma logical - do you want to use an oxford comma at the end?
 #' @export
 paste_series <- function(...,
                          sep = c(",", ";"),

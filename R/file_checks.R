@@ -52,11 +52,13 @@ is_rdata_file <- function(x){
 } # END is_rdata_file CHECK
 
 #' @rdname file_checks
+#' @export
 is_rda_file <- function(x){
   check_ext_against(x, ext = c("rda"))
 }
 
 #' @rdname file_checks
+#' @export
 is_rds_file <- function(x){
   check_ext_against(x, ext = c("rds"))
 }

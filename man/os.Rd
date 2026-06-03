@@ -17,7 +17,7 @@
 \alias{is.R_revo}
 \alias{is.RStudio}
 \alias{is.http_available}
-\title{Operating system checks}
+\title{Operating system and environment checks}
 \usage{
 get_os()
 
@@ -50,27 +50,42 @@ is.RStudio()
 is.http_available()
 }
 \arguments{
-\item{units}{character - how do you want to display the age? e.g. years or months?}
+\item{units}{character; the unit to report the R version age in, one of
+\code{"years"}, \code{"months"}, \code{"weeks"}, or \code{"days"}.}
 
-\item{rounding}{integer - how many decimal points do you want to see. e.g. 0.25 years}
+\item{rounding}{integer; the number of decimal places to round the age to.}
+}
+\value{
+For the \code{is.*} checks, a single logical value. \code{get_os()} returns a
+character string (\code{"win"}, \code{"mac"}, \code{"linux"}, or
+\code{"unix"}); \code{get_R_version()} and \code{get_latest_CRAN_version()}
+return version strings; and \code{get_R_version_age()} returns a numeric age.
 }
 \description{
-Determine the current operating system as well as provide flags to indicate
-whether the operating system is a Mac/Windows/Linux.
+Determine the current operating system and R environment, and provide simple
+flags for common questions such as "are we on a Mac?", "is this 64-bit R?",
+or "are we running inside RStudio?". These are useful when writing code that
+must behave differently across platforms (for example, choosing a parallel
+back-end on Unix versus Windows).
 }
 \examples{
-# determine operating system
+# determine the operating system
 get_os()
 
-# do we have a particular operating system
+# test for a particular operating system
 is.os_mac()
 is.os_win()
 is.os_lnx()
 is.os_unx()
 
+# environment checks
+is.os_x64()
+is.RStudio()
+get_R_version()
+
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 
 Steven Nydick, \email{steven.nydick@kornferry.com}
 }

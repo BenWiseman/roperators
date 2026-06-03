@@ -7,7 +7,7 @@
 \alias{num}
 \alias{bool}
 \alias{as.class}
-\title{Cleaner conversion functions}
+\title{Cleaner type-conversion functions}
 \usage{
 chr(x, ...)
 
@@ -22,35 +22,35 @@ bool(x, ...)
 as.class(x, class)
 }
 \arguments{
-\item{x}{object to be converted}
+\item{x}{value to be converted}
 
-\item{...}{other args for as. conversion}
+\item{...}{further arguments passed to the underlying \code{as.*} function}
 
-\item{class}{chatracter name of the class to convert x to}
+\item{class}{character; the name of the class to convert \code{x} to (used by
+\code{as.class})}
+}
+\value{
+The value of \code{x} coerced to the requested type.
 }
 \description{
-Cleaner conversion functions
-
-convert x to arbitrary class
-}
-\note{
-These are shorthand aliases for common conversions There is nothing magical
-here, but it can make your code more readable
+Short aliases for the most common \code{as.*} conversions. There is nothing
+magical here, but the shorter names can make data-wrangling code much easier
+to read, especially for users coming from other languages. \code{as.class()}
+additionally converts to a class chosen by name at run time.
 }
 \examples{
-chr(42)   # "42" = as.character
-int(42.1) # 42L  = as.integer
-dbl("42L") # 42.0 = as.double
-num("42") # 42   = as.numeric
-bool(42)  # TRUE = as.logical
+chr(42)    # "42" = as.character()
+int(42.1)  # 42L  = as.integer()
+dbl("42")  # 42   = as.double()
+num("42")  # 42   = as.numeric()
+bool(42)   # TRUE = as.logical()
 
 
-foo <- 255
-as.class(foo, "roman")
-# [1] CCLV
+# as.class() converts to an arbitrary class chosen by name:
+as.class(255, "roman") # CCLV
 }
 \author{
 Steven Nydick, \email{steven.nydick@kornferry.com}
 
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }

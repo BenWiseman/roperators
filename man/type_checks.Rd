@@ -11,15 +11,15 @@
 \alias{is.list_or_null}
 \alias{is.atomic_nan}
 \alias{is.irregular_list}
-\alias{is.bad_for_calcs}
 \alias{any_bad_for_calcs}
 \alias{all_good_for_calcs}
 \alias{is.bad_for_indexing}
 \alias{is.good_for_indexing}
 \alias{is.bad_and_equal}
+\alias{is.bad_for_calcs}
 \alias{is.good_for_calcs}
 \alias{is.null_or_na}
-\title{Type Checks}
+\title{Type checks}
 \usage{
 is.scalar(x)
 
@@ -38,8 +38,6 @@ is.list_or_null(x)
 is.atomic_nan(x)
 
 is.irregular_list(x)
-
-is.bad_for_calcs(x, na.rm = FALSE)
 
 any_bad_for_calcs(x, ..., na.rm = FALSE)
 
@@ -60,17 +58,32 @@ is.null_or_na(x)
 \arguments{
 \item{x}{object to be tested}
 
-\item{na.rm}{If true, NA values aren't considered bad for calculations}
+\item{...}{values to be tested}
 
-\item{...}{Values to be testes}
+\item{na.rm}{if \code{TRUE}, \code{NA} values are not considered bad for calculations}
 
 \item{y}{object to be tested}
 }
 \value{
-a logical value
+A logical value (or vector) indicating whether \code{x} meets the
+  test.
 }
 \description{
-Misc/useful type checks to prevent duplicated code
+A collection of convenience checks for the type or contents of an object.
+Each returns a logical value (or vector), which keeps guard clauses and
+\code{if} statements short and readable. The \code{*_or_null} variants are
+handy for validating optional arguments, and the \code{*_for_calcs} /
+\code{*_for_indexing} helpers flag values that would break arithmetic or
+subsetting (such as \code{NA}, \code{NaN}, or \code{Inf}).
+}
+\examples{
+is.scalar(1)              # TRUE
+is.scalar(c(1, 2))        # FALSE
+is.numeric_or_null(NULL)  # TRUE
+is.bad_for_calcs(NA)      # TRUE
+is.good_for_calcs(1)      # TRUE
+is.bad_and_equal(NA, NA)  # TRUE
+
 }
 \author{
 Steven Nydick, \email{steven.nydick@kornferry.com}

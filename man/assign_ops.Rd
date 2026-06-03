@@ -9,7 +9,7 @@
 \alias{\%^=\%}
 \alias{\%log=\%}
 \alias{\%root=\%}
-\title{Assignment operators}
+\title{Assignment (in-place modifier) operators}
 \usage{
 x \%+=\% y
 
@@ -28,54 +28,49 @@ x \%root=\% y
 \arguments{
 \item{x}{a stored value}
 
-\item{y}{value to modify stored value by}
+\item{y}{value to modify the stored value by}
+}
+\value{
+Used for the side effect of reassigning \code{x} in the calling
+  environment; returns the new value of \code{x} invisibly.
 }
 \description{
-Modifies the stored value of the left-hand-side object by the right-hand-side object.
-Equivalent of operators such as \code{+=} \code{-=} \code{*=} \code{/=} in languages like c++ or python.
-\code{\%+=\%} and \code{\%-=\%} can also work with strings.
+Modify the stored value of the left-hand-side object in place. These are the
+equivalent of operators such as \code{+=}, \code{-=}, \code{*=}, and
+\code{/=} in languages like C++ or 'Python'. \code{\%+=\%} and \code{\%-=\%} also
+work with strings, and \code{\%-=\%} accepts regular expressions.
 }
 \examples{
 x <- 1
-
 x \%+=\% 2
-
 x == 3 # TRUE
 
 x \%-=\% 3
-
 x == 0 # TRUE
 
 # Or with data frames...
 test <- iris
 
-# Simply modify in-place
+# Simply modify in place
 test$Sepal.Length[test$Species == 'setosa' & test$Petal.Length < 1.5] \%+=\% 1
 
 # Which is much nicer than typing:
 test$Sepal.Length[test$Species == 'setosa' & test$Petal.Length < 1.5] <-
 test$Sepal.Length[test$Species == 'setosa' & test$Petal.Length < 1.5] + 1
-# ...which is over the 100 character limit for R doccumentation!
+# ...which is over the 100 character limit for R documentation!
 
 # \%+=\% and \%-=\% also work with strings
-
-   x <- "ab"
-
-   x \%+=\% "c"
-
-   x \%-=\% "b"
-
-   x == "ac" # TRUE
+x <- "ab"
+x \%+=\% "c"
+x \%-=\% "b"
+x == "ac" # TRUE
 
 # \%-=\% can also take regular expressions
-
-   x <- "foobar"
-
-   x \%-=\% "[f|b]"
-
-   print(x)
-   # "ooar"
+x <- "foobar"
+x \%-=\% "[fb]"
+print(x)
+# "ooar"
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }

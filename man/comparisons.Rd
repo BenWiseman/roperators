@@ -8,7 +8,7 @@
 \alias{\%<=\%}
 \alias{\%><\%}
 \alias{\%>=<\%}
-\title{Enhanced comparisons}
+\title{Comparison operators with better missing-value handling}
 \usage{
 x \%==\% y
 
@@ -25,29 +25,32 @@ x \%>=<\% y
 \arguments{
 \item{x}{a vector}
 
-\item{y}{a vector}
+\item{y}{a vector (for the "between" operators, a length-2 vector of the form
+\code{c(lower, upper)})}
+}
+\value{
+A logical vector.
 }
 \description{
-These operators introduce improved NA handling, reliable floating point tests,
-and intervals. Specifically:
+A set of comparison operators that improve on base R by treating missing
+values as comparable (so two \code{NA}s are considered equal) and by adding
+convenient interval ("between") tests. The operators are:
 
-Equality that handles missing values
+\itemize{
+  \item \code{\%==\%} - equality that treats \code{NA == NA} as \code{TRUE}.
+  \item \code{\%===\%} - strict equality of both value \emph{and} class, for
+    those familiar with 'JavaScript' \code{===}.
+  \item \code{\%>=\%}, \code{\%<=\%} - greater/less than or equal to, with
+    missing-value equality.
+  \item \code{\%><\%}, \code{\%>=<\%} - between, with the ends excluded or
+    included respectively.
+}
 
-Floating point equality, an important bit of functionality missing in base R (\code{\%~=\%})
-
-Strict (value and type) equality, for those familiar with Javascript \code{===}
-
-Greater/less than or equal to with missing value equality
-
-Greater/less than or equal to with floating point and missing equality
-
-Between (ends excluded)
-
-Between (ends included)
+For approximate (floating-point) comparisons, see
+\code{\link{floating_point_comparisons}}.
 }
 \examples{
- ## Greater/Less than | Equal
-
+ ## Equality and ordering, with missing-value equality
  c(1, NA, 3, 4)  ==  c(1, NA, 4, 3)
  #  TRUE    NA  FALSE FALSE
 
@@ -58,39 +61,24 @@ Between (ends included)
  #  TRUE  TRUE FALSE  TRUE
 
  c(1, NA, 3, 4) \%<=\% c(1, NA, 4, 3)
- #  TRUE  TRUE TRUE  FALSE
+ #  TRUE  TRUE  TRUE FALSE
 
+ ## Strict equality - a la 'JavaScript' ===
+ # Only TRUE if the class AND value of x and y are the same
+ x <- int(2)
+ y <- 2
+ x == y         # TRUE
+ x \%===\% y      # FALSE
+ x \%===\% int(y) # TRUE
 
- # Strict equality - a la javascript's ===
- # Only tru if the class and value of x and y are the same
-x <- int(2)
-y <- 2
-x == y         # TRUE
-x \%===\% y      # FALSE
-x \%===\% int(y) # TRUE
-
-
- # NOTE parentheses surrounding expression before this operator are necessary
- # Without parentheses it would be interpreted as .1 + .1 + (.1 \%~=\% .3)
-
-
- #### Between ####
-
+ ## Between
  # ends excluded
-
- 2 \%><\% c(1, 3)
- # TRUE
-
- 3 \%><\% c(1, 3)
- # FALSE
+ 2 \%><\% c(1, 3)  # TRUE
+ 3 \%><\% c(1, 3)  # FALSE
 
  # ends included
-
- 2 \%>=<\% c(1, 3)
- # TRUE
-
- 3 \%>=<\% c(1, 3)
- # TRUE
+ 2 \%>=<\% c(1, 3) # TRUE
+ 3 \%>=<\% c(1, 3) # TRUE
 
 }
 \seealso{
@@ -98,6 +86,6 @@ Other comparisons:
 \code{\link{floating_point_comparisons}}
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }
 \concept{comparisons}

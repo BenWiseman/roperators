@@ -4,27 +4,30 @@
 \alias{choose_permute}
 \alias{\%C\%}
 \alias{\%P\%}
-\title{Choose and permute}
+\title{Choose and permute operators}
 \usage{
 n \%C\% k
 
 n \%P\% k
 }
 \arguments{
-\item{n}{whole number (from n choose/permute k)}
+\item{n}{whole number (the \code{n} in "n choose/permute k")}
 
-\item{k}{whole number (from n choose/permute k)}
+\item{k}{whole number (the \code{k} in "n choose/permute k")}
+}
+\value{
+A numeric value.
 }
 \description{
-Shorthand for some common mathematical operators
+Shorthand infix operators for common combinatorics: \code{n \%C\% k} gives the
+number of combinations ("n choose k"), and \code{n \%P\% k} gives the number of
+permutations ("n permute k").
 }
 \examples{
-# Calculate 5 choose 3
-print(5 \%C\% 3)
-# Calculate 5 permute 3
-print(5 \%P\% 3)
+5 \%C\% 3 # 10  (5 choose 3)
+5 \%P\% 3 # 60  (5 permute 3)
 
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }

@@ -1,0 +1,64 @@
+url: https://benwiseman.github.io/roperators/
+
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#1e6f5c"
+
+reference:
+- title: Operators — arithmetic & strings
+  desc: >
+    String arithmetic, in-place modifiers, regex assignment, and maths
+    operators.
+  contents:
+  - string_arithmetic
+  - assign_ops
+  - arithmetic_sugar
+  - "%regex=%"
+  - "%regex<-%"
+  - "%na<-%"
+  - choose_permute
+  - integrate
+
+- title: Operators — comparison & logic
+  desc: >
+    Comparisons that handle missing values and floating point, plus logical and
+    pattern-matching operators.
+  contents:
+  - comparisons
+  - floating_point_comparisons
+  - logicals
+  - pattern_matching
+  - "%~%"
+
+- title: Strings & interpolation
+  contents:
+  - f
+  - as.percent
+  - paste_and_cat
+
+- title: Inline control flow
+  contents:
+  - "%else%"
+
+- title: Type conversion & checks
+  desc: Shorthand conversions and a family of type/content/file predicates.
+  contents:
+  - chr
+  - f.as.numeric
+  - type_checks
+  - content_checks
+  - file_checks
+
+- title: Vectors, extraction & statistics
+  contents:
+  - get_1st
+  - n_unique
+  - seq_around
+  - complete_cases
+
+- title: System, environment & I/O
+  contents:
+  - os
+  - read.tsv
+  - library.force

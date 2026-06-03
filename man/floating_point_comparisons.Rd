@@ -5,7 +5,7 @@
 \alias{\%~=\%}
 \alias{\%>~\%}
 \alias{\%<~\%}
-\title{Floating point comparison operators}
+\title{Floating-point comparison operators}
 \usage{
 x \%~=\% y
 
@@ -18,27 +18,30 @@ x \%<~\% y
 
 \item{y}{numeric}
 }
+\value{
+A logical value.
+}
 \description{
-These are an important set of operators missing from base R. In particular,
-using \code{==} on two non-interger numbers can give unexpected results (see examples.)
+An important set of operators missing from base R. Using \code{==} on two
+non-integer numbers can give unexpected results (see examples), because of the
+way floating-point numbers are represented. These operators instead test
+equality up to a small tolerance, via \code{\link[base]{all.equal}}.
 
-See this for details:
-\url{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html}
+For a fuller explanation, see
+\url{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html}.
 }
 \examples{
- ## Floating point test of equality ####
-
- # Basic Equality - no roperators:
+ ## Floating-point test of equality
+ # base R:
  (0.1 + 0.1 + 0.1) == 0.3   # FALSE
- # Basic Equality - with roperators:
+ # with roperators:
  (0.1 + 0.1 + 0.1) \%~=\% 0.3 # TRUE
 
-
- # NOTE: for floating point >= and <=
+ # Note how the base >= and <= behave here:
  (0.1 + 0.1 + 0.1) \%>=\% 0.3 # TRUE
  (0.1 + 0.1 + 0.1) \%<=\% 0.3 # FALSE
 
- # Use >~ and <~ for greater/less than or approx equal
+ # Use \%>~\% and \%<~\% for greater/less than OR approximately equal
  (0.1 + 0.1 + 0.1) \%>~\% 0.3 # TRUE
  (0.1 + 0.1 + 0.1) \%<~\% 0.3 # TRUE
 
@@ -48,6 +51,6 @@ Other comparisons:
 \code{\link{comparisons}}
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }
 \concept{comparisons}

@@ -101,3 +101,6 @@ vignettes/*.pdf
 
 # Rproj
 .Rproj
+
+# pkgdown site (built/deployed via GitHub Actions)
+docs/

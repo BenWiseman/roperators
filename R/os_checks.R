@@ -1,20 +1,38 @@
-#' Operating system checks
+#' Operating system and environment checks
 #'
 #' @description
-#' Determine the current operating system as well as provide flags to indicate
-#' whether the operating system is a Mac/Windows/Linux.
+#' Determine the current operating system and R environment, and provide simple
+#' flags for common questions such as "are we on a Mac?", "is this 64-bit R?",
+#' or "are we running inside RStudio?". These are useful when writing code that
+#' must behave differently across platforms (for example, choosing a parallel
+#' back-end on Unix versus Windows).
+#'
+#' @param units character; the unit to report the R version age in, one of
+#'   \code{"years"}, \code{"months"}, \code{"weeks"}, or \code{"days"}.
+#' @param rounding integer; the number of decimal places to round the age to.
+#'
+#' @return
+#' For the \code{is.*} checks, a single logical value. \code{get_os()} returns a
+#' character string (\code{"win"}, \code{"mac"}, \code{"linux"}, or
+#' \code{"unix"}); \code{get_R_version()} and \code{get_latest_CRAN_version()}
+#' return version strings; and \code{get_R_version_age()} returns a numeric age.
 #'
 #' @examples
-#' # determine operating system
+#' # determine the operating system
 #' get_os()
 #'
-#' # do we have a particular operating system
+#' # test for a particular operating system
 #' is.os_mac()
 #' is.os_win()
 #' is.os_lnx()
 #' is.os_unx()
 #'
-#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
+#' # environment checks
+#' is.os_x64()
+#' is.RStudio()
+#' get_R_version()
+#'
+#' @author Ben Wiseman, \email{benjamin.h.wiseman@@gmail.com}
 #' @author Steven Nydick, \email{steven.nydick@@kornferry.com}
 #' @name os
 NULL
@@ -63,8 +81,6 @@ get_R_version <- function() {
 
 
 #' get R version age
-#' @param units character - how do you want to display the age? e.g. years or months?
-#' @param rounding integer - how many decimal points do you want to see. e.g. 0.25 years
 #' @rdname os
 #' @export
 get_R_version_age <- function(units = c("years", "months", "weeks", "days"), rounding = 2) {
@@ -146,6 +162,7 @@ get_latest_CRAN_version <- function() {
 
 #' get which python version is found via system calls
 #' @rdname os
+#' @export
 get_system_python <- function() {
   # Call the 'python --version' command and capture the output
   python_version <- system("python --version", intern = TRUE)
@@ -197,7 +214,7 @@ is.os_arm <- function(){
 #' @rdname os
 #' @export
 is.R_x64 <- function(){
-  if(is.os_unx) grepl("x86_64", Sys.getenv("R_PLATFORM")) else  Sys.getenv("R_ARCH") == "/x64"
+  if(is.os_unx()) grepl("x86_64", Sys.getenv("R_PLATFORM")) else Sys.getenv("R_ARCH") == "/x64"
 }
 
 #' TRUE if running revolution R/Microsoft R Open
@@ -218,26 +235,18 @@ is.RStudio <- function(){
 #' @rdname os
 #' @export
 is.http_available <- function() {
-  # Check if the httr package is installed
-  if ("httr" %in% utils::installed.packages()) {
-    return(TRUE)
-  }
+  # httr or RCurl give us HTTP from within R (checked without loading them, and
+  # without forcing them into Suggests)
+  if (nzchar(system.file(package = "httr")))  return(TRUE)
+  if (nzchar(system.file(package = "RCurl"))) return(TRUE)
 
-  # Check if the RCurl package is installed
-  if ("RCurl" %in% utils::installed.packages()) {
-    return(TRUE)
-  }
+  # otherwise fall back to a system 'curl' command if one is on the PATH
+  curl_version <- tryCatch(
+    system2("curl", "--version", stdout = TRUE, stderr = NULL),
+    error   = function(e) character(0),
+    warning = function(w) character(0)
+  )
 
-  # If neither httr nor RCurl are installed, check if the curl command-line tool is available
-  # The system2 function is used to call the 'curl --version' command and suppress any error messages
-  curl_version <- system2("curl", "--version", stdout = TRUE, stderr = NULL)
-
-  # If the 'curl --version' command returned a non-empty string, curl is available
-  if (length(curl_version) > 0 && curl_version[1] != "") {
-    return(TRUE)
-  }
-
-  # If neither httr, RCurl, nor curl are available, return FALSE
-  return(FALSE)
+  length(curl_version) > 0 && nzchar(curl_version[1])
 }
 

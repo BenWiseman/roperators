@@ -3,19 +3,23 @@
 \name{library.force}
 \alias{library.force}
 \alias{require.force}
-\title{loads package if available, else tries to install it (from CRAN by default)}
+\title{Load a package, installing it first if necessary}
 \usage{
 library.force(pkg, ...)
 
 require.force(pkg, ...)
 }
 \arguments{
-\item{pkg}{name of package to load/install}
+\item{pkg}{name of the package to load or install}
 
-\item{...}{other args used by install.packages}
+\item{...}{further arguments passed to \code{\link[utils]{install.packages}}}
+}
+\value{
+Invisibly returns \code{NULL}; called for the side effect of loading
+  (and possibly installing) \code{pkg}.
 }
 \description{
-loads package if available, else tries to install it (from CRAN by default)
-
-loads package if available, else tries to install it (from CRAN by default)
+Attempts to load \code{pkg}; if it is not installed, installs it (from CRAN
+by default) and then loads it. \code{require.force} is an alias for
+\code{library.force}.
 }

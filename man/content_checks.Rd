@@ -4,7 +4,7 @@
 \alias{content_checks}
 \alias{is.constant}
 \alias{is.binary}
-\title{Contents of Vector Checks}
+\title{Vector content checks}
 \usage{
 is.constant(x)
 
@@ -14,8 +14,17 @@ is.binary(x)
 \item{x}{object to be tested}
 }
 \value{
-a logical value
+A logical value.
 }
 \description{
-Misc/useful functions to easily determine what is contained in a vector.
+Quick checks for what a vector contains. \code{is.constant()} is \code{TRUE}
+when \code{x} holds at most one unique value (ignoring \code{NA}), and
+\code{is.binary()} is \code{TRUE} when it holds at most two.
+}
+\examples{
+is.constant(c(1, 1, 1))     # TRUE
+is.constant(c(1, 2, 1))     # FALSE
+is.binary(c("a", "b", NA))  # TRUE
+is.binary(c("a", "b", "c")) # FALSE
+
 }

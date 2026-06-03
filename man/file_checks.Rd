@@ -45,7 +45,7 @@ Check whether file extension is as specified
 \note{
 These only check the file extension and not the contents of the file. Checking
 the contents of a file might come later but would be quite a bit more involved.
-You can use \code{readr} or \code{readxl} (for example) to check the file contents.
+You can use `readr` or `readxl` (for example) to check the file contents.
 }
 \examples{
 # create your own file extension checks

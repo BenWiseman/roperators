@@ -3,19 +3,22 @@
 \name{read.tsv}
 \alias{read.tsv}
 \alias{read.psv}
-\title{like read.csv, but for tsv and default header = TRUE}
+\title{Read tab- or pipe-separated files}
 \usage{
 read.tsv(file, ...)
 
 read.psv(file, ...)
 }
 \arguments{
-\item{file}{path of file you want to load}
+\item{file}{path of the file to load}
 
-\item{...}{other args used by read.table}
+\item{...}{further arguments passed to \code{\link[utils]{read.table}}}
+}
+\value{
+A \code{data.frame}.
 }
 \description{
-like read.csv, but for tsv and default header = TRUE
-
-like read.csv, but for pipe-delineated and defaults to header = TRUE
+Convenience wrappers around \code{\link[utils]{read.table}} for tab-separated
+(\code{read.tsv}) and pipe-separated (\code{read.psv}) files. Both default to
+\code{header = TRUE}, like \code{read.csv}.
 }

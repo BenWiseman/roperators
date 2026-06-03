@@ -2,35 +2,34 @@
 % Please edit documentation in R/operators.R
 \name{\%regex<-\%}
 \alias{\%regex<-\%}
-\title{Assign to vector only where regular expression is matched}
+\title{Assign to a vector only where a regular expression matches}
 \usage{
 x \%regex<-\% value
 }
 \arguments{
 \item{x}{a character vector}
 
-\item{value}{c(pattern, replacement)}
+\item{value}{a length-2 character vector of the form \code{c(pattern, replacement)}}
+}
+\value{
+Used for the side effect of reassigning \code{x} in the calling
+  environment; returns the modified \code{x} invisibly.
 }
 \description{
-This takes two arguments just like \code{gsub} - a patterns and a replacement.
-It will totally overwrite any element where the pattern is matched with the second.
-If you want to simply apply a regex (i.e. replace only the specific bit that matches),
-use \code{\%regex=\%} instead. If you want to replace with nothing (""), just just \code{\%-\%} or
-\code{\%-=\% instead}.
+This takes two arguments, just like \code{gsub}: a pattern and a replacement.
+It overwrites the \emph{entire} element wherever the pattern matches. If you
+want to substitute only the matched portion, use \code{\%regex=\%} instead; to
+replace matches with nothing (\code{""}), use \code{\%-\%} or \code{\%-=\%}.
 }
 \examples{
-# Overwrite elements that match regex:
+x <- c("a1b", "b1", "c", "d0")
 
- x <- c("a1b", "b1", "c", "d0")
+# overwrite any element containing a digit
+x \%regex<-\% c("\\\\d+", "x")
+print(x)
+# "x" "b" "c" "x"
 
- # overwrite any element containing a number
-
- x \%regex<-\% c("\\\\d+", "x")
-
- print(x)
-
- # "x" "b" "c" "x"
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }

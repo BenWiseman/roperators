@@ -2,31 +2,37 @@
 % Please edit documentation in R/shorthand.R
 \name{f.as.numeric}
 \alias{f.as.numeric}
-\title{Convert factor with numeric labels into numeric vector}
+\title{Convert a factor with numeric labels into a numeric vector}
 \usage{
 f.as.numeric(x)
 }
 \arguments{
 \item{x}{a factor with numeric labels}
 }
+\value{
+A numeric vector of the factor's labels.
+}
 \description{
-Convert factor with numeric labels into numeric vector
+Converting a factor with \code{as.numeric()} returns the underlying integer
+codes, not the labels, which is rarely what you want when the labels are
+themselves numbers. \code{f.as.numeric()} returns the labels as numbers
+instead.
 }
 \examples{
+x <- factor(c(11, 22, 33, 99))
 
- x <- factor(c(11, 22, 33, 99))
- as.numeric(x)
- # 1 2 3 4   # NOT typically the desired.expected output
+as.numeric(x)
+# 1 2 3 4      # the integer codes - NOT usually what you want
 
- f.as.numeric(x)
- # 11 22 33 99  # Typically desired output
+f.as.numeric(x)
+# 11 22 33 99  # the labels as numbers - usually what you want
 
- # Or...
- as.numeric(as.character(x)) # A tad unsightly
+# equivalent to the clunkier base idiom:
+as.numeric(as.character(x))
 
 }
 \author{
 Ulrike Grömping, \email{groemping@beuth-hochschule.de}
 
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }

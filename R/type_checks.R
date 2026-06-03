@@ -1,11 +1,26 @@
-#' Type Checks
+#' Type checks
 #'
-#' Misc/useful type checks to prevent duplicated code
+#' @description
+#' A collection of convenience checks for the type or contents of an object.
+#' Each returns a logical value (or vector), which keeps guard clauses and
+#' \code{if} statements short and readable. The \code{*_or_null} variants are
+#' handy for validating optional arguments, and the \code{*_for_calcs} /
+#' \code{*_for_indexing} helpers flag values that would break arithmetic or
+#' subsetting (such as \code{NA}, \code{NaN}, or \code{Inf}).
 #'
 #' @param x object to be tested
 #' @param y object to be tested
 #'
-#' @return a logical value
+#' @return A logical value (or vector) indicating whether \code{x} meets the
+#'   test.
+#'
+#' @examples
+#' is.scalar(1)              # TRUE
+#' is.scalar(c(1, 2))        # FALSE
+#' is.numeric_or_null(NULL)  # TRUE
+#' is.bad_for_calcs(NA)      # TRUE
+#' is.good_for_calcs(1)      # TRUE
+#' is.bad_and_equal(NA, NA)  # TRUE
 #'
 #' @author Steven Nydick, \email{steven.nydick@@kornferry.com}
 #' @name type_checks
@@ -71,20 +86,10 @@ is.irregular_list <- function(x){
   is.list(x) && !is.data.frame(x)
 } # END is_irregular_list FUNCTION
 
-#' @rdname type_checks
-#' @export
-is.bad_for_calcs <- function(x){
-  if(!is.atomic(x) || !length(x)){
-    return(TRUE)
-  } else{
-    return(is.na(x) | is_nan(x) | is.na(as.numeric(x)) | is.factor(x) | is.infinite(x) )
-  } # END ifelse STATEMENTS
-} # END is_bad_for_calcs FUNCTION
-
 # Cran check isn't happy with using any.
 #' @rdname type_checks
-#' @param  ... Values to be testes
-#' @param  na.rm If true, NA values aren't considered bad for calculations
+#' @param  ... values to be tested
+#' @param  na.rm if \code{TRUE}, \code{NA} values are not considered bad for calculations
 #' @export
 any_bad_for_calcs <- function(x, ..., na.rm = FALSE){
   x <- c(x, ...)
@@ -94,8 +99,8 @@ any_bad_for_calcs <- function(x, ..., na.rm = FALSE){
 
 # Cran check isn't happy with using any.
 #' @rdname type_checks
-#' @param  ... Values to be testes
-#' @param  na.rm If true, NA values aren't considered bad for calculations
+#' @param  ... values to be tested
+#' @param  na.rm if \code{TRUE}, \code{NA} values are not considered bad for calculations
 #' @export
 all_good_for_calcs <- function(x, ..., na.rm = FALSE){
   x <- c(x, ...)
@@ -144,10 +149,10 @@ is.bad_for_calcs <- function(x, na.rm = FALSE){
     return(TRUE)
   } else{
     if(na.rm){
-      #na.rm added to shut R CMD check up
+      # with na.rm, NA is tolerated but NaN/Inf are still bad for calcs
       is.nan(x) | is.infinite(x)
     } else{
-      return(is.na(x) | is.nan(x)) | is.infinite(x)
+      is.na(x) | is.nan(x) | is.infinite(x)
     }
   } # END ifelse STATEMENTS
 }

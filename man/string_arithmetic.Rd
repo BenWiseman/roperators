@@ -6,7 +6,7 @@
 \alias{\%-\%}
 \alias{\%s*\%}
 \alias{\%s/\%}
-\title{String operators}
+\title{String arithmetic operators}
 \usage{
 x \%+\% y
 
@@ -17,14 +17,22 @@ x \%s*\% y
 x \%s/\% y
 }
 \arguments{
-\item{x}{a string}
+\item{x}{a string (character vector)}
 
-\item{y}{a string}
+\item{y}{a string (character vector or regular expression)}
+}
+\value{
+A character vector for \code{\%+\%}, \code{\%-\%}, and \code{\%s*\%}, and an
+  integer count for \code{\%s/\%}.
 }
 \description{
-Perform string concatenation and arithmetic is a similar way to other languages.
-String division is not present in languages like Python, although arguably it is
-more useful than string multiplication and can be used with regulr expressions.
+Perform string concatenation and arithmetic in a similar way to other
+languages. String addition (\code{\%+\%}) glues strings together, string
+subtraction (\code{\%-\%}) removes a pattern, string multiplication
+(\code{\%s*\%}) repeats a string, and string division (\code{\%s/\%}) counts how
+many times a pattern occurs. String division has no equivalent in languages
+like 'Python', yet is arguably more useful than string multiplication, and it
+accepts regular expressions.
 }
 \examples{
 ("ab" \%+\% "c") == "abc" # TRUE
@@ -32,9 +40,9 @@ more useful than string multiplication and can be used with regulr expressions.
 ("ac" \%s*\% 2) == "acac" # TRUE
 ("acac" \%s/\% "c") == 2  # TRUE
 # String division with a regular expression:
-'an apple a day keeps the malignant spirit of Steve Jobs at bay' \%s/\% 'Steve Jobs|apple'
+"an apple a day keeps the malignant spirit of Steve Jobs at bay" \%s/\% "Steve Jobs|apple"
 
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }

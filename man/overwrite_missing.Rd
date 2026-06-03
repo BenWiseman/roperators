@@ -2,34 +2,38 @@
 % Please edit documentation in R/operators.R
 \name{\%na<-\%}
 \alias{\%na<-\%}
-\title{Assign value to a vector's missing values}
+\title{Assign a value to a vector's missing values}
 \usage{
 x \%na<-\% value
 }
 \arguments{
 \item{x}{a vector}
 
-\item{value}{value to replace vector's missing values with}
+\item{value}{a single value, a vector with one entry per \code{NA}, or a
+vector the same length as \code{x}}
+}
+\value{
+Used for the side effect of reassigning \code{x} in the calling
+  environment; returns the modified \code{x} invisibly.
 }
 \description{
-\code{\%na<-\%} is a simple shortcut to assign a specific value to all
-NA elements contained in x.
+\code{\%na<-\%} is a shortcut to assign a value to all \code{NA} elements of
+\code{x}. The replacement may be a single value (recycled to every \code{NA}),
+a vector with one entry per missing element (filled in order), or a vector the
+same length as \code{x} (its values at the missing positions are used).
 }
 \examples{
- x <- c("a", NA, "c")
+x <- c("a", NA, "c")
+x \%na<-\% "b"
+print(x)
+# "a" "b" "c"
 
- x \%na<-\% "b"
+x <- c(1, NA, 3, NA)
+x \%na<-\% c(2, 4)   # one replacement per NA, in order
+print(x)
+# 1 2 3 4
 
- print(x)
- # "a" "b" "c"
-
- x <- c(1, NA, 3, NA)
-
- x \%na<-\% c(2,4)
-
- print(x)
- # 1 2 3 4
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }

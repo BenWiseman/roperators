@@ -7,7 +7,7 @@
 \alias{catN}
 \alias{paste_series}
 \alias{paste_oxford}
-\title{New Paste and Cat Rules}
+\title{Paste and cat helpers}
 \usage{
 paste_(..., collapse = NULL)
 
@@ -28,11 +28,12 @@ paste_oxford(...)
 \item{...}{one or more \R objects, to be converted to character vectors.}
 
 \item{collapse}{an optional character string to separate the results.  Not
-    \code{\link[base]{NA_character_}}.}
+    \code{\link[base]{NA_character_}}.  When \code{collapse} is a string,
+    the result is always a string (\code{\link[base]{character}} of length 1).}
 
 \item{file}{character - A connection, or a character string naming the file to print to. If "" (the default), cat prints to the standard output connection, the console unless redirected by sink.}
 
-\item{fill}{a logical or (positive) numeric controlling how the output is broken into successive lines. see \code{?cat}}
+\item{fill}{a logical or (positive) numeric controlling how the output is broken into successive lines. see `?cat`}
 
 \item{labels}{character vector of labels for the lines printed. Ignored if fill is FALSE.}
 
@@ -44,22 +45,31 @@ paste_oxford(...)
 
 \item{sep}{a character vector of strings to append after each element}
 
-\item{conjunction}{indicates the ending conjunction. e.g. setting to "and" would make c("a", "b", "c") paste into "a, b, and c"}
+\item{conjunction}{the conjunction used to join the final elements of a
+series, such as \code{"and"}, \code{"or"}, or \code{"&"}}
 
-\item{use_oxford_comma}{logical - do you want to use an oxford comma at the end?}
+\item{use_oxford_comma}{logical; whether to use the Oxford comma (standard in
+American English) before the conjunction}
+}
+\value{
+\code{paste_()}, \code{paste_series()}, and \code{paste_oxford()}
+  return a character vector. \code{cat0()} and \code{catN()} are called for
+  their side effect (printing) and return \code{NULL} invisibly.
 }
 \description{
-The available functions are:
+A small family of \code{paste}/\code{cat} conveniences:
 
-\code{paste_()}is the same as \code{paste0} but uses an underscore to separate
-
-\code{cat0()} is analogous to \code{paste0} but for cat
-
-\code{catN()} is the same as \code{cat0} but automatically inserts a new line after the cat
-
-\code{paste_series()} paste a series of things with a conjunction
-
-\code{paste_oxford()} shortcut for \code{paste_series} as oxford comma
+\itemize{
+  \item \code{paste_()} - like \code{paste0()}, but separates with an
+    underscore.
+  \item \code{cat0()} - like \code{paste0()}, but for \code{cat} (no
+    separator).
+  \item \code{catN()} - like \code{cat0()}, but appends a new line.
+  \item \code{paste_series()} - paste a series of items together with a
+    conjunction, e.g. \code{"a, b, and c"}.
+  \item \code{paste_oxford()} - a shortcut for \code{paste_series()} using an
+    Oxford comma.
+}
 }
 \examples{
 

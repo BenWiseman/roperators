@@ -3,25 +3,30 @@
 \name{integrate}
 \alias{integrate}
 \alias{\%integrate\%}
-\title{Inline integration}
+\title{Inline integration operator}
 \usage{
 f \%integrate\% range
 }
 \arguments{
-\item{f}{function (with numeric return)}
+\item{f}{a function with a numeric return value}
 
-\item{range}{vector of two numbers c(low, high)}
+\item{range}{a length-2 numeric vector, \code{c(lower, upper)}}
+}
+\value{
+A single numeric value: the value of the integral.
 }
 \description{
-inline call to integrate that returns integration value rather than list
+An inline call to \code{\link[stats]{integrate}} that returns the value of
+the integral directly, rather than the usual list.
 }
 \examples{
 f <- function(x) x^2
-print(f \%integrate\% c(0, 1))
-# vs base
-x <- integrate(f, 0, 1)
-str(x)
+f \%integrate\% c(0, 1) # 0.3333333
+
+# compared with base R, which returns a list:
+str(integrate(f, 0, 1))
+
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }

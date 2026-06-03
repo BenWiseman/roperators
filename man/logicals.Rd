@@ -5,8 +5,6 @@
 \alias{\%ni\%}
 \alias{\%xor\%}
 \alias{\%aon\%}
-\alias{\%rlike\%}
-\alias{\%perl\%}
 \title{Logical operators}
 \usage{
 x \%ni\% y
@@ -14,86 +12,35 @@ x \%ni\% y
 x \%xor\% y
 
 x \%aon\% y
-
-x \%rlike\% pattern
-
-x \%perl\% pattern
 }
 \arguments{
-\item{x}{a character vector}
+\item{x}{a vector}
 
 \item{y}{a vector}
-
-\item{pattern}{a single character expression}
+}
+\value{
+A logical vector.
 }
 \description{
-These are some convienience functions, such as a not-in, and xor operator.
-
-This takes two arguments just like \code{grepl} - a string and a pattern.
-TRUE if \code{grepl(pattern, x, ignore.case=TRUE)} would be TRUE
-
-This takes two arguments just like \code{grepl} - a string and a pattern.
-TRUE if \code{grepl(pattern, x, ignore.case=FALSE, perl=TRUE)} would be TRUE.
-It's like \code{\%like\%} from data.table (but slower, preferably use data.table).
-}
-\note{
-data.table has a \%like\% operator which you should try to use instead if working with data.table!
+A few convenience logical operators: "not in" (\code{\%ni\%}), exclusive or
+(\code{\%xor\%}), and all-or-nothing (\code{\%aon\%}, which is \code{TRUE} when
+\code{x} and \code{y} are both \code{TRUE} or both \code{FALSE}).
 }
 \examples{
  #### Not in ####
+ "z" \%ni\% c("a", "b", "c") # TRUE
 
- "z" \%ni\%  c("a", "b", "c")
- #  TRUE
-
- #### Exclusive or  ####
-
- TRUE \%xor\% TRUE
- # FALSE
-
- FALSE \%xor\% FALSE
- # FALSE
-
- FALSE \%xor\% TRUE
- # TRUE
+ #### Exclusive or ####
+ TRUE  \%xor\% TRUE  # FALSE
+ FALSE \%xor\% FALSE # FALSE
+ FALSE \%xor\% TRUE  # TRUE
 
  #### All-or-nothing ####
-
- TRUE \%aon\% TRUE
- # TRUE
-
- FALSE \%aon\% FALSE
- # TRUE
-
- FALSE \%aon\% TRUE
- # FALSE
-
-# Apply a regular expression/substitution to x:
-
- x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
-
- # where x has an O
-
- x[x \%rlike\% "O"]
-
- # [1] "foo" "dOe" "obo"
-
- # find x where middle letter is "O"
-
- x[x \%rlike\% "[a-z]O[a-z]"]
-
- # will print [1] "foo" "dOe"
-
-# Apply a regular expression/substitution to x:
-
- x <- c("foo", "bar", "dOe", "rei", "mei", "obo")
-
- # find x where middle letter is upper-case "O"
-
- x[x \%perl\% "[a-z]O[a-z]"]
-
- # will print [1] "dOe"
+ TRUE  \%aon\% TRUE  # TRUE
+ FALSE \%aon\% FALSE # TRUE
+ FALSE \%aon\% TRUE  # FALSE
 
 }
 \author{
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
+Ben Wiseman, \email{benjamin.h.wiseman@gmail.com}
 }

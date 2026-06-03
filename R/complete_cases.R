@@ -12,6 +12,10 @@
 #'        summaries
 #' @param ... arguments to pass to wrapped functions
 #'
+#' @return The same value as the base/stats function each one wraps (for
+#'   example a numeric summary, vector, or matrix), but computed with missing
+#'   values removed by default.
+#'
 #' @examples
 #' n_o <- 20
 #' n_m <- round(n_o / 3)
