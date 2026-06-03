@@ -1,24 +1,25 @@
 # roperators
 
-> Additional operators and helpers to make R code easier to **read,
-> write, and maintain** — and a friendlier landing for people arriving
-> from Python and other languages.
+> Small, friendly operators and helpers that let your R code read the
+> way you already think it.
 
-`roperators` gives you the small things you keep wishing R had: string
-arithmetic (`'foo' + 'bar'`), in-place modifiers (`x += 1`), comparisons
-that don’t fall over on `NA` or floating point, and a pile of tiny
-quality-of-life helpers. Pure base R, no heavy dependencies.
+R is a wonderful language to work in — but here and there it asks you to
+write something a little clunkier than the thought in your head.
+`roperators` quietly smooths those moments over. There’s nothing magic
+going on underneath: just a handful of small, well-behaved operators and
+helpers, all in base R, that make everyday code calmer to read and write
+— and a gentle welcome for folks arriving from Python and elsewhere.
 
-(It’s pronounced *rop-er-ators*, not *r-operators*.)
+(It’s pronounced *rop-er-ators*, by the way — not *r-operators*.)
 
 ## Installation
 
 ``` r
 
-# Released version from CRAN:
+# the released version, from CRAN:
 install.packages("roperators")
 
-# Development version from GitHub:
+# or the development version, from GitHub:
 # install.packages("remotes")
 remotes::install_github("BenWiseman/roperators")
 ```
@@ -30,6 +31,9 @@ library(roperators)
 
 ## String arithmetic
 
+Let’s start with the one nearly everyone misses coming from other
+languages — adding strings together:
+
 ``` r
 
 "using infix (%) operators " %+% "lets R do string addition"
@@ -40,14 +44,15 @@ library(roperators)
 "ha" %s*% 3                 # multiply
 #>       ha 
 #> "hahaha"
-"an apple a day" %s/% "a"   # divide: how many times does the pattern occur?
+"an apple a day" %s/% "a"   # divide: how many times does the pattern appear?
 #> a 
 #> 4
 ```
 
 ## In-place modifiers (*à la* `+=`)
 
-No more `df$x[long$condition] <- df$x[long$condition] + 1`:
+We’ve all written the same long line twice just to nudge a column up by
+one. You needn’t:
 
 ``` r
 
@@ -60,9 +65,10 @@ d <- iris
 d$Sepal.Length[d$Species == "setosa"] %+=% 1   # add 1, in place
 ```
 
-You also get `%-=%`, `%*=%`, `%/=%`, `%^=%`, `%root=%`, `%log=%`,
-`%regex=%` (apply a regex in place), `%regex<-%` (overwrite matching
-elements), and `%na<-%` (fill in the `NA`s):
+There’s a whole little family — `%-=%`, `%*=%`, `%/=%`, `%^=%`,
+`%root=%`, `%log=%` — plus `%regex=%` (apply a regex in place),
+`%regex<-%` (overwrite matching elements), and `%na<-%` (gently fill in
+the `NA`s):
 
 ``` r
 
@@ -74,13 +80,15 @@ x
 
 ## Comparisons that behave
 
-`NA`-aware equality, real floating-point equality, and `between`:
+`NA` and floating point trip up almost everyone at some point — and
+honestly, it’s not your fault, it’s just the defaults. Here’s a softer
+landing:
 
 ``` r
 
-c(1, NA, 3) == c(1, NA, 4)    # base R: NA leaks through
+c(1, NA, 3) == c(1, NA, 4)    # base R: the NA leaks through
 #> [1]  TRUE    NA FALSE
-c(1, NA, 3) %==% c(1, NA, 4)  # roperators: NA == NA is TRUE
+c(1, NA, 3) %==% c(1, NA, 4)  # roperators: NA == NA is treated as TRUE
 #> [1]  TRUE  TRUE FALSE
 
 (0.1 + 0.1 + 0.1) == 0.3      # base R: FALSE (floating point)
@@ -94,9 +102,9 @@ c(1, NA, 3) %==% c(1, NA, 4)  # roperators: NA == NA is TRUE
 #> [1] TRUE
 ```
 
-Plus `%===%` (strict value-and-class equality, like JavaScript’s `===`),
-`%>=%` / `%<=%` (with `NA` equality), and `%>~%` / `%<~%` (greater/less
-than *or* approximately equal).
+You also get `%===%` (strict value-and-class equality, like JavaScript’s
+`===`), `%>=%` / `%<=%` (with `NA` equality), and `%>~%` / `%<~%`
+(greater/less than *or* approximately equal).
 
 ## Logical & SQL-style pattern matching
 
@@ -112,6 +120,8 @@ c("FOO", "bar") %rlike% "foo"      # case-insensitive LIKE
 
 ## ✨ New in 1.4
 
+A few new friends arrived in this release:
+
 ``` r
 
 # f-strings: interpolate expressions straight into a string
@@ -119,28 +129,30 @@ name <- "Ben"; n <- 2
 f("Hi {name}, you have {n} message{if (n != 1) 's'}")
 #> [1] "Hi Ben, you have 2 messages"
 
-# %else%: inline fallback if an expression errors
+# %else%: a calm fallback if an expression decides to error
 sqrt("not a number") %else% NA_real_
 #> [1] NA
 
-# %/0%: safe division (no Inf/NaN sneaking into your means)
+# %/0%: safe division, so a stray zero never poisons your means
 10 %/0% 0
 #> [1] NA
 
-# %+-%: tolerance interval that composes with the 'between' operators
+# %+-%: a tolerance interval that drops right into the 'between' operators
 4.9 %><% (5 %+-% 0.5)
 #> [1] TRUE
 
-# %~%: fuzzy, case/whitespace-insensitive string equality
+# %~%: forgiving, case/whitespace-insensitive string equality
 "  Yes " %~% "yes"
 #> [1] TRUE
 
-# as.percent(): proportions -> tidy percentage strings
+# as.percent(): proportions, dressed up as tidy percentages
 as.percent(c(0.1, 0.005, 2/3))
 #> [1] "10.0%" "0.5%"  "66.7%"
 ```
 
-## Shorter conversions & safety checks
+## Shorter conversions & gentle checks
+
+Shorter names for the conversions you reach for all the time:
 
 ``` r
 
@@ -150,30 +162,30 @@ int("42"); chr(42); num("4.2"); bool("TRUE")   # as.integer(), as.character(), .
 #> [1] 4.2
 #> [1] TRUE
 
-# stop writing as.numeric(as.character(factor_var)):
+# no more as.numeric(as.character(factor_var)):
 f.as.numeric(factor(c(11, 22, 33)))
 #> [1] 11 22 33
 
-# one guard instead of five:
+# one tidy question instead of five:
 is.bad_for_calcs(c(1, NA, Inf, NaN))
 #> [1] FALSE  TRUE  TRUE  TRUE
 ```
 
-There are matching `is.*_or_null()` predicates,
+There’s a matching set of `is.*_or_null()` predicates too, along with
 [`is.scalar()`](https://benwiseman.github.io/roperators/reference/type_checks.md),
 [`is.constant()`](https://benwiseman.github.io/roperators/reference/content_checks.md),
 [`is.binary()`](https://benwiseman.github.io/roperators/reference/content_checks.md),
-and friends.
+and friends — handy for keeping your guard clauses short.
 
-## Everyday helpers
+## A little drawer of everyday helpers
 
 ``` r
 
 get_1st_word("Ada Lovelace")           # and get_last_word / get_nth_word
 #> [1] "Ada"
-get_most_frequent(c("a", "b", "b"))    # mode(s)
+get_most_frequent(c("a", "b", "b"))    # the mode(s)
 #> [1] "b"
-paste_oxford("Tom", "Dick", "Harry")   # Oxford-comma joining
+paste_oxford("Tom", "Dick", "Harry")   # Oxford-comma joining, done for you
 #> [1] "Tom, Dick, and Harry"
 
 mean_cc(c(1, 2, NA))                   # *_cc = the base function with na.rm = TRUE
@@ -193,10 +205,10 @@ mean_cc(c(1, 2, NA))                   # *_cc = the base function with na.rm = T
 ## Learn more
 
 - [`vignette("nicer_roperators")`](https://benwiseman.github.io/roperators/articles/nicer_roperators.md)
-  — the guided tour.
+  — the unhurried, guided tour.
 - Full reference: <https://benwiseman.github.io/roperators/>
 
-A quick note on collisions: a few names are deliberately shared with the
-wider ecosystem (`%+%` with ggplot2, `%like%`-style matching with
-data.table). If you load those packages too, reach for the namespaced
-form (e.g. `roperators::%+%`) where it matters.
+A gentle heads-up on names: a few are shared on purpose with the wider
+world (`%+%` with ggplot2, `%like%`-style matching with data.table). If
+you’ve got those loaded too, just reach for the namespaced form
+(`roperators::%+%`) where it matters, and everyone gets along fine.

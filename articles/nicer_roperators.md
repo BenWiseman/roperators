@@ -1,21 +1,21 @@
-# roperators: cleaner, friendlier R
+# roperators: a gentle tour
 
-`roperators` adds the small things you keep wishing base R had: string
-arithmetic, in-place modifiers, comparisons that survive contact with
-`NA` and floating point, and a pile of tiny quality-of-life helpers.
-It’s pure base R with no heavy dependencies, and it’s designed to be
-especially welcoming to people arriving from Python and other languages.
+`roperators` adds the small things you keep wishing base R had — string
+arithmetic, in-place modifiers, comparisons that don’t flinch at `NA` or
+floating point, and a little drawer of everyday helpers. It’s pure base
+R, with nothing heavy underneath, and it tries to be especially kind to
+people arriving from Python and other languages.
 
-This vignette is a guided tour. If you just want the highlights, here
-they are:
+Think of this as an unhurried tour — pour a coffee. But if you only want
+the highlights, here they are:
 
 ``` r
 
 "foo" %+% "bar"               # string addition
 #> [1] "foobar"
-(0.1 + 0.1 + 0.1) %~=% 0.3    # floating-point equality that works
+(0.1 + 0.1 + 0.1) %~=% 0.3    # floating-point equality that just works
 #> [1] TRUE
-c(1, NA) %==% c(1, NA)        # NA == NA is TRUE here
+c(1, NA) %==% c(1, NA)        # NA == NA is treated as TRUE here
 #> [1] TRUE TRUE
 
 name <- "you"
@@ -25,8 +25,8 @@ f("hello {name}, 2 + 2 = {2 + 2}")   # f-strings!
 
 ## String arithmetic
 
-One of the most common gripes from people coming to R is the lack of
-string arithmetic. So we added it.
+Let’s start with the one nearly everyone misses coming from other
+languages — gluing strings together with a `+`. So we added it:
 
 ``` r
 
@@ -45,7 +45,8 @@ my_string %-% "lets R do string addition"
 ```
 
 And something you *can’t* do in Python — **string division**, which
-counts how many times a pattern appears (regular expressions welcome):
+simply counts how many times a pattern turns up (regular expressions are
+welcome):
 
 ``` r
 
@@ -62,8 +63,8 @@ counts how many times a pattern appears (regular expressions welcome):
 ## In-place modifiers (*à la* `+=`)
 
 How many times have you written something like
-`df$x[long$condition] <- df$x[long$condition] + 1`? The line doesn’t
-even fit on the page. With `roperators`:
+`df$x[long$condition] <- df$x[long$condition] + 1`? The line barely fits
+on the page. Let’s make it kinder:
 
 ``` r
 
@@ -78,7 +79,7 @@ d$Sepal.Length[d$Species == "setosa"] %+=% 1
 ```
 
 The full set is `%+=%`, `%-=%`, `%*=%`, `%/=%`, `%^=%`, `%root=%`, and
-`%log=%`. `%+=%` and `%-=%` also work on strings:
+`%log=%`. `%+=%` and `%-=%` are happy with strings, too:
 
 ``` r
 
@@ -88,9 +89,10 @@ x
 #> [1] "abc"
 ```
 
-### Replacing missing values and regex matches
+### Filling in missing values and regex matches
 
-`%na<-%` fills in the `NA`s, and `%regex=%` / `%regex<-%` edit in place:
+`%na<-%` gently fills the `NA`s, and `%regex=%` / `%regex<-%` edit in
+place:
 
 ``` r
 
@@ -100,35 +102,36 @@ x
 #> [1] 0 1 2 3
 
 x <- c("a1b", "b1", "c", "d0")
-x %regex=% c("\\d+", "#")   # replace the matched part
+x %regex=% c("\\d+", "#")   # replace just the matched part
 x
 #> [1] "a#b" "b#"  "c"   "d#"
 ```
 
 ## Comparisons that behave
 
-### `NA`-aware equality
+### When `NA == NA` ought to be `TRUE`
 
 An `NA` doesn’t technically equal another `NA` — but most of the time,
-for your purposes, it should. How many `if` statements have broken on
-this?
+for what you’re actually doing, you’d like it to. How many `if`
+statements have quietly broken on exactly this?
 
 ``` r
 
 a <- c(NA, "foo", "foo", NA)
 b <- c(NA, "foo", "bar", "bar")
 
-a == b      # base R: NA leaks through
+a == b      # base R: the NA leaks through
 #> [1]    NA  TRUE FALSE    NA
-a %==% b    # roperators: NA == NA is TRUE
+a %==% b    # roperators: NA == NA is treated as TRUE
 #> [1]  TRUE  TRUE FALSE FALSE
 ```
 
-`%>=%` and `%<=%` carry the same NA-aware behaviour.
+`%>=%` and `%<=%` carry the same gentle NA-handling.
 
-### Floating-point equality
+### When `0.1 + 0.1 + 0.1` ought to equal `0.3`
 
-The classic trap. Innocent statistics students are seldom warned:
+This one catches almost everyone, and it really isn’t your fault — it’s
+just how computers hold decimals:
 
 ``` r
 
@@ -152,7 +155,7 @@ The classic trap. Innocent statistics students are seldom warned:
 #> [1] TRUE
 1 %>=<% c(1, 10)   # inclusive
 #> [1] TRUE
-5 %><% c(10, 1)    # reversed bounds are fine too
+5 %><% c(10, 1)    # reversed bounds are fine too — no need to worry about order
 #> [1] TRUE
 
 # %===% is strict value-AND-class equality, like JavaScript's ===
@@ -173,7 +176,7 @@ x %===% int(2)
 #> [1] TRUE
 TRUE %xor% FALSE             # exclusive or
 #> [1] TRUE
-TRUE %aon% TRUE              # all-or-nothing: both TRUE or both FALSE
+TRUE %aon% TRUE              # all-or-nothing: both TRUE, or both FALSE
 #> [1] TRUE
 
 # SQL-style LIKE
@@ -185,24 +188,24 @@ c("dOe", "doe")         %perl% "[a-z]O" # case-sensitive, Perl regex
 
 ## ✨ New in 1.4
 
-A small, opinionated set of additions.
+A few new friends, added in this release.
 
 **[`f()`](https://benwiseman.github.io/roperators/reference/f.md) —
-string interpolation (R’s f-strings).** Anything in
-[`{ }`](https://rdrr.io/r/base/Paren.html) is evaluated in the calling
-environment:
+string interpolation (R’s f-strings).** Anything inside
+[`{ }`](https://rdrr.io/r/base/Paren.html) is evaluated right where you
+call it:
 
 ``` r
 
 who <- "Ben"; n <- 2
 f("Hi {who}, you have {n} new message{if (n != 1) 's'}")
 #> [1] "Hi Ben, you have 2 new messages"
-f("today's first letters: {head(LETTERS, n)}")   # vectors are collapsed
+f("today's first letters: {head(LETTERS, n)}")   # vectors are tidied up for you
 #> [1] "today's first letters: A, B"
 ```
 
-**`%else%` — inline fallback** when an expression might error (the
-fallback is only evaluated if needed):
+**`%else%` — a calm fallback** for when an expression might error (the
+fallback only runs if it’s actually needed):
 
 ``` r
 
@@ -212,8 +215,8 @@ sqrt("not a number") %else% NA_real_
 #> [1] "out of range"
 ```
 
-**`%/0%` — safe division** that returns `NA` instead of letting
-`Inf`/`NaN` poison a downstream
+**`%/0%` — safe division** that returns `NA` rather than letting an
+`Inf` or `NaN` wander into your next
 [`sum()`](https://rdrr.io/r/base/sum.html) or
 [`mean()`](https://rdrr.io/r/base/mean.html):
 
@@ -234,8 +237,8 @@ operators:
 #> [1] TRUE
 ```
 
-**`%~%` — fuzzy string equality** (ignores case and whitespace), the
-string sibling of `%~=%`:
+**`%~%` — forgiving string equality** that ignores case and stray
+whitespace — the string cousin of `%~=%`:
 
 ``` r
 
@@ -246,7 +249,7 @@ c("Apple", "PEAR") %~% c("apple", "pear")
 ```
 
 **[`as.percent()`](https://benwiseman.github.io/roperators/reference/as.percent.md)
-— proportions as tidy strings:**
+— proportions, dressed up:**
 
 ``` r
 
@@ -258,7 +261,7 @@ as.percent(2 / 3, digits = 0)
 
 ## Shorter type conversions
 
-R’s conversion syntax is wordy. These help:
+R’s conversion syntax is a touch wordy. These trim it down:
 
 ``` r
 
@@ -271,25 +274,25 @@ num("4.2")   # as.numeric()
 bool("TRUE") # as.logical()
 #> [1] TRUE
 
-# the infamous factor-to-number gotcha, solved:
+# the famous factor-to-number stumble, smoothed over:
 fac <- factor(c(11, 22, 33))
-as.numeric(fac)     # 1 2 3  -- almost never what you want
+as.numeric(fac)     # 1 2 3  -- almost never what you wanted
 #> [1] 1 2 3
 f.as.numeric(fac)   # 11 22 33
 #> [1] 11 22 33
 
-# convert to a class chosen at run time
+# and convert to a class chosen at run time
 as.class(255, "roman")
 #> [1] CCLV
 ```
 
-## Safety and type checks
+## Gentle checks
 
-Rather than chaining five checks, ask one question:
+Rather than chaining five conditions, you can ask one calm question:
 
 ``` r
 
-# would these break a calculation?
+# would any of these break a calculation?
 is.bad_for_calcs(c(1, NA, Inf, NaN, 5))
 #> [1] FALSE  TRUE  TRUE  TRUE FALSE
 
@@ -301,14 +304,14 @@ is.binary(c("a", "b", "a"))
 #> [1] TRUE
 ```
 
-There’s a full family of `is.*_or_null()` predicates too, handy for
-validating optional function arguments.
+There’s a whole family of `is.*_or_null()` predicates too, lovely for
+checking optional function arguments without fuss.
 
-## Everyday helpers
+## A drawer of everyday helpers
 
 ``` r
 
-# pull pieces out of vectors and strings
+# pulling pieces out of vectors and strings
 get_1st_word("Ada Lovelace")
 #> [1] "Ada"
 get_last_word("Ada Lovelace")
@@ -316,7 +319,7 @@ get_last_word("Ada Lovelace")
 get_most_frequent(c("a", "b", "b", "c", "b"))
 #> [1] "b"
 
-# Oxford-comma joining
+# Oxford-comma joining, done for you
 paste_oxford("Tom", "Dick", "Harry")
 #> [1] "Tom, Dick, and Harry"
 
@@ -326,20 +329,20 @@ mean_cc(c(1, 2, NA))
 sd_cc(c(1, 2, 3, NA))
 #> [1] 1
 
-# environment checks
+# little environment checks
 get_os()
 #> [1] "linux"
 get_R_version()
 #> [1] "4.6.0"
 
-# file-extension checks
+# and file-extension checks
 is_csv_file(c("a.csv", "b.txt"))
 #> [1]  TRUE FALSE
 ```
 
 ## Cheat sheet
 
-| You want… | Use |
+| You want… | Reach for |
 |----|----|
 | String concat / subtract | `%+%` / `%-%` |
 | String repeat / count | `%s*%` / `%s/%` |
@@ -356,9 +359,9 @@ is_csv_file(c("a.csv", "b.txt"))
 | Safe divide / tolerance | `%/0%` / `%+-%` |
 | Fuzzy string match | `%~%` |
 
-## A note on collisions
+## A gentle word on names
 
-A few names are deliberately shared with the wider ecosystem — `%+%`
-with ggplot2, and `%like%`-style matching with data.table. If you load
-those packages as well, reach for the namespaced form
-(`roperators::%+%`) where it matters.
+A few names are shared on purpose with the wider world — `%+%` with
+ggplot2, and `%like%`-style matching with data.table. If you’ve got
+those loaded as well, just reach for the namespaced form
+(`roperators::%+%`) where it matters, and everyone gets along fine.

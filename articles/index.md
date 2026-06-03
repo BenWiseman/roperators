@@ -2,5 +2,5 @@
 
 ### All vignettes
 
-- [roperators: cleaner, friendlier
-  R](https://benwiseman.github.io/roperators/articles/nicer_roperators.md):
+- [roperators: a gentle
+  tour](https://benwiseman.github.io/roperators/articles/nicer_roperators.md):
